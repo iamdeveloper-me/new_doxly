@@ -1,0 +1,47 @@
+/* Avatars
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.whiteout-ui {
+  .avatar {
+    border-radius: 100%;
+    overflow: hidden;
+    width: 4.0rem;
+    height: 4.0rem;
+    background-color: $status-gray;
+    position: relative;
+    font-size: 1.6rem;
+    font-weight: 300;
+    &.small {
+      width: 3.0rem;
+      height: 3.0rem;
+      font-size: 1.4rem;
+    }
+    &.mini {
+      width: 2.0rem;
+      height: 2.0rem;
+      font-size: 1.0rem;
+    }
+    &.blue {
+      background-color: $status-blue;
+    }
+    &.orange {
+      background-color: $status-orange;
+    }
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+    span {
+      mix-blend-mode: color-burn;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+}

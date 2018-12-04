@@ -1,0 +1,6 @@
+<%
+  title ||= nil
+%>
+<%= render :layout => 'shared/single_button_modal', :locals => { :title => title } do %>
+  <%= render 'working_group_list' %>
+<% end %>

@@ -1,0 +1,3 @@
+<%= render :layout => 'shared/single_button_modal', :locals => { :title => 'Signature Page', :hide_submit => true, :cancel_button_label => 'Close', :modal_class => 'large-modal' } do %>
+  <%= render 'shared/view_signature_pages', signature_pages: @signature_pages %>
+<% end %>

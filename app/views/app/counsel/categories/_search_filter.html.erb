@@ -1,0 +1,19 @@
+<%
+  button_text  = @category.is_diligence? ? 'Add a Section' : 'Add a Stage'
+%>
+<% content_for :create_section_and_templates, flush: true do %>
+  <div class="buttons">
+    <%= link_to button_text, new_deal_category_tree_element_path(@deal.id, @category.id, parent_id: @category.id, type: 'Section'), :remote => true, :class => 'action-button btn btn-primary' %>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Templates <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Apply Template', deal_category_deal_templates_path(@deal, @category), :remote => true %></li>
+        <li><%= link_to 'Save As Template', new_deal_category_deal_template_path(@deal, @category), :remote => true %></li>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<%= render 'shared/deals/categories/search_filter' %>

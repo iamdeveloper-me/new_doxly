@@ -1,0 +1,135 @@
+// vars
+$fonts: '../../fonts/';
+$images: '../../images/';
+$image-dir: "../../images/";
+
+// fonts
+
+$roboto: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;;
+
+
+$font-base: $roboto;
+
+// sizes
+
+
+// Media queries
+$phone-small: 320px;
+$phone-landscape: 480px;
+$not-phone: $phone-landscape + 1;
+$phone-xl: 640px;
+$tablet: 768px;
+$tablet-landscape: 1024px;
+$not-tablet: $tablet-landscape + 1;
+$desktop: 1200px;
+$mobile: 480px;
+$small-screen: 1280px;
+$header-break-point: 1080px;
+
+$bp-phone-small: phone-small;
+$bp-phone: phone-landscape;
+$bp-phone-xl: phone-xl;
+$bp-not-phone-xl: not-phone-xl;
+$bp-not-phone: not-phone;
+$bp-tablet: tablet;
+$bp-tablet-landscape: tablet-landscape;
+$bp-not-tablet: not-tablet;
+$bp-desktop: desktop;
+$bp-site-wrapper: site-wrapper;
+
+$site-width: 1040px;
+$site-narrow: 500px;
+$site-medium: 700px;
+
+$side-offset: 15px;
+
+$base-font-size: 14px;
+$base-line-height: 1.4;
+$mobile-base-font-size: 22px;
+$mobile-base-line-height: 1.36;
+
+// opacity
+$hover-opacity: 0.85;
+
+
+// colors
+$white: #fff;
+$black: #000;
+
+$col-milk: #F5F8FC;
+$col-milk-light: #F9F9F9;
+$col-milk-2: #FBFCFD;
+$col-blue: #4A90E2;
+$col-blue-hover: #4281CA;
+$col-blue-focus: #BEDCFF;
+$col-blue-signing: rgba(74, 144, 226, 0.8);
+$col-dark-blue: #1E354A;
+$col-dark-blue-hover: lighten($col-dark-blue, 20%);
+$col-blue-light: #EEF3F9;
+$col-peach: #F18161;
+$col-dark-yellow: #FFB800;
+$col-yellow: #FFC427;
+$col-avatar-blue-light: #BEDCFF;
+$col-yellow-hover: darken($col-yellow, 10%);
+$col-gray: #949599;
+$col-gray-dark: #595959;
+$col-gray-hover: darken($col-gray, 10%);
+$col-gray-very-light: #EFEFEF;
+$col-gray-medium-light: #aaaaaa;
+$col-gray-light: #D1DAE3;
+$col-gray-medium: #9B9B9B;
+$col-gray-heavy: #868181;
+$col-gray-prepared: rgba(30, 53, 74, 0.75);
+$col-dark-gray: #555555;
+$col-green: #98D5CC;
+$col-dark-green: #003e35;
+$col-green-success-status: #128832;
+$col-green-light: #EBF7F5;
+$col-green-light-2: #F7FAFD;
+$col-green-light-3: #FBFDFF;
+$col-silver: #EBEBEB;
+$col-silver-hover: darken($col-silver, 10%);
+$col-red: #F64158;
+$col-red-light: #feecef;
+$col-red-hover: darken($col-red, 10%);
+$col-red-text: #a94442;
+$col-dark-red: #861F2C;
+$col-light-yellow: #ffffe0;
+$col-navy: #4E6586;
+$col-pink: #E33E64;
+$col-dark-pink: #AD173A;
+$col-success: #388E3C;
+$col-purple-executed: #aba2de;
+$col-white-smoke: #f5f5f5;
+$col-red-delete: #d0011b;
+$col-yellow-signing-tab: #FFDE75;
+$col-red-signing-tab-text: #94201D;
+
+$color-prime: $black;
+$color-inv: $white;
+
+$col-header: $col-blue;
+$col-font-std: $col-gray;
+$col-font-inverse: $white;
+$col-active: $col-blue;
+$color-form-input:$black;
+
+$col-link-prime: $col-blue;
+$col-link-dark: $col-dark-blue;
+$col-link-dark-hover: $col-dark-blue-hover;
+
+$col-border: $col-gray-light;
+$col-border-light: #b0b4b8;
+$col-border-lighter: #eaeaea;
+$col-border-medium: #cbcbcb;
+
+$col-box-shadow-light: rgba(0,0,0,0.05);
+$col-box-shadow: rgba(0,0,0,0.10);
+
+$menu-color-active: #E2E8EC;
+
+$body-bg: $white;
+
+
+// animation
+$bezier: cubic-bezier(0.57, 0, 0.08, 1);

@@ -1,0 +1,112 @@
+.panel-team-description{
+    padding: 20px;
+    border: 1px solid $col-border;
+
+    .inner{
+        position: relative;
+    }
+
+    .btn-edit{
+        float: right;
+        margin-left: 10px;
+        position: relative;
+    }
+}
+
+.team-no-results {
+  .header {
+      font-weight: 300;
+      font-size: 20px;
+      color: $col-dark-gray;
+      line-height: 20px;
+    }
+
+    ul {
+      list-style: circle inside;
+      padding-left: 10px;
+      padding-top: 5px;
+      line-height:22px;
+    }
+}
+
+.team-stat-item{
+    font-weight: 300;
+    font-size: 14px;
+    color: $col-gray;
+    b{
+        font-weight: 300;
+        font-size: 18px;
+        color: $col-dark-blue;
+    }
+}
+
+.add-user-item{
+    padding: 8px 0 8px 15px;
+
+    a{
+        color: $col-blue;
+        letter-spacing: 0px;
+        line-height: 30px;
+        font-size: 14px;
+
+        &:hover{
+            color: $col-blue-hover;
+        }
+
+        i{
+            display: inline-block;
+            position: relative;
+            border-radius: 999px;
+            border: 1px solid $col-blue;
+            color: $col-blue;
+            font-size: 12px;
+            margin-right: 8px;
+            width: 40px;
+            height: 40px;
+            line-height: 38px;
+            text-align: center;
+            &:before{
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+.list{
+  border: 1px solid $col-border;
+  border-radius: 4px;
+  background-color: $white;
+
+  .team-list{
+    display: flex;
+    flex-direction: column;
+
+    .team-list-item{
+      display: flex;
+      padding: 10px;
+      &:not(:last-of-type){
+        border-bottom: 1px solid $col-border;
+      }
+
+      .team{
+        width: 33%;
+        align-self: center;
+      }
+
+      .stat{
+        width: 33%;
+        text-align: left;
+
+        .team-stat-item{
+          margin-left: 33%;
+        }
+      }
+
+      .actions{
+        width: 33%;
+        text-align: right;
+        height: 100%;
+      }
+    }
+  }
+}

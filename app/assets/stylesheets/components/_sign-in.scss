@@ -1,0 +1,42 @@
+.sign-in-wrapper {
+  background: $col-milk;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.panel {
+  &.panel-window {
+    &.sign-in {
+      background: $white;
+      padding-bottom: 20px;
+      margin-bottom: 12px;
+
+      .sso-note {
+        margin-top: 16px;
+        font-size: 13px;
+      }
+    }
+
+    &.sso-sign-in {
+      background: $white;
+      padding: 8px;
+
+      .sso-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: $col-blue;
+      }
+
+      .sso-error {
+        margin-top: 16px;
+        padding: 8px;
+        text-align: left;
+      }
+
+      .sign-in-button {
+        margin-top: 24px;
+      }
+    }
+  }
+}

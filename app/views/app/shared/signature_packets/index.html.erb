@@ -1,0 +1,78 @@
+<div class="container-fluid flex-container signature-tracker">
+  <% if @deal.is_owning_entity?(current_entity) %>
+    <div class="row crumbs">
+      <%= render 'app/shared/top_navs/signature_nav' %>
+    </div>
+  <% end %>
+
+  <div class="scroll-box">
+    <% if @users_with_signing_capacities.present? %>
+      <% if @deal.is_owning_entity?(current_entity) %>
+        <%
+          signature_required_documents = @deal.closing_category.descendants.signature_required
+        %>
+        <div class="row whiteout-ui">
+          <div class="toolbar-box category signature-packets">
+            <%= link_to 'Send Packets', send_packets_confirm_deal_signature_packets_path(@deal), :remote => true, :class => "button button-primary" %>
+            <% if signature_required_documents.any? %>
+              <%= link_to 'Execute Versions', deal_executed_versions_path(@deal),  :remote => true, :class => 'button button-primary' %>
+            <% else %>
+              <div class='button button-primary not-active has-status-tooltip' data-tooltip-content= "<%= "#tooltip_content_deal_#{@deal.id}" %>" >
+                Execute Versions
+                <div class="tooltip_templates">
+                  <span class="tooltip-content signature-status-tooltip" id="<%= "tooltip_content_deal_#{@deal.id}" %>">
+                    No documents available to execute
+                  </span>
+                </div>
+              </div>
+            <% end %>
+            <%= link_to 'Export', deal_export_tracker_path(@deal, {format: 'xlsx'}), :class => 'button button-secondary' %>
+            <div class="right-buttons">
+              <%= link_to upload_manual_signatures_deal_signature_packets_path(@deal), :remote => true, :id => 'upload-button' do %>
+                <button class="upload-button button-secondary mdi mdi-upload"></button>
+              <% end %>
+              <div id="unmatched-root" class="react-root" data-turbolinks-permanent>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% if @deal.critical_errors.unread.any? %>
+          <div class="critical-errors alert alert-danger" role="alert">
+            <%= link_to deal_set_critical_errors_as_read_path(@deal), method: :put, remote: true, class: "close" do %>
+              <i class="fa fa-times" aria-hidden="true" data-dismiss="alert"></i>
+            <% end %>
+            <% @deal.critical_errors.unread.group_by{ |e| e[:error_type] }.each do |key, values| %>
+              <div class="margin-bottom-10">
+                <b><%= key.humanize %>:</b>
+                <%= values.map(&:user_message).uniq.join(', ') %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      <div class="row" id="signature-packet-grid">
+        <%= render 'shared/signature_packets/signature_grid' %>
+      </div>
+    <% else %>
+      <div class="empty-state signatures">
+        <i class="icon-signature-tracking"></i>
+        <div>
+          <% if @deal.is_owning_entity?(current_entity) %>
+            Track the status of signature packets after you
+            <%= link_to 'assign Signing Groups to Documents', deal_signature_pages_path(@deal) %>.
+          <% else %>
+            Track the status of signature packets after Signing Groups have been assigned to Documents.
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    if ($('#unmatched-root').length > 0) {
+      App.React.renderUnmatchedSignaturePagesSidebar()
+    }
+  })
+</script>

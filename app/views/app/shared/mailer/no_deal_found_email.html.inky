@@ -1,0 +1,31 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-email-upload-error.png" %>
+<% end %>
+<% @title = capture do %>
+  No Matching Deal Found
+<% end %>
+<% @content = capture do %>
+  <p>
+    Unfortunately your attempt to email the deal room with your document(s), has failed. No deal was found with the deal email address <%= @attempted_email %>.
+    <br /><br />
+    Please make sure to use the email address specific to your deal on Doxly.  You can find the correct email address within Doxly at the top of the deal overview page next to the deal name.  You can log in to Doxly using the button below.
+  </p>
+  <h1></h1>
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <a href="<%= @url %>">Login</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

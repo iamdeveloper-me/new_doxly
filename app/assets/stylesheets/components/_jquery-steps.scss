@@ -1,0 +1,104 @@
+.wizard {
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .steps {
+    ul {
+      display: flex;
+      justify-content: center;
+      .done :hover {
+        background: $col-gray-light;
+        color: $col-dark-gray;
+        cursor: pointer;
+      }
+      .disabled :hover {
+        cursor: default;
+        .disabled a :hover{
+          cursor: default;
+        }
+      }
+      li {
+        display: block;
+        flex-grow: 1;
+        background: $col-blue-light;
+        color: $col-dark-gray;
+        &:not(.first) {
+          margin-left: 5px;
+        }
+        &:not(.last) {
+          margin-right: 5px;
+        }
+        a {
+          color: inherit;
+          display: block;
+          padding: 20px;
+          border: 1px solid $col-gray-light;
+        }
+        .current-info {
+          display: none;
+        }
+        &.current {
+          background: $col-blue;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .content {
+    padding: 20px;
+    margin-top: 10px;
+    border: 1px solid $col-gray-light;
+    overflow: hidden;
+    > :not(.current) {
+      display: none;
+    }
+    h3 {
+      padding: 20px 20px 0 20px;
+    }
+    section {
+      height: 100%;
+      padding: 20px 20px 20px 20px;
+      overflow: auto;
+      .section-group{
+        padding: 10px 0 10px 0
+      }
+    }
+  }
+
+  .actions {
+    ul {
+      display: flex;
+      justify-content: flex-end;
+
+      li {
+        margin-top: 10px;
+
+        a {
+          padding: 15px;
+          width: 100px;
+          display: block;
+          background: $col-blue;
+          color: white;
+          text-align: center;
+
+          &:hover {
+            background: darken($col-blue, 10%);
+          }
+        }
+        &:first-of-type {
+          margin-right: 10px;
+          a {
+            background: $col-blue-light;
+            color: $col-dark-gray;
+            &:hover {
+              background: $col-gray-light
+            }
+          }
+        }
+      }
+    }
+  }
+}

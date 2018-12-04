@@ -1,0 +1,24 @@
+<%
+  signature_packets = deal.signature_packets.without_download_type.where(user_id: current_user.id).where.not(sent_at: nil).order(:created_at)
+  requires_attention ||= false
+%>
+<div class="deal-card">
+  <div class="deal-info">
+    <div class="title">
+      <%= truncate(deal.title, length: 35) %>
+    </div>
+    <div class="prepared-by">
+      Prepared for signing by <%= deal.owner_entity.name %>.
+    </div>
+    <div class="closing-date">
+      Projected closing date: <%= deal.projected_close_date.strftime('%B %d, %Y') %>
+    </div>
+    <% needs_signature_count = signature_packets.select{|packet| packet.completed_at.nil? && !packet.all_pages_signed? }.count %>
+    <% if needs_signature_count > 0 && requires_attention %>
+      <div class="deal-packets-statuses signature-needed" %>
+        Your signature is required on <%= pluralize(needs_signature_count, "packet") %>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to requires_attention ? "Review and sign packets" : 'Print & Download signatures', deal_signature_packets_signature_packets_path(deal_id: deal.id), class:"btn deal-card-button #{'requires-attention' if requires_attention}"%>
+</div>

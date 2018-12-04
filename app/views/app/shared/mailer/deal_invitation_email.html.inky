@@ -1,0 +1,35 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-collaborator-added.png" %>
+<% end %>
+<% @title = capture do %>
+  You’ve Been Added As a <%= @user_type %>
+<% end %>
+<% @content = capture do %>
+  <p>You’ve been added as a <%= @user_type.downcase %> to <%= @deal.title %>. To view the deal, please <%= @user.is_active? ? 'login' : 'sign up' %> by clicking the button below.</p>
+  <% if @custom_message %>
+    <p><i><%= @custom_message %></i></p>
+  <% end %>
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <a href="<%= @url %>">
+                  <% if @user.is_active? %>
+                    Login
+                  <% else %>
+                    Sign Up
+                  <% end %>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

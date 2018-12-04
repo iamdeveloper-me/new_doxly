@@ -1,0 +1,16 @@
+<%
+  tree_element ||= nil
+  signature_group ||= nil
+%>
+<% if signing_capacity.signature_entity.present? %>
+  <h2><%= signing_capacity.signature_entity.name %></h2>
+  <span class="gray"><i class="mdi mdi-subdirectory-arrow-right"></i><%= signing_capacity.name %></span>
+<% else %>
+  <h2><%= signing_capacity.name %></h2>
+<% end %>
+<div class="excluded-signer">
+  <i class="mdi mdi-account-outline"></i>
+  <h3>Signer Excluded</h3>
+  <p>This signer has been excluded from the signing group for this document.</p>
+  <%= link_to "Include", include_deal_signature_group_block_collection_signing_capacity_path(@deal.id, signature_group.id, signing_capacity.get_block_collection.id, signing_capacity.id, tree_element_id: tree_element.id), remote: true, class: "button small button-secondary mdi mdi-account" %>
+</div>

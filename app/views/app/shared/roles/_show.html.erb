@@ -1,0 +1,84 @@
+<%
+  deal_organizations   = deal_role.deal_entities.joins(:entity).where("entities.type = ?", "Organization")
+  deal_individuals     = deal_role.deal_entities.joins(:entity).where("entities.type = ?", "Individual")
+  organization_count   = deal_organizations.length
+  individual_count     = deal_individuals.length
+  org_heading          = organization_count > 0 ? pluralize(organization_count, 'Organization') : ''
+  individual_heading   = individual_count > 0 ? pluralize(individual_count, 'Individual') : ''
+  separator            = organization_count > 0 && individual_count > 0 ? ', ' : ''
+  working_group_header = organization_count == 0 && individual_count == 0 ? '' : "#{org_heading}#{separator}#{individual_heading}"
+  additional_class     = "margin-top-15" if deal_organizations.empty? && deal_individuals.empty?
+  no_user_roles        = !deal_organizations.present?
+%>
+<%= hidden_field(:deal, :id) %>
+<div class="role-group toggle expanded" data-id="<%= deal_role.id%>" id="role-<%=deal_role.id %>">
+  <div class="role-group__header">
+    <div class="title toggle-trigger">
+      <div class="expand-toggle"></div>
+      <div class="role-name"><%= deal_role.name %><span class="role-count"> <%= working_group_header %></span></div>
+    </div>
+    <% if @deal.can?(/U|D/, :roles) %>
+      <div class="action pull-right role-edit" id="role-edit-<%= deal_role.id %>">
+        <% if @deal.is_owning_entity?(current_entity) %>
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="fa fa-pencil role-dropdown-icon pencil"></i>
+            </a>
+            <ul class="working-group dropdown-menu pull-right">
+              <% if @deal.can?(/U/, :roles) %>
+                <li>
+                  <%= link_to "Edit Role", edit_deal_role_path(@deal, deal_role), :remote => true %>
+                </li>
+              <% end %>
+              <% if @deal.can?(/D/, :roles) %>
+                <li>
+                  <%= link_to "Delete Role", deal_role_path(@deal, deal_role), :method => :delete, :remote => true %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <% if @deal.can?(/C/, :entities) || @deal.can?(/C/, :collaborators) %>
+            <div class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-plus-circle role-dropdown-icon"></i>
+              </a>
+              <ul class="working-group dropdown-menu pull-right">
+                <% if @deal.can?(/C/, :entities) %>
+                  <li>
+                    <%= link_to "Organization (law firm, company, etc.)", new_deal_deal_entity_path(@deal, role_id: deal_role.id), remote: true %>
+                  </li>
+                <% end %>
+                <% if @deal.can?(/C/, :collaborators) %>
+                  <li>
+                    <%= link_to "Individual (not associated with an Organization)", new_deal_deal_individual_user_path(@deal, role_id: deal_role.id), remote: true %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="children">
+    <% if deal_organizations.present? || deal_individuals.present? %>
+      <% if deal_organizations.present? %>
+        <% deal_organizations.each do |deal_organization| %>
+          <%= render 'app/shared/company', deal_organization: deal_organization, role: deal_role %>
+        <% end %>
+      <% end %>
+      <% if deal_individuals.present? %>
+        <% deal_individuals.each do |individual_entity| %>
+          <% deal_entity_user = individual_entity.deal_entity_users.first %>
+          <%= render 'app/shared/user', user: deal_entity_user.user, individual_role: deal_role, has_organizations: deal_organizations.present?, deal_entity_user: deal_entity_user, entity_user: deal_entity_user.entity_user %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% if @deal.is_owning_entity?(current_entity) %>
+        <div class="empty-role">Click the plus button to add an Organization or Individual to <%= deal_role.name %>.</div>
+      <% else %>
+        <div class="empty-role">No Organizations or Individuals have been added to this role.</div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

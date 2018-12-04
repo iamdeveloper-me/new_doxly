@@ -1,0 +1,30 @@
+<%= render 'signer_nav_bar' %>
+<%
+  deal                    = @signature_packet.deal
+  review_documents_length = @signature_packet.signature_packet_review_documents.length
+%>
+
+<% content_for :back_button do %>
+  <% if params[:redirect] == 'show' && review_documents_length > 0 %>
+    <% path = signature_packet_path(@signature_packet) %>
+    <% text = "Review documents in this packet" %>
+  <% else %>
+    <% path = deal_signature_packets_signature_packets_path(deal_id: deal.id) %>
+    <% text = "View all packets in #{deal.title}" %>
+  <% end %>
+  <%= link_to path do %>
+    <div class="return-button">
+      <%= image_tag 'ic-return.svg' %>
+    </div>
+    <div class="return-text">
+      <%= text %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="flex-box-column">
+  <%= render 'shared/top_mobile' %>
+  <div id="docusign-container">
+    <iframe src="<%= @url %>"></iframe>
+  </div>
+</div>

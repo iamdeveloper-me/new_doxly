@@ -1,0 +1,17 @@
+<%
+  font_sizes = Deal::FONT_SIZES.map{ |size| [size, {class: "font__#{size}pt"}]}
+  font_types = Deal::FONT_TYPES.map{ |type| [type, {class: "font__#{type.parameterize("-")}"}] }
+%>
+<div class="page-settings">
+  <%= form_for @deal, url: deal_path(@deal), method: :put do |f| %>
+    <div class="form-group margin-bottom-20">
+      <label for="font_size">Font Size</label>
+      <%= f.select :font_size, options_for_select(font_sizes, selected: @deal.font_size), {}, {class: "selectpicker show-tick select-border-radius form-control font__#{@deal.font_size}pt"} %>
+    </div>
+    <div class="form-group">
+      <label for="font_type">Font Type</label>
+      <%= f.select :font_type, options_for_select(font_types, selected: @deal.font_type), {}, {class: "selectpicker show-tick select-border-radius form-control font__#{@deal.parameterized_font_type}"} %>
+    </div>
+    <input type="hidden" name="redirect_to" value="signature_pages" />
+  <% end %>
+</div>

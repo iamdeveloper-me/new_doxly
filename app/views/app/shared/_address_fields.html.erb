@@ -1,0 +1,27 @@
+<%
+  fields_for_address ||= nil
+%>
+
+<div class="whiteout-ui">
+  <div class="control control-input large">
+    <label>Street Address</label>
+    <%= fields_for_address.text_field :address_line_one, :placeholder => "Street and number, P.O. Box, etc. " %>
+  </div>
+  <div class="control control-input large">
+    <%= fields_for_address.text_field :address_line_two, autocomplete: "off", :placeholder => "Suite, Floor, etc." %>
+  </div>
+  <div class="address-row">
+    <div class="control control-input">
+      <label>City</label>
+      <%= fields_for_address.text_field :city, autocomplete: "off", :placeholder => "City" %>
+    </div>
+    <div class="control control-input">
+      <label>State or Province</label>
+      <%= fields_for_address.text_field :state_or_province, :class => "form-control", autocomplete: "off", :placeholder => "State or Province" %>
+    </div>
+    <div class="control control-input">
+      <label>Postal Code</label>
+      <%= fields_for_address.text_field :postal_code, :class => "form-control", autocomplete: "off", :placeholder => "Postal Code" %>
+    </div>
+  </div>
+</div>

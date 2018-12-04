@@ -1,0 +1,7 @@
+<% if current_user.entity_users.empty? %>
+  <%= render "shared/top_signer", title: "Sign Signature Packet" %>
+<% elsif current_entity_user.belongs_to_law_firm? %>
+  <%= render "shared/top_counsel", title: 'Sign Signature Packet' %>
+<% else %>
+  <%= render "shared/top_client", title: "Sign Signature Packet" %>
+<% end %>

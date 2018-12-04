@@ -1,0 +1,46 @@
+<%
+  deals               = @entity_user.all_deals
+  # dangerous line of code -- do not change without checking with other team members
+  active_deals        = deals.active.select{ |deal| deal.entities.include?(current_entity) }.group_by{ |d| 'Active Deals' }.sort
+  active_deals        = {"Active Deals" => []} if active_deals.blank?
+  # dangerous code -- do not change without checking with other team members
+  completed_deals     = deals.complete.select{ |deal| deal.entities.include?(current_entity) }.group_by{ |d| 'Completed Deals' }.sort
+  completed_deals     = {"Completed Deals" => []} if completed_deals.blank?
+  top_view            = current_entity.is_counsel ? "shared/top_counsel" : "shared/top_client"
+  entity              = @entity_user.entity
+%>
+<%= render top_view, title: "People / #{entity.is_a?(Individual) ? 'Individual' : entity.name} / #{@entity_user.name}" %>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="content-single">
+        <div class="panel panel-list">
+          <div class="inner">
+            <div class="team-list-item">
+              <div class="team">
+                <%= render 'app/shared/user', user: @entity_user.user, subtitle: @entity_user.user.email, entity_user: @entity_user %>
+              </div>
+              <div class="stat">
+                <div class="team-stat-item">
+                  <%=h @entity_user.user.full_address.html_safe %>
+                  <%=h "Phone: #{number_to_phone(@entity_user.user.phone, area_code: true)}<br>".html_safe if @entity_user.user.phone.present? %>
+                  <%= "Fax: #{number_to_phone(@entity_user.user.fax, area_code: true)}" if @entity_user.user.fax.present? %>
+                </div>
+              </div>
+              <div class="actions">
+                <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_entity_entity_user_path(@entity_user.entity, @entity_user) if @entity_user.entity == current_entity %>
+                <%= link_to '<i class="fa fa-envelope-o"></i>'.html_safe, resend_invitation_entity_entity_user_path(@entity_user.entity, @entity_user), :class => "btn-edit" unless @entity_user.user.confirmed? %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="content-single">
+        <%= render 'shared/deals/deals_list', :deals => active_deals %>
+        <%= render 'shared/deals/deals_list', :deals => completed_deals %>
+      </div>
+    </div>
+  </div>
+</div>

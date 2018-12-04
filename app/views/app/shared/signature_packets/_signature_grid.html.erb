@@ -1,0 +1,378 @@
+<div class="grid-view by-col sticky">
+  <div class="grid-sticky-header-col">
+    <div class="grid-col header document-name-col">
+      <div class="grid-cell header">
+      </div>
+    </div>
+  </div>
+  <% if @deal.is_owning_entity?(current_entity) %>
+    <div class="grid-sticky-header-col">
+      <div class="grid-col signature-type-col">
+        <div class="grid-cell rotated">
+          <div>
+            <span>Collected</span>
+            <span class="filler"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-sticky-header-col">
+      <div class="grid-col signature-type-col">
+        <div class="grid-cell rotated">
+          <div>
+            <input type="checkbox" value="docusign" class="signature-type-checkbox deal-default" path="<%= set_default_signature_type_confirm_deal_signature_packets_path(@deal) %>" <%= @deal.sign_manually_by_default? ? "" : "checked" %>>
+            <span>DocuSign</span>
+            <span class="filler"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-sticky-header-col">
+      <div class="grid-col signature-type-col">
+        <div class="grid-cell rotated">
+          <div>
+            <input type="checkbox" value="manual" class="signature-type-checkbox deal-default" path="<%= set_default_signature_type_confirm_deal_signature_packets_path(@deal) %>" <%= @deal.sign_manually_by_default? ? "checked" : "" %>>
+            <span>Manual</span>
+            <span class="filler"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <%
+    tooltip_class = @deal.is_owning_entity?(current_entity) ? "has-action-tooltip" : ""
+  %>
+  <div class="grid-cols">
+    <!-- a column for each signer -->
+    <% @users_with_signing_capacities.each do |user, signing_capacities| %>
+      <div class="grid-col">
+        <!-- setting the width like this isn't the best, but it works for the time being -->
+        <div class="grid-cell header user-header <%= tooltip_class %>" style="width: <%= signing_capacities.count*150 %>px" data-tooltip-content='<%= "#tooltip_content_#{user.id}" %>'>
+          <div class="user-info">
+            <div class="top-container">
+              <div class="ellipsis" ><i class="fa fa-ellipsis-v fa-lg" aria-hidden="true"></i></div>
+            </div>
+            <div class="name"><%= signing_capacities.first.name %></div>
+            <div class="email"><%= user.email %></div>
+          </div>
+          <div class="signature-group-users">
+            <% signing_capacities.each do |signing_capacity| %>
+              <div class="signature-group-user-names">
+                <% signature_group = signing_capacity.get_signature_group %>
+                <div class="group-name"><%= signature_group.name %></div>
+                <% if signing_capacity.signature_entity %>
+                  <div class="entity-container">
+                  <div class="entity-name"><%= signing_capacity.signature_entity.root.name %></div>
+                  </div>
+                <% else %>
+                  <div class="no-entity"></div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <% if @deal.is_owning_entity?(current_entity) %>
+            <div class="tooltip_templates">
+              <span class="tooltip-content signature-status-tooltip" id="<%= "tooltip_content_#{user.id}" %>">
+                <div class="menu-links">
+                  <% if user.signing_capacities.select{|signing_capacity| signing_capacity.get_signature_group.deal == @deal}.map(&:signature_pages).flatten.any? %>
+                    <%= link_to manage_signature_packets_deal_signature_packets_path(@deal, user_id: user.id), remote: true do %>
+                      <div class="link">
+                        <div class="icon">
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                        </div>
+                        <div class="text">
+                          View Signature Packet(s)
+                        </div>
+                      </div>
+                    <% end %>
+                    <%= link_to send_packet_wizard_deal_signature_packets_path(@deal, user_id: user.id), remote: true do %>
+                      <div class="link">
+                        <div class="icon">
+                          <i class="fa fa-send-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="text">
+                          Send Signature Packet
+                        </div>
+                      </div>
+                    <% end %>
+                    <%= link_to send_reminder_deal_signature_packets_path(@deal, user_id: user.id), remote: true, class: "js-reminder-email" do %>
+                      <div class="link">
+                        <div class="icon">
+                          <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </div>
+                        <div class="text">
+                          Send Reminder
+                        </div>
+                      </div>
+                    <% end %>
+                    <% timestamp = @deal.signature_packets_ordered_by_reminder_timestamp(user)&.first&.reminder_email_timestamp %>
+                    <div class="timestamp">
+                      <% if timestamp %>
+                        Sent: <%= time_ago_in_words(timestamp) %> ago
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <div class="link">
+                      <div class="text">
+                        No packets available
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<!-- put it in a container that will scroll the part of the grid that is off the screen -->
+<!-- TODO: this may not be necessary -->
+<div class="scroll-container">
+  <div class="grid-view by-col">
+    <div class="grid-sticky-header-col">
+      <!-- the header column with the document names -->
+      <div class="grid-col header document-name-col">
+        <% @documents.each do |document| %>
+          <div class="grid-cell has-status-tooltip" data-tooltip-content="<%= "#document_#{document.id}" %>" >
+            <span><%= document.name %></span>
+
+            <div class="tooltip_templates">
+              <span class="tooltip-content signature-status-tooltip multi-column-tooltip two-column-tooltip executed-tooltip" id="<%= "document_#{document.id}" %>">
+                <% if document.is_executed? %>
+                  <div>
+                    <% executed_versions = document.attachment.versions.executed %>
+                    <div class="tooltip-title">
+                      Executed <%= pluralize(executed_versions.count, 'time') %>
+                    </div>
+                    <div>
+                      <div class="tooltip-title">DATE</div>
+                      <div class="tooltip-title">SIGNERS</div>
+                    </div>
+                    <% executed_versions.each do |version| %>
+                      <div>
+                        <div><%= version.created_at.strftime('%m/%d/%Y') %></div>
+                        <div><%= version.executed_signature_pages.count %></div>
+                      </div>
+                    <% end %>
+                  </div>
+                <% else %>
+                  Signatures have not been executed yet.
+                <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <% if @deal.is_owning_entity?(current_entity) %>
+      <div class="grid-sticky-header-col">
+        <div class="grid-col collected-col whiteout-ui">
+          <% @documents.each do |document| %>
+            <% if document.voting_threshold_required? %>
+              <div class="grid-cell gray has-status-tooltip <%= 'collected-complete' if document.are_voting_interest_thresholds_complete? %>" data-tooltip-content="<%= "#document_#{document.id}_collected" %>">
+                <i class="mdi mdi-percent"></i>
+              </div>
+              <div class="tooltip_templates">
+                <span class="tooltip-content signature-status-tooltip multi-column-tooltip three-column-tooltip voting-threshold-collected-tooltip" id="<%= "document_#{document.id}_collected" %>">
+                  <div>
+                    <div class="tooltip-title">Voting Threshold Tracking</div>
+                    <div>
+                      <div class="tooltip-title">Voting Interest Group</div>
+                      <div class="tooltip-title">Voting Threshold</div>
+                      <div class="tooltip-title">Total Shares</div>
+                    </div>
+                    <% document.voting_interest_thresholds.includes(:voting_interest_group).each do |voting_interest_threshold| %>
+                      <div>
+                        <div><%= voting_interest_threshold.voting_interest_group.name %></div>
+                        <div><%= "#{number_with_precision(voting_interest_threshold.completed*100, precision: 2, strip_insignificant_zeros: true)}/#{number_with_precision(voting_interest_threshold.threshold*100, precision: 2, strip_insignificant_zeros: true)}%" %></div>
+                        <div><%= number_with_delimiter(voting_interest_threshold.voting_interest_group.total_number_of_shares) %></div>
+                      </div>
+                    <% end %>
+                  </div>
+                </span>
+              </div>
+            <% else %>
+              <%
+                signature_pages                           = document.signature_pages
+                all_signature_pages_count                 = signature_pages.count
+                not_sent_signatures_pages_count           = signature_pages.ready_to_send.count
+                awaiting_signature_signatures_pages_count = signature_pages.awaiting_signature.count
+                signed_signature_pages_count              = signature_pages.executable.count
+              %>
+              <div class="grid-cell gray has-status-tooltip <%= 'collected-complete' if all_signature_pages_count > 0 && signed_signature_pages_count == all_signature_pages_count %>" data-tooltip-content="<%= "#document_#{document.id}_collected" %>">
+                <%= "#{signed_signature_pages_count}/#{all_signature_pages_count}" %>
+              </div>
+              <div class="tooltip_templates">
+                <span class="tooltip-content signature-status-tooltip multi-column-tooltip two-column-tooltip signatures-collected-tooltip" id="<%= "document_#{document.id}_collected" %>">
+                  <div>
+                    <div class="tooltip-title">Signature Tracking</div>
+                    <div>
+                      <div class="tooltip-title">Signature Status</div>
+                      <div class="tooltip-title">Number of Signers</div>
+                    </div>
+                    <div>
+                      <div>Not Sent</div>
+                      <div><%= not_sent_signatures_pages_count %></div>
+                    </div>
+                    <div>
+                      <div>Awaiting Signature</div>
+                      <div><%= awaiting_signature_signatures_pages_count %></div>
+                    </div>
+                    <div>
+                      <div>Signed</div>
+                      <div><%= signed_signature_pages_count %></div>
+                    </div>
+                    <div>
+                      <div class="tooltip-title">Total</div>
+                      <div class="tooltip-title"><%= all_signature_pages_count %></div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="grid-sticky-header-col">
+        <div class="grid-col signature-type-col">
+          <% @documents.each do |document| %>
+            <div class="grid-cell">
+              <input type="checkbox" value="docusign" class="signature-type-checkbox <%= "document-#{document.id}" %>" path="<%= deal_category_tree_element_set_signature_type_path(@deal, document.get_category, document) %>" <%= document.sign_manually? ? "" : "checked" %>>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="grid-sticky-header-col">
+        <div class="grid-col signature-type-col">
+          <% @documents.each do |document| %>
+            <div class="grid-cell">
+              <input type="checkbox" value="manual" class="signature-type-checkbox <%= "document-#{document.id}" %>" path="<%= deal_category_tree_element_set_signature_type_path(@deal, document.get_category, document) %>" <%= document.sign_manually? ? "checked" : "" %>>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="grid-cols">
+      <!-- a column for each signer -->
+      <% extra_signing_capacities = 0 %>
+      <% @users_with_signing_capacities.each_with_index do |(user, signing_capacities), i| %>
+        <% signing_capacities.each_with_index do |signing_capacity, j| %>
+          <% x = i + extra_signing_capacities + j %>
+          <div class="grid-col">
+            <% signature_pages = signing_capacity.signature_pages %>
+            <% @documents.each_with_index do |document, y| %>
+              <%
+                page               = signature_pages.find{ |page| page.tree_element == document }
+                is_executing       = page&.is_executing?
+                currently_executed = page&.currently_executed?
+                show_threshold_met = page && !page.is_signed? && document.voting_threshold_required? && document.are_voting_interest_thresholds_complete?
+                status = if page && signing_capacity.user.email.blank?
+                  {
+                    text: 'no_email',
+                    time: nil
+                  }
+                elsif page && !is_executing && !currently_executed
+                  {
+                    text: page.signature_status || 'not_sent',
+                    time: page.signature_status_timestamp
+                  }
+                elsif page && is_executing
+                  {
+                    text: 'executing',
+                    time: page.updated_at
+                  }
+                elsif page && currently_executed
+                  {
+                    text: 'executed',
+                    time: page.signature_page_executions.last.created_at
+                  }
+                else
+                  {
+                    text: 'not_applicable',
+                    time: nil
+                  }
+                end
+                status_words = {
+                  'no_email': 'No Email',
+                  'not_sent': 'Created',
+                  'sending': 'Sending started',
+                  'generating_link': 'Generating link',
+                  'generating_download': 'Generating download',
+                  'opened': 'Opened',
+                  'awaiting_signature': 'Sent',
+                  'link_ready': 'Link ready',
+                  'download_ready': 'Download ready',
+                  'signed': 'Signed',
+                  'executing': 'Executing',
+                  'declined': 'Declined',
+                  'executed': 'Executed'
+                }
+              %>
+              <% if status[:text] == 'not_applicable' %>
+                <div class="grid-cell <%= "row-#{y}" %> <%= "col-#{x}" %> <%= "document-#{document.id}" %> <%= "signature-group-user-#{signing_capacity.id}" %> <%= status[:text].gsub('_', '-') %>">
+                </div>
+              <% else %>
+                <div class="grid-cell <%= "row-#{y}" %> <%= "col-#{x}" %> <%= "document-#{document.id}" %> <%= "signature-group-user-#{signing_capacity.id}" %> <%= status[:text].gsub('_', '-') %> <%= "signature-page-#{page.id}" if page %> <%= "threshold-met" if show_threshold_met %> has-status-tooltip" data-tooltip-content='<%= "#tooltip_content_#{y}_#{x}" %>'>
+                  <% status_text_display_value = status[:text].gsub('_', ' ').split.map(&:capitalize).join(' ') %>
+                  <% if show_threshold_met %>
+                    <div>Threshold Met</div>
+                    <div class='threshold-met-subtext'>(<%= status_text_display_value %>)</div>
+                  <% else %>
+                    <span><%= status_text_display_value %></span>
+                  <% end %>
+                </div>
+                <% if status[:text] == 'no_email' %>
+                  <div class="tooltip_templates">
+                    <span class="tooltip-content signature-status-tooltip" id="<%= "tooltip_content_#{y}_#{x}" %>">
+                      <div class="signature-status-tooltip-row"><b>Cannot be sent for signature.</b></div>
+                      <div class="signature-status-tooltip-row">An email has not been entered for this signature block.</div>
+                    </span>
+                  </div>
+                <% elsif SignaturePage::ALLOWED_SIGNATURE_STATUSES.include?(status[:text]) && status[:text] != "not_sent" %>
+                  <%
+                    tooltip_titles = {
+                      executed: {
+                        executed: 'Executed On These Dates',
+                        signed: 'Previously Executed'
+                      },
+                      not_executed: {
+                        signed: 'Signed, Not Executed',
+                        awaiting_signature: 'Sent for Signature',
+                        link_ready: 'Link is Ready',
+                        download_ready: 'Download is Ready',
+                        opened: 'Opened',
+                        declined: 'Signer Declined to Sign',
+                        sending: 'Sending',
+                        generating_link: 'Generating Link',
+                        generating_download: 'Generating Download'
+                      }
+                    }
+                  %>
+                  <div class="tooltip_templates">
+                    <span class="tooltip-content signature-status-tooltip" id="<%= "tooltip_content_#{y}_#{x}" %>">
+                      <% executions = page&.signature_page_executions %>
+                      <% if executions.any? %>
+                        <div><b><%= tooltip_titles[:executed][status[:text].to_sym] %></b></div>
+                        <% executions.each do |execution| %>
+                          <div class="signature-status-date">
+                            <%= execution.created_at.strftime('%m/%d/%Y') %>
+                          </div>
+                        <% end %>
+                      <% else %>
+                        <div><b><%= tooltip_titles[:not_executed][status[:text].to_sym] %></b></div>
+                        <div class="signature-status-date"><%= status[:time]&.strftime('%m/%d/%Y') %></div>
+                      <% end %>
+                    </span>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+        <% extra_signing_capacities += signing_capacities.length - 1 %>
+      <% end %>
+    </div>
+  </div>
+</div>

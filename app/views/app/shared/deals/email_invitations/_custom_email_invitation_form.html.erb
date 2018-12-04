@@ -1,0 +1,10 @@
+<%
+  path = params[:controller].include?("deal_individual_users") ? deal_deal_individual_user_send_deal_invitation_path(@deal, @deal_entity_user) : deal_deal_entity_deal_organization_user_send_deal_invitation_path(@deal, @deal_entity, @deal_entity_user)
+%>
+
+<%= form_tag path, {:method => :post, :remote => true, :class => 'no-turboboost'} do %>
+  <div class="form-group explanation">
+    <div class="form-field explanation">Invite <span><%= @user.name %> (<%= @user.email %>)</span> to join <span><%= @deal.title %></span> on Doxly</div>
+  </div>
+  <%= render 'app/shared/custom_message' %>
+<% end %>

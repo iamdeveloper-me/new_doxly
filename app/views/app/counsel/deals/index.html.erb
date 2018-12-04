@@ -1,0 +1,5 @@
+<% content_for :create_deal_action do %>
+  <%= link_to 'Create Deal', new_deal_path, :remote => true, :class => 'action-button btn btn-primary' %>
+<% end %>
+
+<%= render 'shared/deals/index' %>

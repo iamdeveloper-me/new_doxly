@@ -1,0 +1,102 @@
+<%
+  deals ||= nil
+  is_counsel = current_entity.is_counsel
+%>
+
+<% deals.each do |key, values| %>
+  <div class="panel panel-deals-full">
+    <div class="deals-full-group">
+      <div class="deals-full-group__header">
+          <%= key %>
+      </div>
+      <% values.each do |deal| %>
+        <%
+          owner_entity_id   = deal.owner_entity.id
+          team              = deal.deal_entity_users.includes(entity_user: [:user, :entity]).joins(:entity_user).where("entity_users.entity_id = ?", owner_entity_id)
+          deal_entity_users = deal.deal_entity_users.includes(entity_user: [:user, :entity]).joins(:entity_user).where("entity_users.entity_id != ?", owner_entity_id)
+        %>
+        <div class="deals-full-group__projects">
+          <div class="project-item">
+            <div class="item-body">
+              <% deal_entity = deal.deal_entities.find_by(entity_id: current_entity.id) %>
+              <a href="<%= deal_roles_path(deal) %>" class="item-body__project" data-turbolinks="false">
+                <div class="copy">
+                  <%= deal.title %>
+                  <% if current_entity_user.has_starred_deal? deal %>
+                    <span class="star"></span>
+                  <% end %>
+                </div>
+              </a>
+              <div class="item-body__team">
+                <div class="title">Team Members</div>
+                <% team.each do |team_member| %>
+                  <% entity_user = team_member.entity_user %>
+                  <div class="deal-entity-user-avatar">
+                    <%= render 'app/shared/user', user: entity_user.user, avatar_size: 'small', avatar_only: true, entity_user: entity_user, is_counsel: is_counsel %>
+                  </div>
+                <% end %>
+              </div>
+              <% if deal.can?(/R/, :collaborators) %>
+                <div class="item-body__deal-entity-users">
+                  <div class="title">Collaborators</div>
+                  <% deal_entity_users.each do |deal_entity_users| %>
+                    <% entity_user = deal_entity_users.entity_user %>
+                    <div class="deal-entity-user-avatar">
+                      <%= render 'app/shared/user', user: entity_user.user, avatar_size: 'small', avatar_only: true, entity_user: entity_user, is_counsel: is_counsel %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="item-body__timestamp">
+                <div class="title">
+                  <%
+                    owning_counsel = deal.is_owning_entity?(current_entity)
+                    deal_closed = deal.closed? || deal.archived?
+                    status_padding = (!owning_counsel && deal_closed) ? 'deal-status' : ''
+                  %>
+                  <div class="timestamp deal-list <%= status_padding %>">
+                    <% if deal.archived? %>
+                      <div class="info">
+                        <div>Deal Closed</div>
+                        <% if owning_counsel %>
+                          <div><%= link_to 'Unarchive Deal', unarchive_deal_path(deal), :class => "clear-turbolinks-cache" %></div>
+                        <% end %>
+                      </div>
+                    <% elsif deal.closed? %>
+                      <div class="info">
+                        <div>Deal Closed</div>
+                        <% if owning_counsel %>
+                          <div><%= link_to 'Archive Deal', archive_deal_path(deal), :class => "clear-turbolinks-cache" %></div>
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <div class="info">
+                        <div>Projected Close Date:</div>
+                        <div><%= deal.projected_close_date.strftime('%B %d, %Y') %></div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% if values.empty? %>
+        <div class="padding-10">
+          <div className="no-results">
+            <div className="header">There aren't any deals to show.</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% if deals.empty? %>
+  <div class="panel panel-list">
+    <div className="no-results padding-10">
+      <div className="header">There aren't any deals to show.</div>
+    </div>
+  </div>
+<% end %>

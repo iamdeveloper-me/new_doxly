@@ -1,0 +1,2 @@
+class SignedAwsFile < AwsFile
+end

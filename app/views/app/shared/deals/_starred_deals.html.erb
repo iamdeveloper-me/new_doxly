@@ -1,0 +1,13 @@
+<ul class="nav">
+  <% if @starred_deals.size == 0 %>
+    <li><span class="no-starred-deals">No starred deals</span></li>
+  <% else %>
+    <% @starred_deals.each do |starred_deal| %>
+      <li>
+        <%= link_to deal_roles_path(starred_deal.deal.id) do %>
+          <i class="icon-icon-star"></i><%= starred_deal.deal.title %>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

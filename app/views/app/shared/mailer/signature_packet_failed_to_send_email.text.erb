@@ -1,0 +1,25 @@
+<%= @additional_pages ? "Some Signature Pages Could Not Be Sent" : "Signatures Packet Failed To Send" %>
+<%= @additional_pages ? "Doxly was unable to add the documents listed below to a signature packet for #{@recipient_name}." : "Doxly was unable to send a signature packet to #{@recipient_name}"%>
+Support has been notified and are looking into the issue now. Please contact us at support@doxly.com if further assistance is needed.
+
+Recipient: <%= @recipient_name %>
+<% if @copy_to %>
+  COPY TO: <%= @copy_to %>
+<% end %>
+<% if @message.present? %>
+  MESSAGE:
+  <%= @message %>
+<% end %>
+
+<%= @method_text %> Packet
+
+<% @document_objects.each do |document_object| %>
+  <%= document_object[:name] %><%= "(signature only)" if document_object[:signature_only] %>
+<% end %>
+
+<% if @attached_for_review_only.any? %>
+  ATTACHED FOR REVIEW ONLY
+  <% @attached_for_review_only.each do |name| %>
+    <%= name %>
+  <% end %>
+<% end %>

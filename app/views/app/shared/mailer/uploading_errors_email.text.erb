@@ -1,0 +1,8 @@
+Unfortunately, the following document(s) failed to upload to the <%= @deal.title %> deal within Doxly.
+
+<% @errors.each do |key, value| %>
+  <%= key %>:
+  <%= Array(value).join(', ') %>
+<% end %>
+
+Please try again. If you continue to experience issues, please contact Doxly support at <%= Doxly.config.support_email %>.

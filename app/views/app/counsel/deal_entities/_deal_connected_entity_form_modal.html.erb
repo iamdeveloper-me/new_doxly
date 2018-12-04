@@ -1,0 +1,8 @@
+<% title ||= nil %>
+
+<%= render :layout => 'shared/single_button_modal', :locals => { :title => title } do %>
+  <%= render "app/shared/entities/search_bar" %>
+  <div class="entities-list">
+    <%= render 'app/counsel/deal_entities/deal_connected_entity_form' %>
+  </div>
+<% end %>

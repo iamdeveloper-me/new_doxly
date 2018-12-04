@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 22</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="10" cy="10" r="10"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Deals-/-Deal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Deal---Overview@2x" transform="translate(-210.000000, -631.000000)">
+            <g id="Activity" transform="translate(200.000000, 230.000000)">
+                <g id="Group-2" transform="translate(0.000000, 396.000000)">
+                    <g id="Group-22" transform="translate(10.000000, 5.000000)">
+                        <use id="Oval" stroke-opacity="0.195029438" stroke="#000000" mask="url(#mask-2)" stroke-width="2" fill="#98D5CC" xlink:href="#path-1"></use>
+                        <path d="M16.4046875,7.42773438 C16.5042969,7.33398438 16.5042969,7.1640625 16.4046875,7.0703125 L14.6527344,5.31835938 C14.5589844,5.22460938 14.3890625,5.22460938 14.2953125,5.31835938 L8.975,10.6503906 L6.6546875,8.31835938 C6.5609375,8.22460938 6.39101562,8.22460938 6.29726562,8.31835938 L4.5453125,10.0703125 C4.44570312,10.1640625 4.44570312,10.3339844 4.5453125,10.4277344 L8.79335937,14.6816406 C8.85195312,14.7226562 8.9046875,14.7519531 8.975,14.7519531 C9.0453125,14.7519531 9.09804687,14.7226562 9.15664062,14.6816406 L16.4046875,7.42773438 Z" id="check" fill="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

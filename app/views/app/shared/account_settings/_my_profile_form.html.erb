@@ -1,0 +1,4 @@
+<%= render "app/shared/errors", :errors => current_user.errors.full_messages %>
+<%= form_for current_user, :url => my_profile_path, :method => :put, :html => { :multipart => true } do |f| %>
+  <%= render "app/shared/change_settings_form", :form => f, :cancel_path => "App.Helpers.navigateTo('#{app_root_path}')", :entity_user => current_entity_user %>
+<% end %>

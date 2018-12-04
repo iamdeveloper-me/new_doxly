@@ -1,0 +1,12 @@
+<%
+  path = current_path
+%>
+
+<% content_for :navbar_bottom do %>
+  <ul class="nav nav-tabs deal-tabs" role="tablist">
+    <li role="presentation" class="<%= 'active' if path == licenses_path %> deal-tab"><a href="<%= licenses_path %>">Licenses</a></li>
+    <li role="presentation" class="<%= 'active' if path == docusign_settings_path %> deal-tab"><a href="<%= docusign_settings_path %>">Organization DocuSign Settings</a></li>
+    <li role="presentation" class="<%= 'active' if path == entity_profile_path %> deal-tab"><a href="<%= entity_profile_path %>">Profile</a></li>
+  </ul>
+<% end %>
+<%= render "shared/top_navs/index", title: 'Organization Settings' %>

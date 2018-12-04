@@ -1,0 +1,55 @@
+<div>
+  <h2 class="first add-signature-group-title">Add Signature Groups To <%= @tree_element.name %></h2>
+  <br />
+  <div class="add-signature-group-list whiteout-ui">
+    <% @signature_groups.each do |signature_group| %>
+    <div class="add-signature-group toggle" id="add-signature-group-<%=signature_group.id%>">
+      <div class="top-bar">
+        <div class="signature-group-name">
+          <div class="expand-toggle toggle-trigger"></div>
+          <div><%= signature_group.name %></div>
+        </div>
+        <div class="add-button">
+          <% if @tree_element.signature_groups.include?(signature_group) %>
+            Already Added
+          <% else %>
+            <%= link_to "Add", deal_category_tree_element_tree_element_signature_groups_path(@deal, @deal.closing_category, @tree_element, signature_group_id: signature_group.id), method: :post, remote: true, :class => "button mini button-primary" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="children">
+        <% if signature_group.signature_entities.any? || signature_group.signing_capacities.any? %>
+          <% if signature_group.signature_entities.any? %>
+            <% signature_group.signature_entities.each do |signature_entity| %>
+              <div class="name">
+                <div class="ellipsize with-tooltip">
+                  <div><%= signature_entity.name %></div>
+                </div>
+                <% if signature_entity.descendants.any? %>
+                  <% signature_entity.descendants.each do |signature_entity_descendant| %>
+                    <div class="ellipsize with-tooltip">
+                      <div><%= signature_entity_descendant.name %></div>
+                    </div>
+                  <% end %>
+                <% end %>
+                <% signature_entity.all_signing_capacities.each do |signing_capacity| %>
+                  <div class="note gray"><i class="mdi mdi-subdirectory-arrow-right"></i> <%= signing_capacity.name %></div>
+                <% end %>
+              </div>
+            <% end%>
+          <% end %>
+          <% if signature_group.signing_capacities.any? %>
+            <% signature_group.signing_capacities.each do |signing_capacity| %>
+              <div class="name">
+                <div class="ellipsize with-tooltip"><%= signing_capacity.name %></div>
+              </div>
+            <% end %>
+          <% end %>
+        <% else %>
+          <div class="name">No users</div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

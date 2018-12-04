@@ -1,0 +1,2 @@
+class OriginalCustomPageAwsFile < AwsFile
+end

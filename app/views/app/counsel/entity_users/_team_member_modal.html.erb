@@ -1,0 +1,11 @@
+<%
+  title = ''
+  unless current_entity.id == @entity.id
+    title = "#{@entity.name} - "
+    title += 'Add ' if @entity_user.new_record?
+  end
+  title += @entity_user.new_record? ? 'New Team Member' : 'Edit Team Member'
+%>
+<%= render :layout => 'shared/modal', :locals => { :title => title } do %>
+  <%= render 'entity_users/team_member_form' %>
+<% end %>

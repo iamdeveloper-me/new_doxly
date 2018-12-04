@@ -1,0 +1,60 @@
+<%
+  path                 = @deal.new_record? ? deals_path : deal_path(@deal)
+  method               = @deal.new_record? ? :post : :put
+  projected_close_date = @deal.new_record? ? '' : @deal.projected_close_date&.strftime('%m/%d/%Y')
+%>
+<div class="people-list">
+  <%= render "app/shared/errors", :errors => @deal.errors.full_messages %>
+  <%= form_for @deal, :url => path, :method => method do |f| %>
+    <div class="form-group <%= f.object.errors[:title].present? ? "has-error" : ""%>">
+      <label for="title">Deal Title</label>
+      <%= f.text_field :title, :class => "form-control", :placeholder => "Title" %>
+    </div>
+    <div class="form-group <%= f.object.errors[:projected_close_date].present? ? "has-error" : ""%>">
+      <label for="projected_close_date">Projected Close Date</label>
+      <%= f.text_field :projected_close_date, :value => projected_close_date, :class => "form-control datepicker", :placeholder => "Projected Close Date" %>
+    </div>
+    <div class="form-group <%= f.object.errors[:transaction_type].present? ? "has-error" : ""%>">
+      <label for="transaction_type">Transaction Type</label>
+      <%= f.select :deal_type_id, @deal_types.map{ |d| ["#{d.name}", d.id] }, {}, { :class => 'selectpicker show-tick select-border-radius form-control' } %>
+    </div>
+    <div class="form-group <%= f.object.errors[:deal_size].present? ? "has-error" : ""%>">
+      <label for="deal_size">Deal Size</label>
+      <%= f.text_field :deal_size, :class => "form-control", :placeholder => "Deal Size", data: {autonumeric: {aSign: '$ ', vMin: '0', vMax: '9999999999', aPad: false, wEmpty: 'focus'}} %>
+    </div>
+    <div class="form-group optional">
+      <label for="client_matter_number">Client Matter Number</label>
+      <%= f.text_field :client_matter_number, :class => "form-control", :placeholder => "Client Matter Number" %>
+    </div>
+    <div class="checkbox form-group margin-bottom-0 margin-top-15">
+      <label>
+        <%= f.check_box :use_deal_email, {class: "use-deal-email-checkbox"} %> <b>Use Deal Email</b>
+      </label>
+    </div>
+    <div class="form-group optional use-deal-email <%= f.object.errors[:deal_email].present? ? "has-error" : ""%>">
+      <div class="form-field explanation">A custom deal email address can be created by typing in the box below. For example: Inputting "Deal42" would create "<%= Doxly.config.deal_email_beginning %>Deal42<%= Doxly.config.deal_email_ending %>"</div>
+      <div class="form-field warning">Warning: Once set, the deal email address cannot be changed. If left blank, the email can be set at a later time.</div>
+      <div class="use-deal-email-fields">
+       <div><%= Doxly.config.deal_email_beginning %></div>
+       <div><%= f.text_field :deal_email, :class => "form-control deal-email", :disabled => @deal.deal_email.nil? || @deal.deal_email_changed? ? false : true %></div>
+       <div><%= Doxly.config.deal_email_ending %></div>
+     </div>
+    </div>
+    <% if @current_entity.can?('R', :data_room) %>
+      <div class="checkbox form-group margin-bottom-10 margin-top-15">
+        <label>
+          <%= f.check_box :has_diligence %> <b>Include Data Room</b>
+        </label>
+        <div class="form-field explanation">Data room is used to store due-diligence documents</div>
+      </div>
+    <% end %>
+    <div class="checkbox form-group margin-bottom-10 margin-top-15">
+      <label>
+        <%= f.check_box :has_voting_threshold, disabled: @deal.persisted? ? !@deal.can_toggle_voting_threshold? : false %> <b>Enable Voting Thresholds</b>
+      </label>
+      <div class="form-field explanation">Voting threshold is used to setup and track the percentage of shares that must be met on each document requiring a voting threshold in the deal.</div>
+    </div>
+
+    <%= hidden_field_tag :redirect_to, params[:page] %>
+  <% end %>
+</div>

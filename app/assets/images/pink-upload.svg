@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="108" height="109" viewBox="0 0 108 109">
+    <defs>
+        <filter id="a" width="110.1%" height="110.9%" x="-5.1%" y="-5.1%" filterUnits="objectBoundingBox">
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <circle id="c" cx="36" cy="36" r="36"/>
+        <filter id="b" width="118.1%" height="118.1%" x="-9%" y="-7.6%" filterUnits="objectBoundingBox">
+            <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd" filter="url(#a)" transform="translate(-222 -77)">
+        <g transform="translate(240 93)">
+            <use fill="#000" filter="url(#b)" xlink:href="#c"/>
+            <use fill="#E64A6B" xlink:href="#c"/>
+        </g>
+        <path stroke="#FFF" stroke-linecap="round" stroke-width="2" d="M276.441 138v-27.882"/>
+        <path fill="#FFF" d="M276.409 103.5l12.236 12.236c1.17 1.17.772 2.118-.873 2.118h-22.727c-1.652 0-2.038-.952-.873-2.118L276.41 103.5z"/>
+        <path stroke="#FFF" stroke-linecap="round" stroke-width="2" d="M286.5 127.5h5.49a2 2 0 0 1 2.01 1.995v15.51c0 1.102-.89 1.995-2 1.995h-32c-1.105 0-2-.889-2-1.995v-15.51c0-1.102.89-1.995 2.01-1.995h5.49"/>
+    </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>_workspace</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="_workspace">
+            <g id="Group-3" transform="translate(0.000000, 3.000000)">
+                <g id="Group" transform="translate(1.000000, 0.000000)">
+                    <path d="M3,0 L13,0 L18,5 L18,9 L0,9 L0,3 L0,3 L0,3 C-2.02906125e-16,1.34314575 1.34314575,7.48448398e-16 3,4.4408921e-16 Z" id="Rectangle" fill="#FFA000"></path>
+                    <path d="M2,4.99982024 L36,4.99982024 L36,4.99982024 C37.1045695,4.99982024 38,5.89525074 38,6.99982024 L38,13.9998202 L0,13.9998202 L0,6.99982024 L4.88498131e-15,6.99982024 C4.74971056e-15,5.89525074 0.8954305,4.99982024 2,4.99982024 Z" id="Rectangle-62" fill="#FDC620"></path>
+                </g>
+                <g id="Group-2" transform="translate(0.000000, 15.000000)">
+                    <path d="M0,-5.15143483e-14 L40,-5.15143483e-14 L40,18 L40,18 C40,19.1045695 39.1045695,20 38,20 L2,20 L2,20 C0.8954305,20 1.3527075e-16,19.1045695 0,18 L0,-5.15143483e-14 Z" id="Rectangle-62" fill="#225582"></path>
+                    <rect id="Rectangle-16" fill="#FFFFFF" x="15" y="5" width="10" height="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

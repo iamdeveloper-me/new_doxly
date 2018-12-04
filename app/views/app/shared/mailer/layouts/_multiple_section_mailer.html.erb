@@ -1,0 +1,60 @@
+<% @email_body = capture do %>
+  <container class="content flat-bottom">
+    <row>
+      <columns>
+        <container class="title-container">
+          <% if @title.present? %>
+            <row>
+              <columns>
+                <center>
+                  <%= @image %>
+                  <h1></h1>
+                  <h1><%= @title %></h1>
+                </center>
+              </columns>
+            </row>
+          <% end %>
+        </container>
+      </columns>
+    </row>
+    <row class="content-text">
+      <columns>
+        <center>
+          <row>
+            <p class="left"><%= @content_one %></p>
+          </row>
+        </center>
+      </columns>
+    </row>
+  </container>
+  <% if @content_two %>
+    <spacer size="4"></spacer>
+    <container class="content flat-top">
+      <row class="content-text">
+        <columns>
+          <center>
+            <row>
+              <p class="left"><%= @content_two %></p>
+            </row>
+          </center>
+        </columns>
+      </row>
+    </container>
+  <% end %>
+  <% if @content_three %>
+    <spacer size="4"></spacer>
+    <container class="content flat-top">
+      <row class="content-text">
+        <columns>
+          <center>
+            <row>
+              <p class="left"><%= @content_three %></p>
+            </row>
+          </center>
+        </columns>
+      </row>
+    </container>
+  <% end %>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/mailer' %>

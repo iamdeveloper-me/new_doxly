@@ -1,0 +1,10 @@
+<%
+  path = remind_signer_deal_signature_packets_path(@deal, user_id: @user.id, tooltip_id: "tooltip_content_#{@user.id}")
+%>
+
+<%= form_tag path, {:method => :post, :remote => true, :class => 'no-turboboost'} do %>
+  <div class="form-group explanation">
+    <div class="form-field explanation">Remind <span><%= @user.name %> (<%= @user.email %>)</span> to sign their signature packet.</div>
+  </div>
+  <%= render 'app/shared/custom_message' %>
+<% end %>

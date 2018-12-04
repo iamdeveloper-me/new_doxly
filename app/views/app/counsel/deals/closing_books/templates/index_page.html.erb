@@ -1,0 +1,119 @@
+<%
+  closing_book_sections ||= nil
+  enable_links ||= false
+  font ||= "Times New Roman"
+  font_size ||= 12
+  font_size_in_rem = font_size/10.0-0.2
+%>
+<html>
+<head>
+  <style>
+    /* to be included in the PDF, styles have to be inline or have absolute references */
+    #index-page {
+      width: 90%;
+      margin: auto;
+      font-family: <%= font %>;
+      font-size: <%= "#{font_size_in_rem}rem" %>;
+    }
+
+    .title {
+      padding-left: 48px;
+      font-size: <%= "#{font_size_in_rem*2}rem" %>;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    .closing-book-sections {
+      padding-left: 20px;
+    }
+
+    .closing-book-section {
+      padding: 16px 0;
+      font-weight: bold;
+    }
+
+    .closing-book-document {
+      padding: 8px 0 8px 20px;
+    }
+
+    .section-numbering-column {
+      width: 48px;
+    }
+
+    .name-column {
+      width: 480px;
+    }
+
+    .document-numbering-column {
+      width: 128px;
+      text-align: right;
+    }
+
+    .header {
+      color: #757575;
+      padding-bottom: 5px;
+    }
+
+    .section {
+      font-weight: bold;
+      padding: 12px 0;
+    }
+
+    .document {
+      padding: 5px 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    td {
+      font-size: <%= "#{font_size_in_rem}rem" %>; /* Chrome's user agent stylesheet sets an explicit font size on td, so we must override */
+    }
+  </style>
+</head>
+<body>
+  <div id="index-page">
+    <br />
+    <h3 class='title'>Table of Contents</h3>
+    <table>
+      <tr>
+          <td class='section-numbering-column header'></td>
+          <td class='name-column header'>Document</td>
+          <td class='document-numbering-column header'>Tab #</td>
+      </tr>
+      <% closing_book_sections.each do |closing_book_section| %>
+        <%
+          has_children = closing_book_section.closing_book_documents&.first
+          should_link = enable_links && has_children
+          link_location = should_link ? "#{closing_book_section.closing_book_documents.first.tab_number}_#{sanitize_filename(closing_book_section.closing_book_documents.first.name)}.pdf" : ""
+        %>
+        <tr>
+            <td class='section-numbering-column section'>
+              <%= link_to_if should_link, "#{closing_book_section.position.to_roman}.", link_location %>
+            </td>
+            <td class='name-column section'>
+              <%= link_to_if should_link, closing_book_section.name, link_location %>
+            </td>
+            <td class='document-numbering-column section'>
+            </td>
+        </tr>
+        <% closing_book_section.closing_book_documents.each do |closing_book_document| %>
+          <tr>
+            <td class='section-numbering-column document'></td>
+            <td class='name-column document'>
+              <%= link_to_if enable_links, closing_book_document.name, "#{closing_book_document.tab_number}_#{sanitize_filename(closing_book_document.name)}.pdf" %>
+            </td>
+            <td class='document-numbering-column document'>
+              <%= link_to_if enable_links, closing_book_document.tab_number, "#{closing_book_document.tab_number}_#{sanitize_filename(closing_book_document.name)}.pdf" %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+</body>
+</html>

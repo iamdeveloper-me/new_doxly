@@ -1,0 +1,216 @@
+// section
+$col-section-fg: $col-dark-gray;
+$col-section-bg: $col-blue-light;
+$col-section-bg-hover: $col-gray-light;
+$col-section-action: $col-gray;
+$col-section-action-hover: $col-dark-gray;
+$section-indent: 0px;
+$section-height: 40px;
+$section-empty-indent: 20px;
+
+// task
+$col-task-bg: transparent;
+$task-indent: 60px;
+$task-height: 40px;
+$task-empty-indent: 50px;
+
+// folder
+$folder-indent: 80px;
+$folder-height: 30px;
+$folder-empty-indent: 70px;
+
+// document
+$document-height: 30px;
+
+.section {
+  display: flex;
+  flex-direction: column;
+  .header {
+    min-width: 0;
+    color: $col-section-fg;
+    background: $col-section-bg;
+    border-bottom: 1px solid $col-border;
+    display: flex;
+    align-items: center;
+    height: $section-height;
+    &:hover {
+      background: $col-section-bg-hover;
+    }
+    .title {
+      flex-grow: 1;
+      flex-shrink: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 10px 10px 10px 0;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      min-width: 0;
+    }
+    .badges {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+
+      .attach-icon {
+        height: 13px;
+        width: 12px;
+        background: url(image_path("icon-attach.svg")) no-repeat;
+        margin: 0 5px 0 5px;
+      }
+
+      .badge-chat:after {
+        background: white;
+      }
+    }
+    .actions {
+      display: flex;
+      a {
+        color: $col-section-action;
+        margin-right: 7px;
+        &:hover {
+          color: $col-section-action-hover;
+        }
+      }
+    }
+  }
+  .children {
+    display: none;
+    .empty {
+      padding: 15px 10px 15px $section-empty-indent;
+    }
+    .task {
+      box-shadow: inset 0px -1px 0px 0px $col-gray-very-light;
+      background: $col-green-light-3;
+      .header {
+        padding-left: $section-indent;
+        background: $col-task-bg;
+        padding: 10px;
+        border: none;
+        height: $task-height;
+        .expand-toggle {
+          background: url(image_path("collapsed-large.svg")) no-repeat;
+        }
+        .title {
+          @extend %clearfix;
+          cursor: pointer;
+          text-transform: none;
+          font-weight: normal;
+          letter-spacing: normal;
+          padding: 0px;
+          font-size: 16px;
+        }
+        .badges {
+
+        }
+      }
+      .children {
+        .empty {
+          padding: 10px 15px 20px $task-empty-indent;
+        }
+        .folder {
+          .header {
+            padding: 0px 10px 0px 30px;
+            height: $folder-height;
+            .expand-toggle {
+              background: url(image_path("collapsed-small.svg")) no-repeat;
+            }
+            .title {
+              font-size: 12px;
+            }
+          }
+          .children {
+            .empty {
+              padding: 5px 10px 10px $folder-empty-indent;
+              font-size: 12px;
+            }
+            .document {
+              .header {
+                padding-left: $folder-indent;
+              }
+            }
+            .deal-element-add-item {
+              padding-left: $folder-indent;
+            }
+          }
+        }
+        .document {
+          .header {
+            height: $document-height;
+            padding: 0px 6px 0px $task-indent;
+            .icon {
+              background: url(image_path("icon-file.svg")) no-repeat;
+              background-position: center;
+            }
+            .title {
+              font-size: 12px;
+            }
+          }
+        }
+        .deal-element-add-item {
+          padding-left: $task-indent;
+        }
+      }
+    }
+    .deal-element-add-item {
+      padding-left: $section-indent;
+    }
+  }
+}
+
+.filter {
+  display: none;
+}
+
+.deal-item-active {
+  & > .header > .badges {
+    .badge-chat:after {
+      background: $col-blue !important;
+    }
+  }
+  &.task {
+    > .header {
+      background: $col-blue !important;
+      > .title {
+        color: $col-milk;
+      }
+      > .expand-toggle {
+        background: url(image_path("collapsed-large-white.svg")) no-repeat !important;
+      }
+    }
+  }
+  &.folder {
+    > .header {
+      background: $col-blue !important;
+      > .title {
+        color: $col-milk;
+      }
+      > .expand-toggle {
+        background: url(image_path("collapsed-small-white.svg")) no-repeat !important;
+      }
+    }
+  }
+  &.document {
+    > .header {
+      background: $col-blue !important;
+      > .title {
+        color: $col-milk;
+      }
+    }
+  }
+}
+
+.print-only-deal-name {
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px 0px 10px;
+  background: rgb(238, 238, 238);
+  color: rgb(97, 97, 97); // Note: these colors are saved for use in React, but not currently for use in Rails
+
+  @media not print {
+    display: none;
+  }
+}

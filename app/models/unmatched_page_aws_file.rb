@@ -1,0 +1,2 @@
+class UnmatchedPageAwsFile < AwsFile
+end

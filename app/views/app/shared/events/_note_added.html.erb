@@ -1,0 +1,22 @@
+<%
+  note = event.eventable
+%>
+<div class="section-info">
+  <div class="note-info">
+    <div class="note-title"><%= note.noteable.try(:name) || note.noteable.try(:title) %></div>
+    <div class="note-date"><%= note.created_at.strftime("%-m/%d/%Y") %></div>
+  </div>
+</div>
+<div class="section-details">
+  <div class="section-details__note note-to">
+    <div class="note-avatar"><%= render 'app/shared/user', user: note.entity_user.user, avatar_size: 'medium', avatar_only: true %></div>
+    <div class="note-message-container">
+      <div class="note-name">
+        <%= note.entity_user.name %>
+      </div>
+      <div class="note-message">
+        <%= note.text %>
+      </div>
+    </div>
+  </div>
+</div>

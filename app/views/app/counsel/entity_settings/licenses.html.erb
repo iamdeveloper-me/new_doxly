@@ -1,0 +1,90 @@
+<%
+  @page_wrapper_class ||= "navbar-double"
+%>
+
+<%= render 'shared/top_navs/entity_settings' %>
+
+<div class="content">
+  <div class="padded-content">
+    <div class="container-fluid">
+      <div class="panel panel-default licenses-table-active">
+        <div class="panel-heading licenses-title">
+          Active License
+        </div>
+        <div class="panel-body">
+          <div class="licenses-info">
+            <% if current_entity.licenses.where(:ended_on => nil).count == 0 %>
+              <p>No active license.</p>
+            <% else %>
+              <% current_entity.licenses.where(:ended_on => nil).each do |active| %>
+                <div class="deals-used <%= current_entity.deals.where(:created_at => active.start_date..active.end_date).count >= active.deal_count ? 'red' : '' %>">
+                  <span class="big">
+                    <% if current_entity.deals.where(:created_at => active.start_date..active.end_date).count >= active.deal_count %>
+                      <%= current_entity.deals.where(:created_at => active.start_date..active.end_date).count %> / <%= active.deal_count %>
+                    <% else %>
+                      <%= current_entity.deals.where(:created_at => active.start_date..active.end_date).count %> / <%= active.deal_count %>
+                    <% end %>
+                  </span>
+                  <div class="deals-used-text">
+                    deals used
+                  </div>
+                </div>
+                <div class="valid-from">
+                  <span class="big"><%= active.start_date.strftime("%-m/%-d/%Y") %></span>
+                  <div class="valid-from-text">
+                    Valid from
+                  </div>
+                </div>
+                <div class="valid-to">
+                  <span class="big"><%= active.end_date.strftime("%-m/%-d/%Y") %></span>
+                  <div class="valid-to-text">
+                    Valid to
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default licenses-table-past">
+        <div class="panel-heading licenses-title">
+          Past Licenses
+        </div>
+        <div class="panel-body">
+          <% if current_entity.licenses.where.not(:ended_on => nil).count == 0 %>
+            <p>No past licenses.</p>
+          <% else %>
+            <div class="past-licenses-header">
+              <div class="deals-used-text border">
+                Deal count
+              </div>
+              <div class="valid-from-text border">
+                Valid from
+              </div>
+              <div class="valid-to-text border">
+                Valid to
+              </div>
+            </div>
+            <% current_entity.licenses.where.not(:ended_on => nil).each do |past| %>
+              <div class="licenses-info">
+                <div class="deals-used <%= current_entity.deals.where(:created_at => past.start_date..past.end_date).count > past.deal_count ? 'red' : '' %>">
+                  <% if current_entity.deals.where(:created_at => past.start_date..past.end_date).count > past.deal_count %>
+                    <%= current_entity.deals.where(:created_at => past.start_date..past.end_date).count %> / <%= past.deal_count %>
+                  <% else %>
+                    <%= current_entity.deals.where(:created_at => past.start_date..past.end_date).count %> / <%= past.deal_count %>
+                  <% end %>
+                </div>
+                <div class="valid-from">
+                  <b><%= past.start_date.strftime("%-m/%-d/%Y") %></b>
+                </div>
+                <div class="valid-to">
+                  <b><%= past.ended_on.strftime("%-m/%-d/%Y") %></b>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

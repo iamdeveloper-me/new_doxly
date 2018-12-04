@@ -1,0 +1,8 @@
+<%
+  disable_submit      = @version.nil? || @version.page_count.nil?
+  submit_button_label = disable_submit ? "Done" : "Next"
+%>
+
+<%= render :layout => 'shared/modal', :locals => { :title => 'Choose Page From Document', :disable_submit => disable_submit, :submit_button_label => submit_button_label, :modal_class => 'semi-large choose-from-document-modal' } do %>
+  <%= render 'choose_from_document_form' %>
+<% end %>

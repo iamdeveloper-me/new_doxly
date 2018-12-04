@@ -1,0 +1,15 @@
+<%
+  is_counsel_hidden ||= nil
+  %>
+<div class="form-group <%= form.object.errors[:name].present? ? "has-error" : ""%>">
+  <label for="name">Organization Name</label>
+  <%= form.text_field :name, {:class => "form-control", :placeholder => "Organization Name"} %>
+</div>
+<% if is_counsel_hidden %>
+  <%= form.hidden_field :is_counsel, :value => is_counsel_value  %>
+<% else %>
+  <div class="form-group <%= form.object.errors[:is_counsel].present? ? "has-error" : ""%>">
+    <label for="is_counsel">Is this a Law Firm?</label>
+    <%= form.select :is_counsel, [['Yes', true], ['No', false]], { :include_blank => 'Please select...' }, { :class => 'selectpicker show-tick select-border-radius form-control btn-group bootstrap-select' } %>
+  </div>
+<% end %>

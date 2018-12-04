@@ -1,0 +1,6 @@
+<%
+  title ||= nil
+%>
+<%= render :layout => 'shared/modal', :locals => { :title => title } do %>
+  <%= render 'new_role_form' %>
+<% end %>

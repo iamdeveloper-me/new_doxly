@@ -1,0 +1,19 @@
+<% wrap_class = using_subdomain? ? "wrap-medium" : "wrap-narrow" %>
+<div class="sign-in-wrapper">
+  <div class="<%= wrap_class %>">
+    <div class="box-middle">
+      <div class="inner">
+        <div class="center-logo"><a href="#"><%= image_tag "logo.png" %></a></div>
+        <% if is_browser_supported? %>
+          <% if using_subdomain? %>
+            <%= render 'sso_sign_in' %>
+          <% else %>
+            <%= render 'app_sign_in' %>
+          <% end %>
+        <% else %>
+          <%= render 'unsupported_browser' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

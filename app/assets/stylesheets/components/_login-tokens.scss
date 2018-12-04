@@ -1,0 +1,21 @@
+.login-tokens {
+  background: $col-milk;
+  height:100%;
+  width:100%;
+
+  .alert-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .alert-icon {
+      color: $col-pink;
+      font-size: 16px;
+      margin-right: 12px;
+    }
+
+    .alert-text {
+      font-size: 16px;
+    }
+  }
+}

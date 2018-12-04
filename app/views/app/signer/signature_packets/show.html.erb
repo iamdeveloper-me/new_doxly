@@ -1,0 +1,105 @@
+<%
+  processing_jobs = @signature_packet.docusign_envelope_id ? [] : Delayed::Job.where("handler LIKE '%gid://doxly/SignaturePacket/#{@signature_packet.id}%'").where(queue:"process_manual_signatures")
+  processing = (processing_jobs.any? && !processing_jobs.all? {|delayed_job| delayed_job.failed_at.present?})
+
+  is_docusign = @signature_packet.docusign_envelope_id.present?
+%>
+<%= render 'signer_nav_bar' %>
+<% content_for :back_button do %>
+  <% deal = @signature_packet.deal %>
+  <%= link_to deal_signature_packets_signature_packets_path(deal_id: deal.id) do %>
+    <div class="return-button">
+      <%= image_tag 'ic-return.svg' %>
+    </div>
+    <div class="return-text">
+      View all packets in <%= deal.title %>
+    </div>
+  <% end %>
+<% end %>
+<%= render 'shared/top_mobile', hidden: true %>
+<div class="content">
+  <div class="packet">
+    <div class="actions">
+      <%= link_to deal_signature_packets_signature_packets_path(deal_id: @signature_packet.deal.id), class: "back-link" do %>
+        <%= image_tag 'ic-return.svg' %> View all packets in "<%= @signature_packet.deal.title %>"
+      <% end %>
+      <% if !processing %>
+        <% if @signature_packet.all_pages_signed? %>
+          <div class="buttons">
+            <%= link_to signature_packet_view_completed_packet_path(@signature_packet), remote: true, class: "btn review-btn" do %>
+              Print & download signatures
+            <% end %>
+          </div>
+        <% else %>
+          <div class="buttons">
+            <%= link_to is_docusign ? "Sign electronically" : "Sign manually", signature_packet_sign_packet_path(@signature_packet, redirect: 'show'), class: "btn pink-btn" %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="buttons">
+          Packet Processing
+        </div>
+      <% end %>
+    </div>
+    <div class="data">
+      <div class="documents">
+        <% all_tree_elements = @signature_packet.signature_pages.map {|sp| sp.tree_element } %>
+        <% @signature_packet.signature_packet_review_documents.each do |signature_packet_review_document| %>
+          <% tree_element = signature_packet_review_document.tree_element # can be nil, it's ok. Will be nil for all signature_packet_review_documents that were uploaded from the desktop %>
+          <%= link_to signature_packet_signature_packet_review_document_view_document_path(@signature_packet, signature_packet_review_document), remote: true do %>
+            <div class="document">
+              <div class="icon"></div>
+              <div class="name-container">
+                <div class="name"><%= signature_packet_review_document.name %></div>
+                <% if all_tree_elements.select {|te| te == tree_element }.length > 1 %>
+                  <div class="signature-group-names" >
+                    Signing as <%= tree_element.signature_groups.map(&:all_signing_capacities).flatten.select{|sgu| sgu.user == current_user}.map{|sgu| sgu.get_signature_group.name}.join(', ') %>
+                  </div>
+                <% end %>
+              </div>
+              <%
+                if tree_element
+                  pages = tree_element.signature_pages.joins(:signature_packet_signature_page_collection).where("signature_packet_signature_page_collections.signature_packet_id = ?", @signature_packet.id)
+                else
+                  pages = []
+                end
+              %>
+              <% if pages.any? && pages.all?{|page| page.complete?} %>
+                <div class="signed">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="document-selector">
+        <div class="document-selector-title">Documents in Signature Packet</div>
+        <div class="form-group">
+          <select id="document-selector" multiple data-max-options="1" title="Choose a Document" class="selectpicker select-border-radius form-control btn-group bootstrap-select">
+            <% @signature_packet.signature_packet_review_documents.each do |signature_packet_review_document| %>
+              <option value="<%= signature_packet_signature_packet_review_document_view_document_path(@signature_packet, signature_packet_review_document) %>"><%= signature_packet_review_document.name %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+      <div class="document-viewer">
+        <div class="empty">
+          <i class="fa fa-file-text fa-3x" aria-hidden="true"></i>
+          No Document Selected
+        </div>
+      </div>
+      <div class="mobile-actions">
+        <% if @signature_packet.all_pages_signed? %>
+          <div class="buttons">
+            <%= link_to "Review signatures", signature_packet_path(@signature_packet, redirect: 'show'), class: "btn review-btn" %>
+          </div>
+        <% else %>
+          <div class="buttons">
+            <%= link_to is_docusign ? "Sign electronically" : "Sign manually", signature_packet_sign_packet_path(@signature_packet, redirect: 'show'), class: "btn pink-btn" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

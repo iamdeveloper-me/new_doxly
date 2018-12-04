@@ -1,0 +1,5 @@
+<%= form_for @template, :url => apply_deal_category_deal_template_path(@deal, @category, @template), :method => :get do |f| %>
+  <% hidden_field(:template, :id) %>
+  <div class="title">Are you sure you want to apply template "<%= @template.name %>"?</div>
+  <div class="content">Any changes you've made to your existing <%= @category.is_diligence? ? "diligence" : "closing" %> checklist, including documents uploaded, will be lost.</div>
+<% end %>

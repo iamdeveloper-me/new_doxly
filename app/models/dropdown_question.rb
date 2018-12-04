@@ -1,0 +1,2 @@
+class DropdownQuestion < Question
+end

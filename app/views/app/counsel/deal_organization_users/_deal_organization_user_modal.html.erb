@@ -1,0 +1,6 @@
+<%
+  title ||= nil
+%>
+<%= render :layout => 'shared/modal', :locals => { :title => title } do %>
+  <%= render 'app/counsel/deal_organization_users/deal_organization_user_form' %>
+<% end %>

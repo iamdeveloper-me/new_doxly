@@ -1,0 +1,116 @@
+<%= render 'signer_nav_bar' %>
+<%
+  deal                    = @signature_packet.deal
+  review_documents_length = @signature_packet.signature_packet_review_documents.length
+%>
+
+<% content_for :back_button do %>
+  <% if params[:redirect] == 'show' && review_documents_length > 0 %>
+    <% path = signature_packet_path(@signature_packet) %>
+    <% text = "Review documents in this packet" %>
+  <% else %>
+    <% path = deal_signature_packets_signature_packets_path(deal_id: deal.id) %>
+    <% text = "View all packets in #{deal.title}" %>
+  <% end %>
+  <%= link_to path do %>
+    <div class="return-button">
+      <%= image_tag 'ic-return.svg' %>
+    </div>
+    <div class="return-text">
+      <%= text %>
+    </div>
+  <% end %>
+<% end %>
+
+<%
+  pages_missing = @signature_packet.signature_pages.select{|page| !page.complete?}
+  processing_jobs = @signature_packet.docusign_envelope_id ? [] : Delayed::Job.where("handler LIKE '%gid://doxly/SignaturePacket/#{@signature_packet.id}%'").where(queue:"process_manual_signatures")
+  processing = processing_jobs.any? && !processing_jobs.all? {|delayed_job| delayed_job.failed_at.present?}
+%>
+
+<div class="flex-box-column">
+  <%= render 'shared/top_mobile' %>
+  <div class="manual-container">
+    <div class="cards">
+      <div class="title">
+        Manual Signature Required
+      </div>
+      <% if @signature_packet.upload_attempted_at && pages_missing && !processing %>
+        <div class="errors-card">
+          <div class="dark-header">
+            <div class="pages-missing-title">
+              <div class="pages-missing">
+                <%= pluralize(pages_missing.count, "Page") %> Needed
+              </div>
+            </div>
+            <div class="explanation">
+              Doxly has not received or was unable to process following pages. Please check the images are clear and readable. Upload again when ready.
+            </div>
+          </div>
+          <div class="documents">
+            <% pages_missing.each do |page| %>
+              <div class="page">
+                <div class="icon"><i class="fa fa-file-o" aria-hidden="true"></i></div>
+                <div class="name"><%= page.tree_element.name %></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="download-card">
+        <div class="left-box">
+          <div class="text">
+            Step
+          </div>
+          <div class="number">
+            1
+          </div>
+        </div>
+        <div class="right-box">
+          <div class="instructions">
+            <div class="title">
+              Download and sign pages
+            </div>
+            <div class="subtitle">
+              Download the packet to view and sign the  signature pages inside.
+            </div>
+          </div>
+          <div class="download-button-container">
+            <% if @signature_packet.unsigned_aws_file.present? %>
+              <%= link_to "Download Packet", signature_packet_download_unsigned_packet_path, download: "signature-packet-#{@signature_packet.id}.pdf", class: "btn btn-manual" %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="upload-card">
+        <div class="left-box">
+          <div class="text">
+            Step
+          </div>
+          <div class="number">
+            2
+          </div>
+        </div>
+        <div class="right-box">
+          <div class="instructions">
+            <div class="title">
+              Upload your signed pages
+            </div>
+            <div class="subtitle">
+              Upload the signed pages using the link below.
+            </div>
+          </div>
+          <div class="upload-button-container">
+            <%= link_to "Upload signed pages", signature_packet_upload_signature_pages_path(@signature_packet), remote: true, class: "btn btn-manual" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="support-message">
+        If you have trouble uploading documents, contact Doxly at <a href='mailto:support@doxly.com'> support@doxly.com</a>
+      </div>
+    </div>
+  </div>
+</div>

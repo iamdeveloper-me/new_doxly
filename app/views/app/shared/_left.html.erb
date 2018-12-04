@@ -1,0 +1,49 @@
+<%
+  top_menu_class ||= nil
+%>
+<% if current_entity&.is_counsel %>
+  <nav class="navbar-default navbar-static-side" role="navigation" class>
+    <div class="sidebar-collapse">
+      <div class="navbar-side-top <%= top_menu_class %>">
+        <div class="center-logo <%= top_menu_class %>">
+          <%= link_to app_root_path do %>
+            <% if current_entity.logo? %>
+              <%= image_tag(current_entity.logo.url, alt: current_entity.name) %>
+            <% else %>
+              <%= image_tag("logo.svg", alt: 'Doxly') %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <% if current_entity.is_counsel? %>
+        <ul class="nav" id="side-menu">
+          <li class="<%= 'active' if on_deals_tab %>" id="deals">
+             <%= link_to deals_path do %>
+                <i class="icon-icon-document"></i> Deals
+              <% end %>
+          <li class="<%= 'active' if controller_name == 'reports' %>" id="reports">
+            <%= link_to reports_path do %>
+              <i class="icon-icon-barchart"></i> Reports
+            <% end %>
+          </li>
+          <li class="<%= 'active' if ['entities', 'entity_users'].include? controller_name %>" id="people">
+            <%= link_to entity_entity_users_path(current_entity) do %>
+              <i class="icon-icon-users"></i> People
+            <% end %>
+          </li>
+          <% if current_user.non_download_signature_packets.any? && current_user.non_download_signature_packets.map(&:sent_at).any? %>
+            <li class="<%= 'active' if ['app/signer/signature_packets'].include? params[:controller] %>" id="sign">
+              <%= link_to signature_packets_path do %>
+                <i class="fa fa-pencil-square-o"></i> Signature Packets
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <div class="deals-side-panel" id="deal-side-panel">
+          <h2>STARRED DEALS</h2>
+          <%= render 'shared/deals/starred_deals' if current_entity_user.user.is_enabled %>
+        </div>
+      <% end %>
+    </div>
+  </nav>
+<% end %>

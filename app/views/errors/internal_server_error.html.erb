@@ -1,0 +1,11 @@
+<%
+  link = mail_to @help_email, t('errors.500_link_text')
+%>
+
+<% content_for :body do %>
+  <b><%= t('errors.500_main') %></b>
+  <br /><br />
+  <%= (t('errors.500_sub') % link).html_safe %>
+<% end %>
+
+<%= render 'errors/base' %>

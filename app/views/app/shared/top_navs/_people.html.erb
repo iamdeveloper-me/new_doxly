@@ -1,0 +1,14 @@
+<%
+  path = current_path
+%>
+
+<% content_for :navbar_bottom do %>
+  <ul class="nav nav-tabs deal-tabs" role="tablist">
+    <li role="presentation" class="<%= 'active' if path == entity_entity_users_path(current_entity) %> deal-tab"><a href="<%= entity_entity_users_path(current_entity) %>">Team Members</a></li>
+    <% if current_entity.can?(/C+R+U+/, :collaborators) %>
+      <li role="presentation"  class="<%= 'active' if params[:type] == "law_firm" %> deal-tab"><%= link_to 'Law Firms', entities_path(:type => 'law_firm') %></li>
+      <li role="presentation"  class="<%= 'active' if params[:type] == "party" %> deal-tab"><%= link_to 'Parties', entities_path(:type => 'party') %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= render "shared/top_navs/index", title: 'People' %>

@@ -1,0 +1,9 @@
+<%
+  events ||= nil
+  signatures_per_user = events.group_by(&:entity_user)
+%>
+<% signatures_per_user.each do |signature| %>
+  <p class="sub-list-item">
+    <b><%= "#{signature[0].user.first_name} #{signature[0].user.last_name}" %></b><%= " signed the document" %>
+  </p>
+<% end %>

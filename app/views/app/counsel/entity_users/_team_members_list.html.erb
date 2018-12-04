@@ -1,0 +1,28 @@
+
+<div class="team-list">
+  <% @entity_users.each do |entity_user| %>
+    <% user = entity_user.user %>
+    <div class="team-list-item">
+      <div class="team">
+        <%= render 'app/shared/user', user: user, subtitle: user.email, entity_user: entity_user %>
+      </div>
+      <div class="stat">
+        <div class="team-stat-item">
+          <b><%= entity_user.all_deals.active.count %></b> Active Deals
+        </div>
+        <div class="team-stat-item">
+          <b><%= entity_user.all_deals.complete.count %></b> Complete Deals
+        </div>
+      </div>
+      <div class="actions">
+        <%= link_to '', resend_invitation_entity_entity_user_path(entity_user.entity, entity_user), :class => "fa fa-envelope-o" unless entity_user.user.confirmed? %>
+        <%= link_to '', entity_entity_user_path(entity_user.entity, entity_user), :class => "fa fa-gear" %>
+      </div>
+    </div>
+  <% end %>
+  <% if @entity_users.size == 0 %>
+    <div className="no-results">
+      <div className="header">There aren't any team members to show.</div>
+    </div>
+  <% end %>
+</div>

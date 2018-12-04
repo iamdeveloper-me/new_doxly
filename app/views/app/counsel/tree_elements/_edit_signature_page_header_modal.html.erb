@@ -1,0 +1,6 @@
+<%
+  title ||= nil
+%>
+<%= render :layout => 'shared/modal', :locals => { :title => title } do %>
+  <%= render 'edit_signature_page_header_form' %>
+<% end %>

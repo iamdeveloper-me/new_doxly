@@ -1,0 +1,14 @@
+<% @title = capture do %>
+  Doxly User and Deal Feed
+<% end %>
+<% @content = capture do %>
+  <p>
+    <% if @start_date && @end_date %>
+      <b>Date Range (UTC)</b>: <%= @start_date.strftime("%a, %b %-d, %Y %l:%M%p") %> - <%= @end_date.strftime("%a, %b %-d, %Y %l:%M%p") %>
+      <br />
+    <% end %>
+    <b>Attachments</b>: <%= @feed_files.map{ |feed_file| File.basename(feed_file) }.join(', ') %>
+  </p>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

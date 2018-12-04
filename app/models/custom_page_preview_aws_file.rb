@@ -1,0 +1,2 @@
+class CustomPagePreviewAwsFile < AwsFile
+end

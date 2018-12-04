@@ -1,0 +1,20 @@
+<%
+  @page_wrapper_class ||= "navbar-double"
+%>
+
+<%= render 'shared/top_navs/settings' %>
+
+<div class="content">
+  <div class="padded-content">
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Edit My Profile
+        </div>
+        <div class="panel-body" id="account-settings-form">
+          <%= render 'my_profile_form' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

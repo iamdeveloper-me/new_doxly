@@ -1,0 +1,16 @@
+<%
+  events ||= nil
+%>
+<p>
+  <% events.each do |event_group| %>
+    <% if event_group[0] == "DEAL_CLOSED" %>
+      <%= render "app/shared/mailer/notifications/events/deal_event", events: event_group[1], event_type: "closed" %>
+    <% elsif event_group[0] == "DEAL_REOPENED" %>
+      <%= render "app/shared/mailer/notifications/events/deal_event", events: event_group[1], event_type: "reopened" %>
+    <% elsif event_group[0] == "DEAL_ARCHIVED" %>
+      <%= render "app/shared/mailer/notifications/events/deal_event", events: event_group[1], event_type: "archived" %>
+    <% elsif event_group[0] == "DEAL_UNARCHIVED" %>
+      <%= render "app/shared/mailer/notifications/events/deal_event", events: event_group[1], event_type: "unarchived" %>
+    <% end %>
+  <% end %>
+</p>

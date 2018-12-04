@@ -1,0 +1,30 @@
+<% entity = deal_entity.entity %>
+<div class="<%="deal-org-inner-#{deal_entity.id}"%>">
+  <div class="panel panel-deals-full">
+    <div class="deals-full-group">
+      <div class="deals-full-group__header">
+        <%= entity.name %> (<%= entity.is_counsel ? "Law Firm" : "Party" %>)
+        <%= link_to "Remove", deal_deal_entity_path(@deal, @deal.deal_entities.find_by(entity_id: entity.id)), method: :delete, :remote => true if deal_entity.deal_entity_users.empty? %>
+      </div>
+      <div class="deal-entity-users-list <%="org-#{entity.id}"%>">
+        <% deal_entity.deal_entity_users.each do |deal_entity_user| %>
+          <%= render "app/counsel/deal_entities/deal_entity_user", deal_entity_user: deal_entity_user, deal_entity: deal_entity %>
+        <% end %>
+      </div>
+      <% if deal_entity.deal_entity_users.empty? %>
+        <div class="padding-10 empty-user-border <%="org-#{entity.id}"%>">
+          <div className="no-results">
+            <div className="header">There aren't any users to show.</div>
+          </div>
+        </div>
+      <% end %>
+      <% disabled = (entity != current_entity && current_entity.entity_connections.find_by(connected_entity_id: entity.id)&.is_pending == true)%>
+      <div class="add-user-item <%= "disabled-user" if disabled %>">
+        <%= link_to new_deal_deal_entity_deal_organization_user_path(@deal, @deal.deal_entities.find_by(entity_id: entity.id), :entity_id => entity.id), :remote => true, class: disabled ? "disabled" : "" do %>
+          <i class="icon-icon-plus"></i>
+          Add a <%= current_entity.id == entity.id ? "Team Member" : "Collaborator" %> <span class="disabled-client-text"><%="(Party Must Confirm Connection First)" if disabled %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

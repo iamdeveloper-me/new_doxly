@@ -1,0 +1,5 @@
+<% title ||= nil %>
+<%= render :layout => 'shared/modal', :locals => { :title => title, :submit_button_label => "Add" } do %>
+  <%= render "app/shared/errors", :errors => @entity.errors.full_messages %>
+  <%= render 'app/counsel/deal_entities/add_deal_connected_entity_form' %>
+<% end %>

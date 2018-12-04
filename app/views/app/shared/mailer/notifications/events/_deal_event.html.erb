@@ -1,0 +1,7 @@
+<%
+  events ||= nil
+%>
+<% events.each do |event| %>
+  <% event_type = event.action.humanize.downcase.split(' ').second %>
+  <p class="title"><b><%= event.entity_user.name %></b><%= " #{event_type} the deal" %></p>
+<% end %>

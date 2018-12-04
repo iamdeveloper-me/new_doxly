@@ -1,0 +1,113 @@
+.whiteout-ui {
+  .button,
+  button,
+  input[type="submit"],
+  input[type="reset"],
+  input[type="button"] {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 1.15rem;
+    color: $blue;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.5rem;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    vertical-align: middle;
+    font-family: 'Roboto', sans-serif;
+    border: 0;
+    &:hover, &:focus {
+      color: $dark-blue;
+      outline: 0;
+      background-color: $light-gray;
+    }
+    &.disabled, &:disabled {
+      color: $blue!important;
+      cursor: not-allowed;
+      opacity: 0.65!important;
+    }
+    &.small {
+      font-size: 1.2rem;
+      padding: 0.9rem 1.6rem!important;
+    }
+    &.mini {
+      font-size: 1.2rem;
+      padding: 0.4rem 1.4rem!important;
+    }
+    &.button-primary {
+      color: #FFF;
+      background-color: $blue;
+      border-color: $blue;
+      border-radius: 2px;
+      padding: 1.15rem 2.0rem;
+      &:hover {
+        background-color: $dark-blue;
+        outline: 0;
+      }
+      &.disabled, &:disabled {
+        color: #FFF!important;
+        background-color: $blue!important;
+      }
+    }
+    &.button-secondary {
+      color: $blue;
+      background-color: $white;
+      border: 1px solid #CFDAE4;
+      border-radius: 2px;
+      padding: 1.15rem 2.0rem;
+      &:hover {
+        color: $blue;
+        outline: 0;
+        border-color: $blue;
+        box-shadow: 0 0 0 1px $blue;
+      }
+      &.disabled, &:disabled {
+        color: $blue!important;
+        background-color: $white!important;
+        border: 1px solid #CFDAE4!important;
+        box-shadow: none!important;
+      }
+    }
+    &.mdi {
+      padding: 1.1rem;
+      &:not(:empty) {
+        &:before {
+          padding-right: 1rem;
+          transform: scale(1.2);
+        }
+      }
+      &.small {
+        padding: 0.9rem 1rem!important;
+  
+      }
+      &.mini {
+        padding: 0.4rem 0.8rem!important;
+        &:not(:empty) {
+          &:before {
+            padding-right: 0.8rem;
+            transform: scale(1);
+          }
+        }
+      }
+    }
+    &.removal {
+      color: #ffffff;
+      background-color: $carmine;
+      border-radius: 2px;
+      &:before {
+        transform: scale(1.4)!important;
+      }
+      &:hover {
+        background-color: $error;
+      }
+    }
+    &.rounded {
+      min-width: 40px;
+      border-radius: 100%;
+      &:before {
+        transform: scale(1.5);
+      }
+    }
+  }  
+}

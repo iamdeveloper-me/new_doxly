@@ -1,0 +1,12 @@
+<%= @environment %>:
+<%
+  @settings.each do |name, value|
+    value = value.to_s
+    value = if %w{true false}.include?(value) || value =~ /^[0-9]+(\.[0-9]+)?$/
+              value
+            else
+              value.inspect
+            end
+%>
+  <%= name %>: <%= value %>
+<% end %>

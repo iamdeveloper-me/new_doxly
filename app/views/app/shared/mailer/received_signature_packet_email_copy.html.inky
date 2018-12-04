@@ -1,0 +1,13 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-sign-good.png" %>
+<% end %>
+<% @title = capture do %>
+  <%= @deal.title %>: <%= @name %> submitted a Signature Packet
+<% end %>
+<% @content = capture do %>
+  <p>
+    The signer, <%= @name %> has submitted a Signature Packet for the deal "<%= @deal.title %>".
+  </p>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

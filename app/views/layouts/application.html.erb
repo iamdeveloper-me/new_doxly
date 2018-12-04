@@ -1,0 +1,17 @@
+<%
+  @has_top_menu ||= false
+  top_menu_class  = @has_top_menu ? "navbar-double" : ""
+  controller_class = params[:controller] == "app/signer/signature_packets" ? "signing" : ""
+  controller_class += " manual-signatures" if params[:action] == "manual_signatures"
+%>
+
+<% content_for :body do %>
+  <div id="wrapper">
+    <%= render "app/shared/left", :top_menu_class => top_menu_class %>
+    <div id="page-wrapper" class="<%= top_menu_class %> <%= controller_class %>">
+      <%= yield %>
+    </div>
+  </div>
+<% end %>
+
+<%= render 'layouts/base_layout' %>

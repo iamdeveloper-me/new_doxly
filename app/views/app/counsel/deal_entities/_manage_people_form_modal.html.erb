@@ -1,0 +1,6 @@
+<%
+  title ||= nil
+%>
+<%= render :layout => 'shared/single_button_modal', :locals => { :title => title } do %>
+  <%= render 'manage_people_form' %>
+<% end %>

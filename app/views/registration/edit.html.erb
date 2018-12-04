@@ -1,0 +1,22 @@
+<div class="sign-in-wrapper">
+  <div class="wrap-narrow">
+    <div class="box-middle registration-box">
+      <div class="inner">
+        <div class="center-logo"><a href="#"><%= image_tag "logo.svg" %></a></div>
+        <div class="panel panel-window register-form">
+          <%= render 'register_form' %>
+        </div>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-5">
+            </div>
+            <div class="col-xs-7 text-right">
+              Already have an account? <%= link_to "Sign In", new_user_session_path %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

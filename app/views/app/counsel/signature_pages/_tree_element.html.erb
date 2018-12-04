@@ -1,0 +1,6 @@
+<%
+  tree_element ||= nil
+%>
+<div class="signature-tree-element document-title" id="tree-element-name-<%= tree_element.id %>" path="<%= signature_groups_deal_signature_pages_path(@deal, tree_element_id: tree_element.id) %>">
+  <div class="tree-element-names ellipsize with-tooltip"><%= tree_element.name %></div>
+</div>

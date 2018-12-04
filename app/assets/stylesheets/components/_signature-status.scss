@@ -1,0 +1,61 @@
+.tooltip-signing-status{
+  display:flex;
+  align-items: stretch;
+  min-height: 62px;
+  .left-status{
+    padding: 10px 0 10px 4px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    .sideways-status-wrapper{
+      display: inline-block;
+      overflow: hidden;
+      line-height: 1.5;
+      width: 25px;
+      .sideways-status{
+        display: inline-block;
+        white-space: nowrap;
+        transform: translate(0,100%) rotate(-90deg);
+        transform-origin: 0 0;
+        &:after{
+          content: "";
+          float: left;
+          margin-top: 100%;
+        }
+      }
+    }
+  }
+  .tooltip-body{
+    flex-basis: 200px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left:1px solid $col-box-shadow;
+    padding: 10px;
+
+    > div{
+      display: flex;
+      justify-content: center;
+      margin: 3px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .reminder-button {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      a{
+        width: 100%;
+        border-radius: 3px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .reminder-timestamp{
+        font-style: italic;
+        font-size: 9px;
+        margin-top: -2px;
+      }
+    }
+  }
+}

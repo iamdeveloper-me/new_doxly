@@ -1,0 +1,5 @@
+<% if @signature_pages.first.is_custom? %>
+  App.Modal.show('<%= escape_javascript(render("shared/view_document_modal", url: @signature_pages.first.url, title: "Custom Signature Page")) %>')
+<% else %>
+  App.Modal.show('<%= escape_javascript(render("view_signature_page_modal")) %>')
+<% end %>

@@ -1,0 +1,8 @@
+<div class="signature-column">
+  <div class="column-title">Documents</div>
+  <div class="column-container-left">
+    <% tree_elements.each do |tree_element| %>
+      <%= render 'tree_element', tree_element: tree_element %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<%= hidden_field(:deal, :id) %>
+<div class="content">
+  <div class="container-fluid signatures_container">
+    <div class="row crumbs">
+      <%= render 'app/shared/top_navs/signature_nav' %>
+    </div>
+    <div class="scroll-box">
+      <% if @tree_elements.present? %>
+        <div class="row">
+          <div class="toolbar-box category signature-management">
+            <div class="search-input-box">
+              <div class="form-group">
+                <input name="search_str" id="signature-pages-search" class="input-search form-control" placeholder="Search Documents"/>
+              </div>
+              <a class="disabled"><i class="icon-icon-search"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="row signature-pages" id="signature-pages-list">
+          <div class="content">
+            <div class="signature-page__columns-container">
+              <div class="page-settings">
+                <%= link_to deal_signature_page_settings_path(@deal), :class => "btn btn-default clear-turbolinks-cache page-settings__button", remote: true do %>
+                  <i class="fa fa-file fa-fw"></i> Edit Page Format</a>
+                <% end %>
+              </div>
+              <div class="signature-page__columns">
+                <div class="signature-column__container">
+                  <%= render 'tree_element_list', tree_elements: @tree_elements %>
+                </div>
+                <div class="signature-column__container">
+                  <%= render 'signature_group_list' %>
+                </div>
+                <div class="signature-column__container">
+                  <%= render 'signature_page' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="empty-state signatures">
+          <i class="icon-signature-page"></i>
+          <div>
+            In the Checklist, mark documents as requiring signature in order to assign
+            <%= link_to 'Signature Groups', deal_signature_groups_path(@deal) %>.
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

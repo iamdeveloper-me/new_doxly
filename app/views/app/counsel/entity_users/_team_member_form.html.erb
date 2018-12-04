@@ -1,0 +1,13 @@
+<%
+  path = unless current_entity.id == @entity.id
+    @entity_user.new_record? ? entity_entity_users_path(@entity, :type => params[:type]) : entity_entity_user_path(@entity, @entity_user, :type => params[:type])
+  else
+    entity_entity_users_path(@entity, :type => params[:type])
+  end
+  method = @entity_user.new_record? ? :post : :put
+%>
+
+<%= render "app/shared/errors", :errors => @entity_user.errors.full_messages %>
+<%= form_for @entity_user.user, :url => path, :method => method do |f| %>
+  <%= render 'shared/people/team_member_form_fields', :form => f %>
+<% end %>

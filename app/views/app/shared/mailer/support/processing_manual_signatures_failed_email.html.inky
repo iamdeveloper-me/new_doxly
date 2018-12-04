@@ -1,0 +1,25 @@
+<% @title = capture do %>
+  Manual signatures alert for <%= @entity_name %>
+<% end %>
+<% @content = capture do %>
+  <p>
+    <b>Details</b>
+    <br /><br />
+    <u>Law Firm</u>: <%= @entity_name %><br />
+    <u>Law Firm User</u>: <%= @sending_entity_user.user.name %><br />
+    <u>Deal</u>: <%= @deal.title %><br />
+    <u>Close Date</u>: <%= @deal.projected_close_date.strftime('%m/%d/%Y') %><br />
+    <u>File path</u>: <%= @file_path %><br />
+    <% if @signature_packet %>
+      <u>Signer Name</u>: <%= @signature_packet.user.name %><br />
+      <u>Signer Email</u>: <%= @signature_packet.user.email %><br />
+    <% end %>
+    <u>Unreadable Pages</u>: <%= @unreadable_pages.join(', ') %><br />
+    <u>Wrong Packet Pages</u>: <%= @wrong_packet_pages.join(', ') %><br />
+    <u>Already Signed Pages</u>: <%= @already_signed_pages.join(', ') %><br />
+    <u>Error Pages</u>: <%= @error_pages.join(', ') %><br />
+    <u>Error Messages</u>: <%= @error_messages.join(', ') %>
+  </p>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

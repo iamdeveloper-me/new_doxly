@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>7A985C3A-46B6-41E4-9016-341D394F512B</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons-/-Circle-/-Delete-/-ic_delete_hover_24px">
+            <path d="M3.51471863,20.4852814 C8.20101013,25.1715729 15.7989899,25.1715729 20.4852814,20.4852814 C25.1715729,15.7989899 25.1715729,8.20101013 20.4852814,3.51471863 C15.7989899,-1.17157288 8.20101013,-1.17157288 3.51471863,3.51471863 C-1.17157288,8.20101013 -1.17157288,15.7989899 3.51471863,20.4852814 Z" id="Oval" fill="#D93B48"></path>
+            <g id="Group-2" transform="translate(6.000000, 6.000000)" stroke="#FFFFFF" stroke-width="2">
+                <path d="M6,-1 L6,13" id="Line" transform="translate(6.000000, 6.000000) rotate(-315.000000) translate(-6.000000, -6.000000) "></path>
+                <path d="M13,6 L-1,6" id="Line" transform="translate(6.000000, 6.000000) rotate(-315.000000) translate(-6.000000, -6.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

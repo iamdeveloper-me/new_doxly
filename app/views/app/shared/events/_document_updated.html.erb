@@ -1,0 +1,23 @@
+<%
+  eventable = event.eventable
+  tree_element = eventable.is_a?(Version) ? eventable.attachment.tree_element : eventable
+  if tree_element.attachment.present?
+%>
+    <div class="section-info">
+      <b>
+        <%= tree_element.is_orphan? ? tree_element.owner.title.upcase : tree_element.parent.name.upcase %> :
+        <%= tree_element.name.upcase %>
+      </b>
+      <%= tree_element.name %>
+    </div>
+    <div class="section-details">
+      <div class="section-details__attachment">
+        <div class="attachment-item item-file">
+          <i></i><a href="#"><%= tree_element.name %></a>
+          <span class="badge">V<%= tree_element.attachment.versions.size %></span>
+        </div>
+      </div>
+    </div>
+<%
+  end
+%>

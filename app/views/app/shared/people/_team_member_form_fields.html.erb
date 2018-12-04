@@ -1,0 +1,49 @@
+<%
+  form ||= nil
+  options = EntityUser::ROLES.keys.map{ |k| [ k.titleize, k, {class: k.gsub("_", "-"), disabled: current_entity_user.is_disabled?(k) } ] }
+  send_signup_email_checked = params[:send_signup_invitation_email].present? ? true : false
+  send_deal_email_checked = params[:send_deal_invitation_email].present? ? true : false
+%>
+<div class='new-entity-connection'>
+  <div class="form-group <%= form.object.errors[:first_name].present? ? "has-error" : ""%>">
+    <label for="first_name">First Name</label>
+    <%= form.text_field :first_name, :class => "form-control", :placeholder => "First Name" %>
+  </div>
+  <div class="form-group <%= form.object.errors[:last_name].present? ? "has-error" : ""%>">
+    <label for="last_name">Last Name</label>
+    <%= form.text_field :last_name, :class => "form-control", :placeholder => "Last Name" %>
+  </div>
+  <div class="form-group <%= form.object.errors[:email].present? ? "has-error" : ""%>">
+    <label for="email">Email</label>
+    <%= form.text_field :email, :class => "form-control", :placeholder => "Email" %>
+  </div>
+  <%= fields_for :entity_user, @entity_user do |entity_user_fields| %>
+    <div class="form-group <%= @entity_user.errors[:title].present? ? "has-error" : ""%>">
+      <label for="input-user-company">Title Within Organization</label>
+      <%= entity_user_fields.text_field :title, :class => "form-control", :placeholder => "Title Within Organization" %>
+    </div>
+    <!-- When on the WGL, if this check returns false and the dropdown is hidden a hidden field is added that sets the entity_user role to 'standard-user. refer to the comment in deal_organization_user_form.html.erb -->
+    <% if @entity === current_entity %>
+      <div class="form-group">
+        <div class="form-group">
+          <label for="user_role">User Role</label>
+          <%= entity_user_fields.select :role, options_for_select(options, selected: 'standard_user'), {}, {:class => 'selectpicker show-tick select-border-radius form-control'} %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @deal.present? && @deal.persisted? %>
+    <div class="checkbox form-group margin-bottom-10 margin-top-15" id="send-checkbox">
+      <label>
+        <%= check_box_tag "send_deal_invitation_email", 1, send_deal_email_checked %> <b>Send the deal invitation email</b>
+      </label>
+    </div>
+    <%= render 'app/shared/custom_message', :hidden => !send_deal_email_checked %>
+  <% elsif !@entity_user.persisted? %> <!-- ie, we don't want to allow to send the signup email on update, just on create. They have the envelope icon to use after create -->
+    <div class="checkbox form-group margin-bottom-10 margin-top-15">
+      <label>
+        <%= check_box_tag "send_signup_invitation_email", 1, send_signup_email_checked %> <b>Send the sign up invitation email</b>
+      </label>
+    </div>
+  <% end %>
+</div>

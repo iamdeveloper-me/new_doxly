@@ -1,0 +1,110 @@
+<%
+  blocks       ||= nil
+  tree_element ||= nil
+  padding_left   = 0
+%>
+
+<% Array(blocks).each do |block| %>
+  <% if block[:signature_entities].present? %>
+    <% block[:signature_entities].each do |signature_entity| %>
+      <div class="name"><%= signature_entity.name %></div>
+      <% signature_entity.descendants.each_with_index do |signature_entity_each, index| %>
+        <% padding_left = 2 * (index+1) %>
+        <div class="signing-authority" style="padding-left: <%= padding_left %>px">
+          By <%= signature_entity_each.name %><%= ", its #{signature_entity_each.title}" if signature_entity_each.title.present? %>
+        </div>
+      <% end %>
+    <% end %>
+    <% block[:signing_capacities].each do |signing_capacity| %>
+      <div class="signing-individual" style="padding-left: <%= padding_left %>px">
+        <div class="sign">
+          <div class="signing-label">By:</div>
+          <div class="signing-placeholder"></div>
+        </div>
+        <% if signing_capacity.full_name_present? %>
+          <div class="signing-individual-name">
+            <%= signing_capacity.name %><%= ", #{signing_capacity.title}" if signing_capacity.signature_entity.present? && signing_capacity.title_present? %>
+          </div>
+        <% else %>
+          <div class="signing-individual-fullname">
+            <div class="placeholder-item">
+              <div class="item-label">Printed Name:</div>
+              <div class="placeholder"></div>
+            </div>
+          </div>
+        <% end %>
+        <% if !signing_capacity.title_present? %>
+          <div class="signing-individual-title">
+            <div class="placeholder-item">
+              <div class="item-label">Title:</div>
+              <div class="placeholder"></div>
+            </div>
+          </div>
+        <% elsif signing_capacity.title_present? && !signing_capacity.full_name_present? %>
+          <div class="signing-individual-title">
+            <%= signing_capacity.title %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="signing-individual" style="padding-left: <%= padding_left %>px">
+      <div class="sign">
+        <div class="signing-break"></div>
+        <div class="signing-placeholder"></div>
+      </div>
+      <% signing_capacity = block[:signing_capacity] %>
+      <% if signing_capacity.full_name_present? %>
+        <div class="signing-individual-name no-margin">
+          <%= signing_capacity.name %>
+        </div>
+      <% else %>
+        <div class="signing-individual-fullname">
+          <div class="placeholder-item">
+            <div class="item-label">Printed Name:</div>
+            <div class="placeholder"></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <% if tree_element.show_address_on_signature_page? %>
+    <div class="signing-individual-full-address">
+      <div class="signing-individual-address-label">Address:</div>
+      <div class="signing-individual-address-block">
+        <% if block[:primary_address].present? %>
+          <% address = block[:primary_address] %>
+          <div>
+            <%= address.address_line_one if address.address_line_one.present? %>
+            <%= address.address_line_two if address.address_line_two.present? %>
+            <div>
+              <%= address.city if address.city.present? %>
+              <%= ", " if address.city.present? && (address.state_or_province.present? || address.postal_code.present?) %>
+              <%= [address.state_or_province, address.postal_code].reject(&:empty?).join(' ') %>
+            </div>
+          </div>
+        <% elsif tree_element.sign_manually? %>
+          <div class="address-placeholder"></div>
+          <div class="address-placeholder"></div>
+        <% end %>
+      </div>
+    </div>
+    <% if block[:copy_to_address].present? %>
+      <% address = block[:copy_to_address] %>
+      <div class="signing-individual-full-address">
+        <div>With Copy To:</div>
+        <div class="signing-individual-address">
+          <div>
+            <%= address.address_line_one if address.address_line_one.present? %>
+            <%= address.address_line_two if address.address_line_two.present? %>
+            <div>
+              <%= address.city if address.city.present? %>
+              <%= ", " if address.city.present? && (address.state_or_province.present? || address.postal_code.present?) %>
+              <%= [address.state_or_province, address.postal_code].reject(&:empty?).join(' ') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

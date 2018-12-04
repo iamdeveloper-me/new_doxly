@@ -1,0 +1,26 @@
+<%= render 'shared/top_navs/people' %>
+
+<div class="content">
+  <div class="padded-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="toolbar-box category">
+          <div class="search-input-box entity-connections">
+            <div class="form-group">
+              <input name="search_str"
+                  id="entity-connections-search"
+                  class="input-search form-control"
+                  placeholder= '<%= params[:type] == "law_firm" ? "Search Law Firms" : "Search Parties" %>'
+               />
+            </div>
+            <a class="disabled"><i class="icon-icon-search"></i></a>
+          </div>
+          <%= link_to params[:type] == "law_firm" ? "Add Law Firm" : "Add Party" , new_entity_connection_path(:type => params[:type]), :remote => true, :class => 'action-button btn btn-primary' %>
+        </div>
+      </div>
+      <div id="deal-entity-users-list">
+        <%= render 'shared/people/deal_entity_users_list' %>
+      </div>
+    </div>
+  </div>
+</div>

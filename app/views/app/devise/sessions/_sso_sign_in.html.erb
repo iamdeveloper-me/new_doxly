@@ -1,0 +1,25 @@
+<div class="panel panel-window sso-sign-in">
+  <div class="panel-body center">
+    <div class="sso-title"><%= sso_entity&.name %> Single Sign-On (SSO)</div>
+    <% if params[:error] %>
+      <div class="alert-danger sso-error">
+        <u>Error</u>: 
+        <% if params[:error] == "no_user" %>
+          You have not yet been setup within Doxly. Please contact your Doxly administrator and ask them to add you as a team member. Once that is compete, you will receive an email from Doxly with your login information. If you have any problems, please contact <%= Doxly.config.support_email %>.
+        <% else %>
+          Unable to perform Single Sign-On for the specified user. Please contact your IT administrator or reach out to Doxly at <%= Doxly.config.support_email %>.
+        <% end %>
+      </div>
+    <% end %>
+    <div class="sign-in-button whiteout-ui">
+      <%if sso_settings.present? %>
+        <%= link_to 'SIGN IN', '/auth/wsfed', :class => 'action-button button button-primary' %>
+        <div class="margin-top-15">You may want to bookmark this link for easier access.</div>
+      <% else %>
+        <div class="alert-danger sso-error">
+          <u>Error</u>: SSO has not been configured for this URL. Please check and try again. If you continue to have problems, please contact <%= Doxly.config.support_email %>.
+        </div>
+      <% end %>
+    </div>
+   </div>
+</div>

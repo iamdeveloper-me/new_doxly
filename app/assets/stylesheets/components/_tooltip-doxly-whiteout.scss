@@ -1,0 +1,66 @@
+$col-tooltip-doxly-whiteout-bg: white;
+$col-tooltip-doxly-whiteout-border: #D1DAE3;
+$col-tooltip-doxly-whiteout-text: #45484B;
+
+.tooltipster-sidetip.tooltipster-doxly-whiteout .tooltipster-box {
+    border-radius: 4px;
+    border: 1px solid $col-tooltip-doxly-whiteout-border;
+    background: $col-tooltip-doxly-whiteout-bg;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout .tooltipster-content {
+    color: $col-tooltip-doxly-whiteout-text;
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout .tooltipster-arrow {
+    height: 9px;
+    margin-left: -9px;
+    width: 18px
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-left .tooltipster-arrow,
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-right .tooltipster-arrow {
+    height: 18px;
+    margin-left: 0;
+    margin-top: -9px;
+    width: 9px
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout .tooltipster-arrow-background {
+    border: 9px solid transparent
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-bottom .tooltipster-arrow-background {
+    border-bottom-color: $col-tooltip-doxly-whiteout-bg;
+    top: 1px
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-left .tooltipster-arrow-background {
+    border-left-color: $col-tooltip-doxly-whiteout-bg;
+    left: -1px
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-right .tooltipster-arrow-background {
+    border-right-color: $col-tooltip-doxly-whiteout-bg;
+    left: 1px
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-top .tooltipster-arrow-background {
+    border-top-color: $col-tooltip-doxly-whiteout-bg;
+    top: -1px
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout .tooltipster-arrow-border {
+    border: 9px solid transparent
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-bottom .tooltipster-arrow-border {
+    border-bottom-color: $col-tooltip-doxly-whiteout-border
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-left .tooltipster-arrow-border {
+    border-left-color: $col-tooltip-doxly-whiteout-border
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-right .tooltipster-arrow-border {
+    border-right-color: $col-tooltip-doxly-whiteout-border;
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-top .tooltipster-arrow-border {
+    border-top-color: $col-tooltip-doxly-whiteout-border;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-bottom .tooltipster-arrow-uncropped {
+    top: -9px
+}
+.tooltipster-sidetip.tooltipster-doxly-whiteout.tooltipster-right .tooltipster-arrow-uncropped {
+    left: -9px
+}

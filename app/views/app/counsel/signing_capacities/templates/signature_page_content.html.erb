@@ -1,0 +1,220 @@
+<%
+  signature_page_collection ||= nil
+  blocks                    ||= nil
+  base_path                 ||= nil
+  tree_element                 = signature_page_collection.tree_element
+  tree_element_signature_group = signature_page_collection.tree_element_signature_group
+  font_size    = tree_element.deal.font_size.to_i
+  name_margin  = (font_size/SignaturePage::NAME_PLACEHOLDER_MULTIPLIER).round
+  title_margin = (font_size/SignaturePage::TITLE_PLACEHOLDER_MULTIPLIER).round
+%>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    /* to be included in the PDF, styles have to be inline or have absolute references */
+    body {
+      font-size: <%= tree_element.deal.font_size %>px;
+      font-family: "<%= tree_element.deal.font_type %>";
+    }
+
+    .placeholder-item {
+      display: block;
+    }
+
+    .placeholder-item .label {
+      padding-right: 5px;
+    }
+
+    .placeholder-item .placeholder-name {
+      padding-left: <%= name_margin%>px;
+      border-bottom: 1px solid black;
+    }
+
+    .placeholder-item .placeholder-title {
+      padding-left: <%= title_margin%>px;
+      border-bottom: 1px solid black;
+    }
+
+    .signature-block {
+      padding-top: 30px;
+      float: right;
+      padding: 75px 20px 0px 0px;
+      max-width: 350px;
+    }
+
+    .signature-block.has-header {
+      padding-top: 20px;
+    }
+
+    .signature-block .entites {
+      padding-bottom: 10px;
+    }
+
+    .signature-block .top-group, .signature-block .top-entity {
+      font-size: 120%;
+      font-weight: bold;
+    }
+
+    .signature-block .top-entity {
+      padding-top: 15px;
+    }
+
+    .signature-block .signing-authority {
+      padding-top: 15px;
+      font-size: 120%;
+    }
+
+    .signature-block .signing-authority .signing-individual-by {
+      float: left;
+    }
+
+    .signature-block .signing-authority .signing-placeholder {
+      padding-left: 30px;
+    }
+
+    .signature-block .signing-individual {
+      min-width: 300px;
+      max-width: 350px;
+    }
+
+    .signature-block .signing-individual .signing-placeholder {
+      padding-left: 25px;
+      border-bottom: 1px solid black;
+    }
+
+    .signature-block .signing-placeholder.no-margin {
+      padding-left: 0;
+    }
+
+    .signing-individual-sign {
+      padding-top: 30px;
+    }
+
+    .date-signed {
+      padding-top: 30px;
+    }
+
+    .signature-block .date-signed .signing-placeholder {
+      padding-left: 35px;
+    }
+
+    .signing-individual-full-address .signing-individual-address-block .address-placeholder {
+      padding-left: 45px;
+      border-bottom: 1px solid black;
+    }
+
+    .signing-individual-full-address .signing-individual-address-block .address-placeholder.second {
+      padding-top: 24px;
+    }
+
+    .signature-block .signing-individual .signing-individual-name, .signature-block .signing-individual .signing-individual-code, .signature-block .signing-individual-address {
+      padding-left: 25px;
+    }
+
+    .signature-block .signing-individual .signing-individual-title, .signature-block .signing-individual .signing-individual-fullname, .signature-block .signing-individual-full-address {
+      padding-top: 30px;
+      min-height: 24px;
+    }
+
+    .signature-block .signing-individual .signing-individual-title, .signature-block .signing-individual .signing-individual-fullname, .signature-block .signing-individual-full-address.sign-manually-empty {
+      min-height: 24px;
+    }
+
+    .signature-block .signing-individual-full-address .signing-individual-address-label {
+      padding-right: 5px;
+    }
+
+    .signature-block .signing-individual-full-address .signing-individual-address-label, .signature-block .signing-individual-full-address .signing-individual-address-block {
+      vertical-align: top;
+      display: inline-block;
+    }
+
+    .signature-block .signing-individual-full-address .signing-individual-address-block {
+      width: 100%;
+    }
+
+    .signature-block .signing-individual-full-address .signing-individual-address-block.address-present {
+      width: 70%;
+    }
+
+    .signature-block .signing-individual .signing-individual-name.no-margin, .signature-block .signing-individual .signing-individual-code.no-margin, .signature-block .signing-individual-address.no-margin {
+      padding-left: 0;
+    }
+
+    .signature-block .signing-individual .signing-individual-code, .signature-block .signing-individual .signing-individual-fullname-code, .signature-block .signing-individual .signing-individual-title-code, .signature-block .signing-individual .signing-individual-fullname-code, .signature-block .signing-individual .signing-individual-date-signed-code, .signature-block .signing-individual-full-address .signing-individual-address-code {
+      color: white;
+      font-size: 10px;
+      position: absolute;
+      z-index: -1;
+    }
+
+    .signing-individual-full-address {
+      padding-top: 30px;
+    }
+
+    .margin-top-5 {
+      padding-top: 5px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      left: 0px;
+      text-align: center;
+      clear: both;
+    }
+
+    .footer .footer-document {
+      padding-left: 100px;
+      padding-right: 100px;
+      padding-bottom: 3px;
+      font-size: 90%;
+    }
+
+    .header {
+      padding-top: .5in;
+      clear: both;
+    }
+
+    .header .header-document {
+      font-size: 120%;
+      text-indent: .5in;
+    }
+
+    .qr-code {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 1000; /* just to be sure it isn't covered by text */
+      padding: 5px;
+      border: 1px solid black;
+      background-color: white;
+      height: 50px;
+      width: 50px;
+    }
+  </style>
+</head>
+<body>
+<% if tree_element.show_signature_page_header? && !tree_element.signature_page_header_text.blank? %>
+  <div class="header" id="header">
+    <div class="header-document"><%= tree_element.signature_page_header_text %></div>
+  </div>
+<% end %>
+<div id="blocks">
+  <% blocks.each do |block| %>
+    <% if block[:signature_entities].present? %>
+      <%= render "app/counsel/signature_entities/block", signature_entities: block[:signature_entities], primary_address: block[:primary_address], copy_to_address: block[:copy_to_address], position: block[:position], signing_capacities: block[:signing_capacities], show_signature_group_alias: tree_element_signature_group.show_group_name?, signature_group_alias: tree_element_signature_group.alias, show_address_on_signature_page: tree_element.show_address_on_signature_page?, show_signing_capacity_date_signed: tree_element.show_signing_capacity_date_signed?, signature_page_collection: signature_page_collection %>
+    <% else %>
+      <%= render "app/counsel/signing_capacities/block", signing_capacity: block[:signing_capacity], block: block, show_signature_group_alias: tree_element_signature_group.show_group_name?, signature_group_alias: tree_element_signature_group.alias, show_address_on_signature_page: tree_element.show_address_on_signature_page?, show_signing_capacity_date_signed: tree_element.show_signing_capacity_date_signed?, signature_page_collection: signature_page_collection %>
+    <% end %>
+  <% end %>
+</div>
+<div class="footer" id="footer">
+  <% if tree_element.show_signature_page_footer? %>
+    <div class="footer-document">[SIGNATURE PAGE FOR <%= tree_element.document_name.upcase %>]</div>
+  <% end %>
+</div>
+</body>
+</html>

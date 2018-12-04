@@ -1,0 +1,76 @@
+<div class="download-upload-modal">
+  <div class="download">
+    <div class="title">
+      1. Download, print, and sign packet
+    </div>
+    <div class="text">
+      Download the packet to view and print the signature pages included inside. Sign the pages.
+    </div>
+    <div class="button">
+      <% if @signature_packet.download_url.present? %>
+        <%= link_to "Download", @signature_packet.download_url, download: @signature_packet.download_url, class: "btn btn-primary" %>
+      <% else %>
+      <div class="processing-message">
+        Packet is being processed. Check back in a few minutes to download.
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="upload">
+    <div class="title">
+      2. Scan and upload your signed packet
+    </div>
+    <div class="text">
+      Scan the signed documents and save it to your computer. The saved images can be in PDF or JPG format. Upload the documents when you are ready.
+    </div>
+    <div class="button">
+      <%= form_tag signature_packet_uploaded_manual_signatures_path(@signature_packet), {:method => :post, :remote => true, :class => 'no-turboboost'} do %>
+        <div class="form-group file-input-group">
+          <%= file_field_tag :file, :class => "file-inputs bootstrap-file-input", :title => "<i class='icon-icon-uploadcloud'></i> Choose a File", "data-filename-placement" => "inside" %>
+        </div>
+        <div class="btn btn-primary js-upload-file">
+          Upload
+        </div>
+      <% end %>
+    </div>
+
+    <% if @signature_packet.upload_attempted_at && @signature_packet.completed_at == nil %>
+      <% needed_count = @signature_packet.signature_pages.select{ |sp| sp.signed_aws_file.nil? }.count %>
+      <div class="panel summary-card">
+        <div class="panel-heading">
+          <h3 class="category">SIGNATURE PAGES</h3>
+        </div>
+        <div class="panel-body signature-pages-list">
+          <% @signature_packet.signature_pages.each do |page| %>
+            <div class="signature-page-row">
+              <div class="name">
+                <%= page.tree_element.name %> (<%= page.signing_capacity.get_signature_group.name %>)
+              </div>
+              <div class="status">
+                <% if ["signed", "declined"].include?(page.signature_status) %>
+                  <div class="status-text completed">
+                  Completed
+                  </div>
+                <% else %>
+                <!-- Uses sss to make the nice little triangle on the end of the needed text. -->
+                  <div class="triangle"></div>
+                  <div class="status-text needed">
+                    Missing page
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="explanation">
+        <div class="title">
+          <%= pluralize(needed_count, "signature page") %> <%= needed_count > 1 ? "are" : "is" %> still needed.
+        </div>
+        <div class="explanation-text">
+          If you have uploaded them previously, please scan the missing signature pages again and check that the resulting image is clear and readable. Upload the missing documents when ready.
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

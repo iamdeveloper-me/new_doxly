@@ -1,0 +1,16 @@
+<%
+  errors ||= []
+%>
+<% if errors.any? %>
+  <div class="errors-container">
+    <div class="alert alert-danger">
+      <p><b>Errors need to be resolved:</b></p>
+      <ul>
+        <% errors.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+      <p>Please correct this and try again.</p>
+    </div>
+  </div>
+<% end %>

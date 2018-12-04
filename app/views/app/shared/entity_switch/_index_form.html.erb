@@ -1,0 +1,18 @@
+
+You have been added to multiple organizations. Please choose the organization that you would like to access. The organization you choose below will also be saved as the default choice when you login again in the future.
+
+<%= form_tag entity_switch_path, {:method => :post, :remote => true, :class => 'no-turboboost'} do %>
+  <div class="btn-group entity-switch" data-toggle="buttons">
+    <% @entity_users.each do |entity_user| %>
+      <%
+        entity       = entity_user.entity
+        name         = entity.is_a?(Individual) ? "Individual Account" : entity.name
+        active_class = entity_user.id == session_entity_user_id ? "active" : ""
+        checked      = entity_user.id == session_entity_user_id ? "checked" : ""
+      %>
+      <label class="btn btn-default <%= active_class %>">
+        <input type="radio" name="entity_user[id]" value="<%= entity_user.id %>" <%= checked %>> <%= name.upcase %> (<%= pluralize(entity_user.all_deals.count, 'Deal') %>)
+      </label>
+    <% end %>
+  </div>
+<% end %>

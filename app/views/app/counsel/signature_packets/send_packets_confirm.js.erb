@@ -1,0 +1,6 @@
+<%
+  title = @user.present? ? "Send Signature Packet to #{@user.name}" : "Send All Signature Packets"
+  disabled = @ready_packets.empty? || @ready_packets.sum{ |r| r[:packet_count] } == 0
+%>
+App.Modal.show('<%= escape_javascript(render("send_packets_confirm_modal", :title => title, :disabled => disabled)) %>')
+App.SignaturePackets.bindDisableSend()

@@ -1,0 +1,9 @@
+<div class="whiteout-ui">
+  <div class="packets-left">
+    You have <%= @needs_signature_packets_count %> more signature packet<%= 's' if @needs_signature_packets_count > 1 %> that need your signature.
+  </div>
+  <div class="buttons">
+    <%= link_to 'Sign the Next Packet', deal_signature_packets_signature_packets_path(deal_id: params[:deal_id] || @signature_packet.deal_id), class: 'button removal' %>
+    <div class="close-window-text">You can close this window if you are finished.</div>
+  </div>
+</div>

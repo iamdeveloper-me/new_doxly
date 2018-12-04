@@ -1,0 +1,6 @@
+<%
+  title ||= nil
+%>
+<%= render :layout => 'shared/modal', :locals => { :title => title } do %>
+  <%= render 'upload_custom_signature_page_form' %>
+<% end %>

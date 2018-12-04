@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    NetDocuments
+  </div>
+  <div class="panel-body net-documents-body">
+    <div class="explanation-text">
+      Link your NetDocuments account to add files to Doxly or save files back to NetDocuments.
+    </div>
+    <div class="link-button-container">
+      <a type="button" href="<%= current_entity_user.entity.dms_entity_storageable.get_full_login_url %>" class="btn btn-primary pull-left">Link NetDocuments</a>
+      <div class="link-status">
+        <% if current_entity_user.dms_user_credentialable.is_a?(NetDocumentsUserCredential) %>
+          <i class="mdi mdi-check mdi-18px"></i>
+          <div class="link-status-text">Currently Linked</div>
+        <% else %>
+          <i class="mdi mdi-alert-circle mdi-18px"></i>
+          <div class="link-status-text">Not Currently Linked</div>
+        <% end %>
+      </div>
+
+    </div>
+    <% if @alert_type %>
+      <% explanation = @alert_type == 'error' ? 'Something went wrong, please try again. If the problem persists, please contact Doxly support' : 'NetDocuments account successfully linked' %>
+      <% alertClass = @alert_type == 'error' ? 'error' : 'success' %>
+      <div class="dms-alert">
+        <%= render 'shared/alerts/alert', alertClass: alertClass, explanation: explanation %>
+      </div>
+    <% end %>
+  </div>
+</div>

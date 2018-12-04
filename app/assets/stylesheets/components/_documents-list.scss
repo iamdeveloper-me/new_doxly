@@ -1,0 +1,255 @@
+.activity-card {
+  &.info-on-deal{
+    color: $col-red-text;
+  }
+    &.document-on-deal{
+    background-color: $col-red-light;
+    color: $col-red-text;
+    border: 2px solid #f499a8;
+  }
+  &.document-active {
+    border: 3px solid $col-blue;
+  }
+
+  .document-section {
+    cursor: pointer;
+  }
+
+  .panel-body {
+    padding: 16px 24px;
+
+    .document-info {
+      display: flex;
+      justify-content: space-between;
+
+      i {
+        align-self: center;
+        margin-right: 10px;
+        background: url(image_path('icon-file.svg')) no-repeat 50% 50% / contain;
+        width: 32px;
+        height: 32px;
+      }
+
+      .document-icon {
+        display: flex;
+
+        .document__title {
+          line-height: 20px;
+          font-size: 14px;
+          color: $col-dark-blue;
+          &.title-on-deal{
+            color: $col-red-text
+          }
+        }
+
+        .document__section {
+          line-height: 16px;
+          font-size: 12px;
+          color: $col-gray;
+        }
+      }
+
+      .badge-container {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        .subtitle{
+          font-weight: bold;
+          margin-right: 10px;
+        }
+        .version {
+          background: $col-peach;
+          padding: 4px;
+          font-weight: 500;
+          font-size: 12px;
+          color: $white;
+          min-width: 10px;
+          line-height: 1;
+          border-radius: 10px;
+        }
+        .badges {
+          display: flex;
+          flex-shrink: 0;
+          align-items: center;
+          .attach-icon {
+            height: 13px;
+            width: 12px;
+            background: url(image_path("icon-attach.svg")) no-repeat;
+            margin: 0 5px 0 5px;
+          }
+        }
+      }
+    }
+
+    .document-details {
+      display: flex;
+      flex-direction: column;
+
+      .date-section {
+        display: inline-flex;
+        width: 100%;
+
+        .date-title {
+          padding: 30px 8px 0 0;
+          text-transform: uppercase;
+          font-size: 12px;
+          color: $col-dark-blue;
+          &.info-on-deal{
+            color: $col-red-text;
+          }
+        }
+
+        .date {
+          padding: 30px 0 0 0;
+          &.info-on-deal{
+            color: $col-red-text;
+          }
+        }
+
+      }
+
+      .document-details__section {
+
+        .title {
+          display: inline-flex;
+          width: 100%;
+
+          .heading {
+            padding: 24px 0 12px 0;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: $col-dark-blue;
+            width: 30%;
+            &.uploaded-by {
+              width: 35%;
+            }
+            &.info-on-deal{
+              color: $col-red-text
+            }
+          }
+        }
+
+        .document-details__info {
+          width: 100%;
+          display: inline-flex;
+          padding: 0px;
+          justify-content: space-between;
+          position: relative;
+
+          .uploaded-info {
+            &.info-on-deal{
+              width: 35%;
+              .details{
+                .name{
+                color: $col-red-text;
+                }
+                .subtitle{
+                color: $col-red-text;
+                }
+              }
+            }
+
+          }
+
+          .assignee-info {
+            width: 30%;
+          }
+
+          .info {
+            width: 18%;
+
+            .info__title {
+              padding-bottom: 4px;
+              text-transform: uppercase;
+              font-size: 12px;
+              color: $col-dark-blue;
+              &.info-on-deal{
+                color: $col-red-text;
+              }
+            }
+          }
+        }
+      }
+
+      .document-actions{
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+      }
+
+      .place-document-btn{
+        color: $col-yellow;
+        border: 1px solid $col-yellow;
+        padding: 1px 10px;
+      }
+
+      .place-document-btn:hover{
+        color: darken($col-yellow, 10%);
+        border: 1px solid darken($col-yellow, 10%);
+      }
+
+      .sign-document-btn{
+        color: $col-blue;
+        background: $col-milk;
+        border: 1px solid $col-blue;
+        padding: 1px 10px;
+        border-radius: 2px;
+      }
+
+      .sign-document-btn:hover{
+        color: $col-blue-hover;
+        border: 1px solid $col-blue-hover;
+      }
+    }
+  }
+}
+
+.document-view-tabs {
+  display: inline-flex;
+
+  .list-tab {
+    padding-right: 10px;
+
+    .icon-documents-view {
+      display: inline-block;
+      vertical-align: top;
+      width: 16px;
+      height: 12px;
+      background: url(image_path('document-tab.svg')) no-repeat 50% 50% / contain;
+    }
+
+    .icon-checklist-view {
+      display: inline-block;
+      vertical-align: top;
+      width: 16px;
+      height: 12px;
+      background: url(image_path('checklist-tab.svg')) no-repeat 50% 50% / contain;
+    }
+  }
+}
+
+.no-checklist-items {
+  margin: 50px 100px 50px 50px;
+  text-align: right;
+  font-size: 20px;
+}
+
+[data-notifications] {
+  position: relative;
+}
+
+[data-notifications]:after {
+
+  content: attr(data-notifications);
+
+  position: absolute;
+  background: #ee2b4b;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 0.3em;
+  color: #fff;
+  right: -10px;
+  top: -10px;
+  font-size: 10px;
+  min-width: 19px;
+}

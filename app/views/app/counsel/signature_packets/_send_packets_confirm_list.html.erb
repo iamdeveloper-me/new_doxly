@@ -1,0 +1,58 @@
+
+<% if @user.present? %>
+  <b>Please confirm that you would like to send the signature packet with the specified documents as shown below</b>
+<% else %>
+  <b>Please confirm that you would like to send signature packets with the specified documents to all the individuals listed below.</b>
+<% end %>
+<br /><br />
+<div class="panel panel-deals-full">
+  <div class="deals-full-group">
+    <div class="deals-full-group__header">Signature Packets Ready To Send (<%= @ready_packets.sum{ |signing_capacity| signing_capacity[:packet_count] } %>)</div>
+    <div class="documents-list signature-packet-confirm-list">
+      <% if @ready_packets.any? {|packet| packet[:packet_count] > 0} %>
+        <% @ready_packets.each_with_index do |signer, index| %>
+          <div class="signer">
+            <div class="signer-name">
+              <b><%= signer[:name] %> (<%= signer[:email] %>) - <%= pluralize(signer[:packet_count], 'packet') %></b>
+            </div>
+
+            <% if signer[:manual_documents].any? %>
+              <div class="by-hand">Manual:</div>
+              <% signer[:manual_documents].uniq.each do |document_name| %>
+                <div class="document">
+                  <div class="icon">
+                  </div>
+                  <div class="name">
+                    <%= document_name %><i><%= ', ' + pluralize(signer[:manual_documents].count(document_name), 'copy') if signer[:manual_documents].count(document_name) > 1 %></i>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+
+            <% if signer[:esignature_documents].any? %>
+              <div class="docusign">DocuSign:</div>
+              <% signer[:esignature_documents].uniq.each do |document_name| %>
+                <div class="document">
+                  <div class="icon">
+                  </div>
+                  <div class="name">
+                    <%= document_name %><i><%= ', ' + pluralize(signer[:esignature_documents].count(document_name), 'copy') if signer[:esignature_documents].count(document_name) > 1 %></i>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="padding-10">
+          <div className="no-results">
+            <div className="header">No signature packets are available to be sent</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= form_tag confirm_button_path, {:method => confirm_button_method, :remote => true, :class => 'no-turboboost'} do %>
+  <%= render 'app/shared/custom_message', :multiple_recipients => @user.nil?, :disabled => (@ready_packets.empty? || @ready_packets.sum{ |r| r[:packet_count] } == 0) %>
+<% end %>

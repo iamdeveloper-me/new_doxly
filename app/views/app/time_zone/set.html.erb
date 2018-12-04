@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "temporal" %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<%= javascript_tag do %>
+    $(function() {
+        Temporal.detect();
+        window.location = '<%= params[:redirect] %>';
+    });
+<% end %>
+</body>
+</html>

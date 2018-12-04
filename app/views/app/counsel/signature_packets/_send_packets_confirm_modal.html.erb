@@ -1,0 +1,12 @@
+<%
+  title ||= nil
+  disabled ||= false
+  confirm_path = if @ready_packets.length > 0
+    @user.present? ? send_packet_deal_signature_packets_path(@deal, :user_id => @user.id) : send_packets_deal_signature_packets_path(@deal)
+  else
+    nil
+  end
+%>
+<%= render :layout => 'shared/confirm_button_modal', :locals => { :title => title, :confirm_button_label => 'Send', :disabled => disabled} do %>
+  <%= render 'send_packets_confirm_list', :confirm_button_path => confirm_path, :confirm_button_method => 'post' %>
+<% end %>

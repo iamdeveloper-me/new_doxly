@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>EA1D843C-281E-4BC6-98AC-184FE5D6CD29</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M3.51471863,20.4852814 C8.20101013,25.1715729 15.7989899,25.1715729 20.4852814,20.4852814 C25.1715729,15.7989899 25.1715729,8.20101013 20.4852814,3.51471863 C15.7989899,-1.17157288 8.20101013,-1.17157288 3.51471863,3.51471863 C-1.17157288,8.20101013 -1.17157288,15.7989899 3.51471863,20.4852814 Z" id="path-1"></path>
+    </defs>
+    <g id="Screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Checklist---Tab---Notes" transform="translate(-657.000000, -111.000000)">
+            <g id="Icons-/-Circle-/-Delete-/-ic-delete-disabled-24px" transform="translate(657.000000, 111.000000)">
+                <g id="Task-Item-Delete-Copy">
+                    <g id="Oval">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <path stroke="#A7A7A7" stroke-width="1" d="M3.86827202,20.131728 C8.35930137,24.6227573 15.6406986,24.6227573 20.131728,20.131728 C24.6227573,15.6406986 24.6227573,8.35930137 20.131728,3.86827202 C15.6406986,-0.622757339 8.35930137,-0.622757339 3.86827202,3.86827202 C-0.622757339,8.35930137 -0.622757339,15.6406986 3.86827202,20.131728 Z"></path>
+                    </g>
+                    <g id="Group-2" transform="translate(6.000000, 6.000000)" stroke="#A7A7A7" stroke-width="2">
+                        <path d="M6,-1 L6,13" id="Line" transform="translate(6.000000, 6.000000) rotate(-315.000000) translate(-6.000000, -6.000000) "></path>
+                        <path d="M13,6 L-1,6" id="Line" transform="translate(6.000000, 6.000000) rotate(-315.000000) translate(-6.000000, -6.000000) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

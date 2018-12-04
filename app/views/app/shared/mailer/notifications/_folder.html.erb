@@ -1,0 +1,12 @@
+<%
+  folder ||= nil
+  events ||= nil
+%>
+<p>
+  <b class="title">"<%= folder.name %>"</b>
+  <% events.each do |event_group| %>
+    <% if event_group[0] == "NOTE_ADDED" %>
+      <%= render "app/shared/mailer/notifications/events/notes_added", events: event_group[1] %>
+    <% end %>
+  <% end %>
+</p>

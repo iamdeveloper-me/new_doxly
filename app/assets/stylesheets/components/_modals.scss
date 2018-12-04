@@ -1,0 +1,266 @@
+.form-group {
+  &.optional {
+    label {
+      width: 100%;
+      position: relative;
+
+      &:after {
+        float: right;
+        color: $col-gray;
+        content: "Optional";
+        font-weight: 400;
+      }
+    }
+  }
+
+  .footer-container {
+    width: 100%;
+    padding-bottom: 40px;
+
+    .footer-label {
+      color: $black;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .footer-preview {
+      width: 100%;
+      padding-top: 20px;
+
+      .footer-preview-box {
+        height: 100px;
+        border: 1px solid $col-border;
+        border-top: none;
+        box-shadow: 0.5px 1px 2px 0 rgba(0, 0, 0, 0.24);
+        margin-left: 5px;
+
+        .line-break {
+          padding-top: 50px;
+          margin: 0 10px;
+          border-bottom: 1px solid $col-dark-gray;
+        }
+
+        .preview-text {
+          text-align: center;
+          color: $col-dark-gray;
+          padding-top: 10px;
+          font-weight: 500;
+          font-size: 14px;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+
+  .header-container {
+    width: 100%;
+    padding-bottom: 40px;
+
+    .header-label {
+      color: $black;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .header-preview {
+      width: 100%;
+      overflow: hidden;
+      padding: 20px 2px 0px 2px;
+
+      .header-preview-box {
+        min-height: 100px;
+        border: 1px solid $col-border;
+        border-bottom: none;
+        box-shadow: 0.5px 1px 2px 0 rgba(0, 0, 0, 0.24);
+        margin-left: 5px;
+
+        .preview-text {
+          text-indent: .5in;
+          color: $col-dark-gray;
+          padding: 24px 8px 16px 8px;
+          color: $col-dark-gray;
+          font-weight: 500;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .alias {
+    padding-bottom: 10px;
+
+    .alias-label {
+      font-size: 16px;
+      font-weight: 500;
+      color: $black;
+    }
+
+    .alias-explanation {
+      font-size: 12px;
+      color: $col-gray;
+      font-style: italic;
+    }
+  }
+}
+
+.btn-fileinput{
+    width: 100%;
+    border: $input-border-size solid $input-border-color;
+    border-radius: $input-border-radius;
+    color: $col-gray;
+    text-align: left;
+}
+
+#modal-blocker {
+  background: rgba(0,0,0,.15);
+  border-radius: 0 0 4px 4px;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 998;
+  display:none;
+}
+
+#sliding-pane {
+
+  .pane-content {
+    box-shadow: 0px 2px 4px rgba(0,0,0,.15);
+    width: 500px;
+    background: white;
+    border: 1px solid $col-gray-light;
+    border-top: none;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    /* float: left; */
+    position: absolute;
+    z-index: 999;
+    left: 50%;
+    margin-left: -250px;
+    /* height: 95%; */
+    border-radius: 0 0 4px 4px;
+    display: none;
+
+    .pane-title {
+      font-weight: 400;
+      font-size: 16px;
+      border-bottom: 1px solid $col-gray-light;
+      padding: 0px 0px 8px 0px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .header-shadow {
+      box-shadow: inset 1px 4px 9px -6px;
+      padding: 20px;
+    }
+
+    .warning {
+      display: block;
+      font-style: italic;
+      padding-bottom: 20px;
+      font-size: 12px;
+    }
+
+    .status-text {
+      display: block;
+      font-style: italic;
+      padding-bottom: 10px;
+      font-size: 12px;
+    }
+
+    h2{
+        font-size: 10px;
+        color: $col-gray-medium;
+        font-weight: 500;
+        letter-spacing: 3.05px;
+        padding-bottom:5px;
+        border-bottom: 1px solid $col-gray-very-light;
+        margin: 30px 0 10px 0;
+        text-transform: uppercase;
+
+        &.first {
+          margin-top: 0;
+        }
+    }
+
+    .title {
+      font-weight: bold;
+    }
+
+    .content {
+      padding: 10px 0 10px 0;
+    }
+
+    .sliding-pane-footer {
+        padding-top: 5px;
+      text-align: right; // right align buttons
+      //border-top: 1px solid $modal-footer-border-color;
+      @include clearfix; // clear it in case folks use .pull-* classes on buttons
+
+      // Properly space out buttons
+      .btn + .btn {
+        margin-left: 5px;
+        margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+      }
+      // but override that for button groups
+      .btn-group .btn + .btn {
+        margin-left: -1px;
+      }
+      // and override it for block buttons as well
+      .btn-block + .btn-block {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.people-list {
+  max-height: 500px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  border-bottom: 1px solid $col-border;
+
+  &.page-settings {
+    overflow-y: visible;
+  }
+
+  > :first-child {
+    border-top: none;
+  }
+
+  > :last-child {
+    border-bottom: none;
+    margin-bottom: 0px;
+  }
+
+  &.page-settings {
+    > :last-child {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+form {
+  .not-shown {
+    float: right;
+  }
+}
+
+.modal-body {
+  h2{
+    font-size: 10px;
+    color: $col-gray-medium;
+    font-weight: 500;
+    letter-spacing: 3.05px;
+    padding-bottom:5px;
+    border-bottom: 1px solid $col-gray-very-light;
+    margin: 30px 0 10px 0;
+    text-transform: uppercase;
+
+    &.first {
+      margin-top: 0;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<div class="login-tokens">
+  <div class="wrap-narrow">
+    <div class="box-middle">
+      <div class="inner">
+        <div class="center-logo"><a href="#"><%= image_tag "logo.svg" %></a></div>
+        <div class="panel panel-window register-form">
+          <div class="alert-container">
+            <div class="alert-icon">
+              <i class="fa fa-2x fa-exclamation-circle" aria-hidden="true"></i>
+            </div>
+            <div class="alert-text">
+              Sorry, you don't have access to the deal anymore. Please contact your law firm if you have questions.
+            </div>
+
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-5">
+            </div>
+            <div class="col-xs-7 text-right">
+              Have a Doxly account? <%= link_to "Sign In", new_user_session_path %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

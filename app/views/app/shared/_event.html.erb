@@ -1,0 +1,17 @@
+<%
+  is_note   = event.eventable.is_a?(Note)
+  show_event   = true
+  if is_note
+    note    = event.eventable
+    show_event = note.is_public? || note.entity_user.entity.id == current_entity.id
+  end
+%>
+<% if show_event %>
+  <%
+    partial = event.action.downcase
+    if ['deal_closed', 'deal_reopened', 'deal_archived', 'deal_unarchived'].include? partial
+      partial = 'deal_event'
+    end
+  %>
+  <%= render "app/shared/events/#{partial}", event: event %>
+<% end %>

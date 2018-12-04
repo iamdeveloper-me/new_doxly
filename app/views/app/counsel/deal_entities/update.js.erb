@@ -1,0 +1,3 @@
+App.Modal.hide()
+App.DealEntityUsers.updateDealEntity("<%= escape_javascript render('app/shared/roles/show', deal_role: @role) %>", "<%= @entity.id.to_s %>", "<%= @role.id.to_s %>")
+App.Toggles.bindToggle()

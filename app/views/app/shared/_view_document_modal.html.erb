@@ -1,0 +1,7 @@
+<%
+  title ||= nil
+  url ||= nil
+%>
+<%= render :layout => 'shared/preview_modal', :locals => { :title => title } do %>
+  <iframe src="<%= url %>"></iframe>
+<% end %>

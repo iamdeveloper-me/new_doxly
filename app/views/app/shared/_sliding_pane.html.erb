@@ -1,0 +1,28 @@
+<%
+  single_button ||= false
+  single_button_label ||= "Done"
+  submit_button_label ||= "Save"
+  custom_class_name ||= nil
+  title ||= nil
+%>
+
+<div class="pane-content <%= custom_class_name %>">
+  <div class="header-shadow">
+    <% if title %>
+      <div class="pane-title">
+        <%= title %>
+      </div>
+    <% end %>
+    <div class="pane-body">
+      <%= yield %>
+    </div>
+    <div class="sliding-pane-footer">
+      <% if single_button %>
+        <button type="button" class="btn btn-primary cancel-pane-form" data-dismiss="pane"><%= single_button_label %></button>
+      <% else %>
+        <button type="button" class="btn btn-default pull-left cancel-pane-form" data-dismiss="pane">Back</button>
+        <input type="submit" class="btn btn-primary submit-pane-form" value="<%= submit_button_label %>" />
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<% top_view = current_entity.is_counsel ? "shared/top_counsel" : "shared/top_client" %>
+<%= render top_view, title: "Team / #{@entity_user.name}" %>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="content-single">
+        <div class="panel panel-team-description">
+          <div class="inner">
+            <%= render 'app/shared/user', user: @entity_user.user, subtitle: @entity_user.user.email, entity_user: @entity_user %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Edit Team Member
+      </div>
+      <div class="panel-body" id="edit-team-member-form">
+        <%= render 'edit_team_member_form' %>
+      </div>
+    </div>
+  </div>
+</div>

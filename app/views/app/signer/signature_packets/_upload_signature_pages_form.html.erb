@@ -1,0 +1,31 @@
+<div class="upload-signature-pages-modal-body">
+  <div class="dropzone-container">
+    <form class="doxly-dropzone dz-clickable">
+      <%= csrf_meta_tag %>
+    </form>
+    <div class="dropzone-background">
+      <div class="upload-icon">
+        <% if self.try(:is_ie11?) %>
+          <%= image_tag 'ic-action-upload-48-px.png' %>
+        <% else %>
+          <%= image_tag 'pink-upload.svg' %>
+        <% end %>
+      </div>
+      <div class="title">
+        Select the signed pages to upload
+      </div>
+      <div class="subtitle">
+        or Drag and Drop files into this box.
+      </div>
+    </div>
+  </div>
+  <div class="dropzone-preview-panel panel">
+    <div class="panel-heading">
+      Received files
+    </div>
+    <div class="panel-body">
+      <div class="received dropzone-preview">
+      </div>
+    </div>
+  </div>
+</div>

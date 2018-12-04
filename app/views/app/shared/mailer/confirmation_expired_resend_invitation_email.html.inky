@@ -1,0 +1,41 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-join-invite.png" %>
+<% end %>
+<% @title = capture do %>
+  Here is your new invitation to join <%= @entity.name %> on Doxly.
+<% end %>
+<% @content = capture do %>
+  <p>
+    <%= @user.name %>,
+    <br /><br />
+    You are receiving this because you attempted to join Doxly through an expired invitation email. Use the link below to create your account.
+  </p>
+  <h1></h1>
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <a href="<%= @url %>">
+                  <% if @user.is_active? %>
+                    Login
+                  <% else %>
+                    Sign Up
+                  <% end %>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+  <br />
+  <p>
+    If you didn't attempt to create an account, please contact <a href="mailto: <%= Doxly.config.support_email %>"><%= Doxly.config.support_email %></a>.
+  </p>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

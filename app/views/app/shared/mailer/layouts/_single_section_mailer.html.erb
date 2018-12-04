@@ -1,0 +1,32 @@
+<% @email_body = capture do %>
+  <container class="content">
+    <row>
+      <columns>
+        <container class="title-container">
+          <% if @title.present? %>
+            <row>
+              <columns>
+                <center>
+                  <%= @image %>
+                  <h1></h1>
+                  <h1><%= @title %></h1>
+                </center>
+              </columns>
+            </row>
+          <% end %>
+        </container>
+      </columns>
+    </row>
+    <row class="content-text">
+      <columns>
+        <center>
+          <row>
+            <p class="left"><%= @content %></p>
+          </row>
+        </center>
+      </columns>
+    </row>
+  </container>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/mailer' %>

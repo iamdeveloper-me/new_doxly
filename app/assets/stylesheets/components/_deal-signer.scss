@@ -1,0 +1,1078 @@
+// THIS IS THE SCSS FOR THE CLIENT SIGNING
+
+#docusign-container {
+  width: 100%;
+  height: 100%;
+
+  @media only screen and (min-width: $mobile+1) {
+    padding-top: 40px;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+$col-yellow-signature: #F7B33F;
+
+.flex-box-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.signature-index-content {
+  display: flex;
+  justify-content: center;
+  .deals-signature-container {
+    max-width: 995px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    .greeting {
+      text-align: center;
+      font-size: 32px;
+      color: $col-pink;
+      padding-bottom: 24px;
+      &.no-attention {
+        color: $col-dark-blue;
+      }
+    }
+    .deal-types-box {
+      // for ie11
+      max-width: 995px;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      padding: 20px 12px 20px 12px;
+      margin: 16px 0 16px 0;
+      border: 1px solid $col-gray-light;
+      background-color: $col-milk;
+      &.requires-attention {
+        background-color: $col-blue-signing;
+        border: none;
+      }
+      .titles {
+        margin-bottom: 28px;
+        flex-grow: 1;
+        margin: 0 12px 28px 12px;
+        > .title {
+          font-size: 24px;
+          color: $col-dark-blue;
+          &.requires-attention {
+            color: $white;
+            font-weight: bold;
+          }
+        }
+        > .subtitle {
+          color: $col-dark-blue;
+        }
+      }
+
+      .deal-cards{
+        flex-wrap: wrap;
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        .deal-status-count {
+          font-size: 32px;
+          color: $col-dark-blue;
+          padding: 20px 10px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+.deal-card {
+  width: 300px;
+  border: 1px solid $col-gray-medium;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 2px;
+  margin: 12px 12px 32px 12px;
+  background-color: $white;
+
+  .deal-info {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      font-size: 28px;
+      color: $col-dark-blue;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .prepared-by {
+      font-size: 12px;
+      color: $col-dark-blue;
+    }
+    .closing-date {
+      font-size: 12px;
+      opacity: .5;
+      color: $col-gray-medium;
+    }
+
+    .deal-packets-statuses {
+      margin-top: 32px;
+      font-size: 18px;
+
+      &.all-signed {
+        color: inherit;
+      }
+
+      &.signature-needed{
+        color: $col-pink;
+      }
+    }
+  }
+  .deal-card-button {
+    border-radius: 100px;
+    padding: 8px;
+    width: 260px;
+    flex-shrink: 0;
+    color: white;
+    background-color: $col-blue-signing;
+    &.requires-attention {
+      background-color: $col-pink;
+    }
+  }
+}
+
+.deal-signature-packets-page {
+  padding: 0 30px;
+  @media only screen and (min-width: $mobile+1) {
+    margin-top: 40px;
+  }
+  .deal-signature-packets-info {
+    display: flex;
+    flex-direction: column;
+    color: $col-dark-blue;
+    flex-grow: 1;
+
+    .deal-title {
+      flex-shrink: 0;
+      font-size: 24px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .projected-close {
+      margin-bottom: 32px;
+    }
+    .signature-methods {
+      margin-bottom: 32px;
+      .collection-explanation {
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+      .method {
+        display: flex;
+        margin-bottom: 8px;
+        .icon {
+          border-radius: 999px;
+          overflow: hidden;
+          background-color: $col-dark-blue;
+          color: $white;
+          font-size: 22px;
+          padding: 0px;
+          height: 48px;
+          width: 48px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-shrink: 0;
+        }
+        .text {
+          display: flex;
+          flex-direction: column;
+          padding: 0 10px;
+          // for flexbox in ie11
+          flex-basis: 100%;
+          .title {
+            font-size: 16px;
+            font-weight: bold;
+
+          }
+          .explanation{
+
+          }
+        }
+
+      }
+    }
+    .packet-anchors {
+      display: flex;
+      flex-direction: column;
+      padding-left: 16px;
+      li {
+        list-style-type: disc;
+        color: $col-blue;
+        a {
+          font-size: 20px;
+        }
+      }
+
+    }
+
+
+  }
+
+
+  .deal-signature-packets {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    margin-top: 36px;
+
+    #needs-signature {
+      padding: 20px 24px;
+      background-color: $col-blue-signing;
+      margin-bottom: 20px;
+      transition: background-color 1s ease-out;
+    }
+
+    #processing, #completed, #declined {
+      padding: 20px 24px;
+      background-color: $col-milk;
+      border: 1px solid $col-gray-light;
+      margin-bottom: 20px;
+      transition: background-color 1s ease-out;
+    }
+
+
+    .packets-status {
+      font-size: 24px;
+      color: $col-dark-blue;
+
+      &.needs-signature {
+        color: $white;
+        padding-bottom: 20px;
+      }
+      .subtitle {
+        font-size: 14px;
+        padding-bottom: 4px;
+      }
+    }
+
+    .with-documents {
+      display:flex;
+      flex-direction:column;
+      flex-basis: 60%;
+
+      h2 {
+        margin: 10px 0 5px 0;
+        border-bottom: none;
+
+        &:first-of-type {
+          margin-top: 0px;
+        }
+      }
+
+      .signature-packet {
+        margin: 20px 0 0 0;
+        padding: 24px 24px 21px 24px;
+        display: flex;
+        flex-direction: column;
+
+        .main-box {
+          display: flex;
+          margin-bottom: 16px;
+
+          .info {
+            display: flex;
+
+            .icon {
+              border-radius: 999px;
+              overflow: hidden;
+              background-color: $col-dark-blue;
+              color: $white;
+              font-size: 22px;
+              padding: 0px;
+              height: 48px;
+              width: 48px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-shrink: 0;
+            }
+            .signature-packet-info {
+              color: $col-dark-blue;
+              display: flex;
+              align-items: flex-start;
+              flex-grow: 1;
+              padding-left: 10px;
+
+              .packet-data {
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+
+                .name {
+                  font-size: 18px;
+                  font-weight: bold;
+
+                  span {
+                    font-weight: normal;
+                  }
+                }
+
+                .metadata {
+                  .prepared {
+                    color: $col-gray-prepared;
+                  }
+                }
+              }
+            }
+          }
+          .right-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: $col-blue;
+            font-weight: 500;
+            line-height: 14px;
+            flex-grow: 1;
+
+            .buttons {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .review {
+                font-weight: normal;
+                display: flex;
+                justify-content: center;
+                &.processing {
+                  padding-top: 8px;
+                }
+              }
+
+              .pink-btn {
+                background-color: #E33E64;
+                color: $white;
+                border-radius: 4px;
+              }
+
+              i {
+                margin-right: 5px;
+              }
+
+              .declined {
+                color: $col-red-text;
+              }
+
+              .sign-button {
+                display:flex;
+                flex-direction: column;
+                align-items: flex-end;
+                margin-bottom: 12px;
+
+                a {
+                  border-radius: 100px;
+                  padding: 8px;
+                  width: 176px;
+                  flex-shrink: 0;
+                  &.review-btn {
+                    white-space: normal;
+                    background-color: $col-blue-signing;
+                    color: $white;
+                  }
+                }
+
+                .processing {
+                  color: $col-pink;
+                  margin-top: 2px;
+                  font-weight:normal;
+                }
+              }
+            }
+          }
+        }
+        .missing-pages {
+          display: flex;
+          .tag {
+            display: flex;
+          }
+          .explanation {
+            padding-left: 12px;
+            color: $col-pink;
+            font-size: 18px;
+          }
+        }
+
+      }
+    }
+
+    .empty {
+      color: $col-gray;
+      display: flex;
+    }
+  }
+
+  // mobile
+  @media only screen and (max-width: $desktop) {
+    .deal-signature-packets-info {
+      margin: 24px;
+    }
+
+    .deal-signature-packets {
+      .signature-packet {
+        .main-box {
+          flex-direction: column;
+        }
+        .right-box {
+          align-items: center;
+          margin-top: 24px;
+        }
+      }
+    }
+  }
+
+  // between mobile and desktop, most likely tablet at 768px width
+  @media only screen and (min-width: $phone-xl+1) and (max-width: $desktop) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .deal-signature-packets-info {
+      margin: 36px 0 0 24px;
+      flex-basis: 30%;
+    }
+
+    .deal-signature-packets {
+      flex-basis: 60%;
+      overflow: auto;
+      height: 100%;
+
+      .signature-packet {
+        .main-box {
+          flex-direction: column;
+        }
+        .right-box {
+          align-items: center;
+          margin-top: 24px;
+        }
+      }
+    }
+  }
+
+  // desktop
+  @media only screen and (min-width: $desktop+1) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .deal-signature-packets-info {
+      margin: 36px 10px 0 0;
+      flex-basis: 15%;
+      min-width: 240px;
+      margin-right: 20px;
+    }
+
+    .deal-signature-packets {
+      min-width: 760px;
+      flex-basis: 45%;
+      overflow: auto;
+      height: 100%;
+
+      .signature-packet {
+        .main-box {
+          flex-direction: row;
+        }
+        .right-box {
+          align-items: flex-end;
+        }
+      }
+    }
+  }
+}
+
+i {
+
+  &.approval-text{
+    font-weight: 400;
+    font-style: normal;
+    color: $white;
+  }
+
+}
+
+.download-upload-modal {
+
+  .download, .upload {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 20px;
+
+    > .title{
+      font-size: 18px;
+      padding: 5px 0;
+      color: $col-dark-blue;
+    }
+
+    > .text {
+      padding: 5px 20px 0 20px;
+      font-size: 12px;
+      color: $col-dark-blue;
+    }
+
+    > .button {
+      padding: 5px 20px;
+      .processing-message{
+        color: $col-pink;
+      }
+    }
+
+    > .explanation {
+      padding: 5px 20px;
+
+      .title {
+        color: $col-pink;
+        font-weight: bold;
+      }
+    }
+  }
+  .upload .panel {
+    margin: 20px 20px 0 20px;
+
+    .panel-heading {
+      background: $col-blue-light;
+    }
+
+    .signature-pages-list {
+     display: flex;
+     flex-direction: column;
+     padding: 10px;
+     max-height: 100px;
+     overflow: scroll;
+
+     div:first-child{
+       margin-top: 0px;
+     }
+     .signature-page-row {
+       display: flex;
+       justify-content: space-between;
+       margin: 4px 0;
+       flex-shrink: 0;
+
+       .status {
+         display: flex;
+         align-items: flex-start;
+         margin-left: 20px;
+         flex-shrink: 0;
+
+          .triangle {
+            height: 0px;
+            width: 0px;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid $col-yellow-signature;
+          }
+
+          .status-text {
+            display:flex;
+            padding: 0 20px 0 5px;
+
+            &.completed {
+              color: $col-green-success-status;
+            }
+
+            &.needed {
+              background: $col-yellow-signature;
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.success-content {
+  padding: 20px 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+
+  .success-message {
+    color: $col-dark-blue;
+  }
+
+  .title {
+    color: $col-pink;
+    margin-top: 40px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .message {
+    color: $col-dark-blue;
+    margin-top: 10px;
+  }
+
+  .next-packet {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+}
+
+.next-packet-button {
+  color: $col-blue;
+  margin-right: 30px;
+}
+
+#error-message {
+  z-index: 10000000000;
+}
+
+// manual-signatures-page
+
+.manual-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  height: 100%;
+  .cards {
+    width: 100%;
+    max-width: 832px;
+
+    > .title {
+      font-size: 32px;
+      margin: 56px 16px 12px 16px;
+      display: flex;
+      color: $white;
+      justify-content: center;
+
+      @media only screen and (max-width: $mobile) {
+        margin-top: 16px;
+      }
+    }
+    .errors-card {
+      display: flex;
+      flex-direction: column;
+      background-color: $white;
+      border-radius: 8px;
+      margin: 16px;
+
+      .dark-header {
+        border-radius: 8px 8px 0 0;
+        padding: 24px 48px;
+        background: $col-dark-blue;
+
+        .pages-missing-title {
+          color: white;
+          font-size: 24px;
+          font-weight: bold;
+        }
+        .explanation {
+          padding-top: 8px;
+          color: white;
+          font-size: 14px;
+        }
+      }
+      .documents {
+        margin: 24px 48px;
+        font-size: 14px;
+        color: $col-dark-gray;
+
+        > .page {
+          display: flex;
+          margin-bottom: 12px;
+          > .icon {
+            color: $col-pink;
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+
+    .download-card, .upload-card, {
+      display: flex;
+      background-color: $white;
+      border: 1px solid $col-gray-light;
+      border-radius: 8px;
+      margin: 16px;
+      padding: 16px 48px;
+      // a fix for all phone sizes.
+      @media only screen and (max-width: $phone-xl) {
+        padding: 16px 8px
+      }
+
+      .left-box {
+        display: flex;
+        flex-direction: column;
+        color: $col-gray-medium;
+        margin-right: 44px;
+        flex-basis: 20%;
+
+        // for that weird space between mobile and giant phone
+        @media only screen and (max-width: $phone-xl) {
+          margin-right: 8px;
+        }
+
+        .text {
+          font-size: 20px;
+        }
+
+        .number {
+          font-size: 80px;
+          font-weight: bold;
+          line-height: 0.9;
+        }
+      }
+      .right-box {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 80%;
+        margin-top: 24px;
+
+        .instructions {
+          display: flex;
+          flex-direction: column;
+          // need for ie11
+          width: 100%;
+
+          .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: $col-dark-blue;
+          }
+
+          .subtitle{
+            font-size: 16px;
+            color: $col-dark-gray;
+          }
+
+          @media only screen and (max-width: $mobile) {
+            align-self: center;
+
+            .title {
+              font-size: 20px;
+            }
+          }
+        }
+
+        .download-button-container, .upload-button-container {
+          display: flex;
+          justify-content: left;
+          margin-top: 24px;
+
+          @media only screen and (max-width: $mobile) {
+            margin-top: 16px;
+          }
+
+          .btn-manual {
+            background-color: $col-pink;
+            border-radius: 100px;
+            color: $white;
+            width: 316px;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 0.9;
+            @media only screen and (max-width: $tablet) {
+              width: 200px;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+
+    .support-message {
+      margin: 16px;
+      font-size: 18px;
+      color: $white;
+      text-align: center;
+      a {
+        color: inherit;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// manual signatures modal
+.upload-packets {
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .upload-done-btn {
+    height: 32px;
+    border: 1px solid $col-blue-signing;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 140px;
+    color: $col-blue-signing;
+  }
+  .upload-submit-btn {
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    padding: 0;
+    display: none;
+  }
+  .upload-signature-pages-modal-body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .dropzone-container {
+      min-height: 158px;
+
+      .doxly-dropzone {
+        border: 4px dashed $col-blue;
+        border-radius: 8px;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        background-color: transparent;
+        z-index: 100;
+
+        &.dz-drag-hover {
+          border: 4px dashed $col-success;
+        }
+      }
+      .dropzone-background {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 150px;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        padding: 12px;
+
+        .upload-icon {
+          display: flex;
+          justify-content: center;
+          height: 72px;
+          width: 72px;
+        }
+        .title {
+          font-size: 20px;
+          color: $col-pink;
+          font-weight: bold;
+          display: flex;
+          justify-content: center;
+        }
+        .subtitle {
+          color: $col-blue;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+    .dropzone-preview-panel {
+      background-color: white;
+      border: solid 1px $col-gray-light;
+      margin-top: 24px;
+
+      .panel-heading{
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+        background-color: $white;
+        color: $col-dark-blue;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .received {
+        width: 100%;
+        display: flex;
+        min-height: 60px;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 16px;
+        color: $col-dark-blue;
+
+        .file-upload {
+          display: flex;
+          margin-bottom: 8px;
+          flex-direction: column;
+          width: 100%;
+
+          .upload-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            .left-box{
+              display: flex;
+              align-items: flex-start;
+              flex-grow: 1;
+
+              .progress-circle {
+                flex-shrink: 0;
+              }
+              .dz-details {
+                margin-left: 12px;
+                color: $col-dark-blue;
+                font-size: 16px;
+                width: 100%;
+                overflow: hidden;
+              }
+            }
+            .right-box {
+              display: flex;
+              justify-content: flex-end;
+              margin-left: 12px;
+              flex-basis: 50px;
+              flex-shrink: 0;
+
+              a {
+                font-size: 16px;
+                font-weight: bold;
+                color: $col-red-delete;
+              }
+            }
+          }
+          .dz-progress {
+            width: 100px;
+            flex-shrink: 0;
+          }
+        }
+      }
+    }
+  }
+}
+.dz-filename{
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.left-box{
+  width: 100%;
+  overflow: hidden;
+}
+// Processing And Completed Page SCSS
+
+.processing-container, .completed-container {
+  background-color: $col-blue-signing;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  .processing-content, .completed-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: $white;
+    width: 100%;
+    min-height: 100px;
+
+    @media only screen and (max-width: $mobile) {
+      height: 100%;
+    }
+
+    @media only screen and (min-width: $mobile+1) {
+      margin-top: 100px;
+      border-radius: 8px;
+      max-width: 668px;
+      width: 50%;
+
+      .dark-header {
+        border-radius: 8px 8px 0 0;
+      }
+    }
+
+    .dark-header {
+      padding: 28px 0;
+      background: $col-dark-blue;
+      &.completed {
+        padding: 12px 0;
+      }
+
+      .title {
+        padding: 0 24px;
+        font-size: 32px;
+        font-weight: 300;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .complete-icon {
+          background-color: white;
+          border-radius: 50%;
+          height: 40px;
+          width: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 16px;
+
+          i {
+            color: $col-green-success-status;
+            font-size: 32px;
+          }
+        }
+      }
+      .subtitle {
+        margin-top: 16px;
+        padding: 0 24px;
+        font-size: 20px;
+        color: $col-dark-blue;
+        text-align: center;
+      }
+    }
+
+    .text {
+      font-size: 16px;
+      color: $col-dark-blue;
+      margin: 24px 20%;
+      text-align: center;
+    }
+
+    hr {
+      margin: 0;
+      width: 40%;
+      margin: 0 auto;
+      border-color: $col-gray-light;
+    }
+
+    .packets-left {
+      font-size: 18px;
+      text-align: center;
+      margin: 24px 20% 0 20%;
+      color: $col-dark-blue;
+    }
+    .buttons {
+      margin: 12px auto 26px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      button, a {
+        border-radius: 100px;
+        padding-left: 2.4rem;
+        padding-right: 2.4rem;
+        margin: 12px 0;
+      }
+
+      .close-window-text {
+        font-size: 14px;
+        margin: 12px 0;
+        text-align: center;
+      }
+    }
+  }
+}

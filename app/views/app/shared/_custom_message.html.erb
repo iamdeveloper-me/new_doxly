@@ -1,0 +1,11 @@
+<%
+  multiple_recipients ||= false
+  hidden ||= false
+  disabled ||= false
+  recipient_label = multiple_recipients ? 'recipients' : 'recipient'
+%>
+
+<div id="message-box" class="<%= 'hidden' if hidden %>">
+  <label for="custom_message">Add a message (optional)</label>
+  <%= text_area_tag :custom_message, nil, :class => "form-control", :placeholder => "Add a personalized note or additional information the #{recipient_label} may need.", :disabled => disabled %>
+</div>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" viewBox="0 0 200 200">
+    <defs>
+        <path id="a" d="M5.333 0H91.25L120 28.75v125.917a5.333 5.333 0 0 1-5.333 5.333H5.333A5.333 5.333 0 0 1 0 154.667V5.333A5.333 5.333 0 0 1 5.333 0z"/>
+        <path id="b" d="M90 0l30 30H90z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path d="M0 0h200v200H0z"/>
+        <g transform="translate(40 20)">
+            <use fill="#EEF3F9" xlink:href="#a"/>
+            <path stroke="#293B55" stroke-width="3" d="M118.5 29.371L90.629 1.5H5.333A3.833 3.833 0 0 0 1.5 5.333v149.334a3.833 3.833 0 0 0 3.833 3.833h109.334a3.833 3.833 0 0 0 3.833-3.833V29.37z"/>
+            <use fill="#59A5DB" xlink:href="#b"/>
+            <path stroke="#293B55" stroke-width="3" d="M91.5 3.621V28.5h24.879L91.5 3.621z"/>
+            <rect width="56" height="4" x="32" y="56" fill="#293B55" rx="2"/>
+            <rect width="40" height="4" x="40" y="64" fill="#293B55" rx="2"/>
+            <rect width="48" height="4" x="36" y="72" fill="#293B55" rx="2"/>
+            <rect width="40" height="4" x="40" y="98" fill="#E64A6B" rx="2"/>
+        </g>
+    </g>
+</svg>

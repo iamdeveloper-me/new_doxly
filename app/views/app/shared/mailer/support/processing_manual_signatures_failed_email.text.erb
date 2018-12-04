@@ -1,0 +1,16 @@
+Details
+
+Law Firm: <%= @entity_name %>
+Law Firm User: <%= @sending_entity_user.user.name %>
+Deal: <%= @deal.title %>
+Close Date: <%= @deal.projected_close_date.strftime('%m/%d/%Y') %>
+File path: <%= @file_path %>
+<% if @signature_packet %>
+  Signer Name: <%= @signature_packet.user.name %>
+  Signer Email: <%= @signature_packet.user.email %>
+<% end %>
+Unreadable Pages: <%= @unreadable_pages.join(', ') %>
+Wrong Packet Pages: <%= @wrong_packet_pages.join(', ') %>
+Already Signed Pages: <%= @already_signed_pages.join(', ') %>
+Error Pages: <%= @error_pages.join(', ') %>
+Error Messages: <%= @error_messages.join(', ') %>

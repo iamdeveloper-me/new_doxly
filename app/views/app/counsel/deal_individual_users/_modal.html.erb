@@ -1,0 +1,4 @@
+<% title ||= "Add Individual" %>
+<%= render :layout => 'shared/modal', :locals => { :title => title, :submit_button_label => "Add" } do %>
+  <%= render 'new_deal_individual_form' %>
+<% end %>

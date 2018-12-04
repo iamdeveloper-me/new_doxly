@@ -1,0 +1,182 @@
+.whiteout-ui {
+  // styles to override the reset.scss file we have for the rest of the app.
+  ul {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+  }
+  .notification {
+    background-color: $white;
+    border: 2px solid $text-primary;
+    border-radius: 2px!important;
+    min-height: 3.5rem;
+    padding: 0.8rem 0.8rem 0.8rem 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    flex-direction: row;
+    margin: 0;
+    border-radius: 0;
+
+    &.animated {
+      animation-delay: 1s;
+      animation-duration: $transition-speed-3;
+      animation-fill-mode: both;
+      animation-name: fadeIn;
+    }
+
+    &.global {
+      animation-name: fadeInRight;
+      display: block;
+      max-width: 35rem;
+      border-width: 3px;
+      padding: 1rem 4rem 2rem 4rem!important;
+      text-align: center;
+      &:before {
+        display: block;
+        margin: 0 auto;
+        font-size: 26px !important;
+        line-height: 1.55!important;
+        position: static;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        margin-bottom: 1.25rem;
+      }
+      h1, h2, h3, h4 {
+        font-weight: 400;
+      }
+      &.warning {
+        &:before {
+          line-height: 1.4!important;
+        }
+        h1, h2, h3, h4 {
+          color: $warning;
+        }
+      }
+      &.error {
+        &:before {
+          content: '\F205';
+        }
+        h1, h2, h3, h4 {
+          color: $error;
+        }
+      }
+      &.success {
+        h1, h2, h3, h4 {
+          color: $complete;
+        }
+      }
+    }
+    &.elevated {
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.20);
+    }
+    &.dismissable {
+      padding-right: 4rem;
+      .close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        min-height: 0;
+        height: 3.5rem;
+        padding: 0.5rem;
+        &:before {
+          padding-right: 0;
+        }
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+    &-message {
+      flex: 1;
+      line-height: 1.4;
+      p {
+        margin: 1rem 0;
+      }
+      *:first-child {
+        margin-top: 0;
+      }
+      *:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &.warning {
+      border-color: $warning;
+      .close {
+        color: $warning;
+        opacity: 1;
+      }
+      &:before {
+        background-color: $warning;
+        content: '\F026';
+      }
+    }
+    &.error {
+      border-color: $error;
+      color: $text-default!important;
+      .close {
+        color: $error;
+        opacity: 1;
+      }
+      &:before {
+        background-color: $error;
+      }
+    }
+    &.success {
+      border-color: $complete;
+      .close {
+        color: $complete;
+        opacity: 1;
+      }
+      &:before {
+        background-color: $complete;
+        content: '\F12C';
+      }
+    }
+    &:before {
+      content: '\F028';
+      background-color: $text-primary;
+      position: absolute;
+      text-align: center;
+      color: $white;
+      top: 0;
+      left: -2px;
+      bottom: 0;
+      width: 3.6rem;
+      font-family:"Material Design Icons";
+      line-height: 1.9!important;
+      font-size: 18px!important;
+      font-size: inherit;
+      text-rendering: auto;
+      line-height: inherit;
+      -webkit-font-smoothing: antialiased;
+    }
+  }
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translate3d(100%, 0, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+}

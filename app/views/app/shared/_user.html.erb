@@ -1,0 +1,204 @@
+<%
+  signing_capacity ||= nil
+  user ||= nil
+  subtitle ||= -> { (user&.entity_users&.map(&:title)&.uniq&.compact&.join('; ')) || "Individual" }
+  avatar_size ||= "large"
+  unique_id = rand(100)
+  avatar_only ||= false
+  text_only ||= false
+  user_role ||= nil
+  individual_role ||= nil
+  assigned_by_current_user ||= nil
+  entity_user ||= user&.entity_users.first
+  path = -> {entity_entity_user_path(entity_user&.entity, entity_user)}
+  is_counsel ||= current_entity.is_counsel
+  deal_entity_id ||= nil
+  deal_entity_user_id ||= nil
+  has_organizations ||= false
+  is_current_user = user == current_user
+
+  # user labels
+  labels_array = []
+  labels_array << "disabled" unless user.is_enabled
+  labels_array << "firm administrator" if entity_user.entity_id == current_entity.id && entity_user.can_see_all_deals?
+  labels = "(#{labels_array.join("; ")})" if labels_array.any?
+%>
+
+<% content_for :avatar, flush: true do %>
+  <% if user && user.avatar.file.present? %>
+    <div class="avatar <%= avatar_size %>" data-current-user="<%= is_current_user %>" data-assigned-by-current-user="<%= assigned_by_current_user %>"><%= image_tag show_user_avatar_path(id: user.id) %></div>
+  <% else %>
+    <div class="avatar <%= avatar_size %>" data-current-user="<%= is_current_user %>" data-assigned-by-current-user="<%= assigned_by_current_user %>"><div class="no-photo <%= user.try(:avatar_color) %>"><%= "#{user.initials.upcase}"%></div></div>
+  <% end %>
+<% end %>
+
+<% if user_role || individual_role %>
+  <div class="user-role <%= user_role ? '' : 'individual' %>">
+    <div class="user <%= user_role ? 'role-user' : 'individual-role' %> <%= has_organizations ? '' : 'no-organizations' %>">
+      <!-- disable link if not a law firm. cursor is already pointer for the whole role container -->
+      <% content_for :user_role_details__left, flush: true do %>
+        <%= content_for :avatar %>
+        <div class="info">
+          <div class="name"><%= user.name %> <i><%= labels %></i></div>
+          <div class="subtitle"><%= user_role ? deal_entity_user.entity_user.title : 'Individual' %></div>
+        </div>
+      <% end %>
+      <% if is_counsel %>
+        <a class="user-details__left has-user-tooltip" href="<%= path.call %>" data-tooltip-content='<%= "#tooltip_content_#{user.id}_#{unique_id}" %>'>
+          <%= content_for :user_role_details__left %>
+        </a>
+      <% else %>
+        <div class="user-details__left">
+          <%= content_for :user_role_details__left %>
+        </div>
+      <% end %>
+      <div class="user-details__right">
+        <a class="email" href="mailto:<%= user.email %>" target="_blank"><%= user.email %></a>
+        <% if user.phone.present? %>
+          <a class="phone" href='<%= "tel:#{user.phone}" %>'><%=h "#{number_to_phone(user.phone, area_code: true)}<br>".html_safe %></a>
+        <% end %>
+        <% if @deal.is_owning_entity?(current_entity) && !user.confirmed? && user.is_enabled %>
+          <% if user_role %>
+            <%= link_to deal_deal_entity_deal_organization_user_prepare_deal_invitation_path(@deal, deal_entity_user.deal_entity, deal_entity_user), remote: true do %>
+              <div class="email-invite">
+                <i class="fa fa-envelope-o"></i>
+                <div class="email-text">Invite to Deal</div>
+              </div>
+            <% end %>
+          <% else %>
+            <%= link_to deal_deal_individual_user_prepare_deal_invitation_path(@deal, deal_entity_user), remote: true do %>
+              <div class="email-invite">
+                <i class="fa fa-envelope-o"></i>
+                <div class="email-text">Invite to Deal</div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <% if @deal.is_owning_entity?(current_entity) && current_entity_user.role != 'read_only'%>
+      <% if user_role %>
+        <div class="delete whiteout-ui">
+          <div class="dropdown">
+            <button type="button" class="button mdi mdi-delete mdi-24px trigger wgl-delete" name="button" id="dropdown-menu-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="whiteout-dropdown dropdown-menu expanded dropdown-caret card" aria-labelledby="dropdown-menu-button">
+              <div class="dropdown-header">
+                <p>Remove user from this role?</p>
+              </div>
+              <div class="dropdown-row">
+                <div class="dropdown-column">
+                  <p class="gray">For this role, the user will no longer have permission to this deal and any to-do items will be unassigned.</p>
+                </div>
+              </div>
+              <div class="dropdown-footer">
+                <button type="button remove" class="button small button-secondary" name="button">Cancel</button>
+                <%= link_to deal_deal_entity_deal_organization_user_path(@deal.id, deal_entity_user.deal_entity.id, deal_entity_user.id), :confirm => "Are you sure?", method: :delete, remote: true do %>
+                  <button type="button cancel" class="button small button-primary mdi mdi-delete removal" name="button">Remove</button>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="delete individual-user whiteout-ui">
+          <div class="dropdown">
+            <button type="button" class="button mdi mdi-delete mdi-24px trigger wgl-delete" name="button" id="dropdown-menu-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu expanded dropdown-caret card" aria-labelledby="dropdown-menu-button">
+              <div class="dropdown-header">
+                <p>Remove user from this role?</p>
+              </div>
+              <div class="dropdown-row">
+                <div class="dropdown-column">
+                  <p class="gray">For this role, the user will no longer have permission to this deal and any to-do items will be unassigned.</p>
+                </div>
+              </div>
+              <div class="dropdown-footer">
+                <button type="button" class="button small button-secondary" name="button">Cancel</button>
+                <%= link_to deal_deal_individual_user_path(@deal.id, deal_entity_user, role_id: individual_role.id, deal_entity_id: deal_entity_user.deal_entity.id), :confirm => "Are you sure?", method: :delete, remote: true do %>
+                  <button type="button" class="button small button-primary mdi mdi-delete removal" name="button">Remove</button>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="empty-delete"></div>
+    <% end %>
+  </div>
+<% else %>
+  <% if avatar_only %>
+    <% if !is_counsel %>
+      <a class="party-view__user">
+    <% else %>
+      <a href="<%= path.call %>">
+    <% end %>
+      <div class="has-user-tooltip <%= labels %>" data-tooltip-content='<%= "#tooltip_content_#{user.id}_#{unique_id}" %>'>
+        <%= content_for :avatar %>
+      </div>
+    </a>
+  <% elsif text_only %>
+    <% if !is_counsel %>
+      <a class="party-view__user">
+    <% else %>
+      <a href="<%= path.call %>">
+    <% end %>
+      <span class="has-user-tooltip <%= labels %>" data-tooltip-content='<%= "#tooltip_content_#{user.id}_#{unique_id}" %>'>
+        <%= user.name %> <i><%= labels %></i>
+      </span>
+    </a>
+  <% else %>
+    <% if !is_counsel %>
+      <a class="party-view__user">
+    <% else %>
+      <a href="<%= path.call %>">
+    <% end %>
+      <div class="user-role">
+        <div class="user has-user-tooltip <%= labels %>" data-tooltip-content='<%= "#tooltip_content_#{user.id}_#{unique_id}" %>'>
+          <%= content_for :avatar %>
+          <div class="details">
+            <div class="name">
+              <%= user.name %> <i><%= labels %></i>
+            </div>
+            <div class="subtitle"><%= subtitle.is_a?(String) ? subtitle : subtitle.call %></div>
+          </div>
+        </div>
+      </div>
+    </a>
+  <% end %>
+<% end %>
+
+<div class="tooltip_templates">
+  <span id='<%= "tooltip_content_#{user.id}_#{unique_id}" %>' class="tooltip_content">
+    <div class="tooltip-user">
+      <div class="tooltip-header">
+        <%= content_for :avatar %>
+        <div class="tooltip-details">
+          <div class="tooltip-name">
+            <%= user.name %> <i><%= labels %></i>
+          </div>
+          <div class="tooltip-entity">
+            <%= user&.entities&.map(&:display_name)&.uniq&.compact&.join('; ') %>
+          </div>
+        </div>
+      </div>
+      <div class="tooltip-contact">
+        <div class="tooltip-email">
+          <i class="fa fa-envelope" aria-hidden="true"></i>
+          <a href="mailto:<%= user.email %>" target="_blank"><%= user.email %></a>
+        </div>
+        <% if !user.phone.blank? %>
+          <div class="tooltip-phone">
+            <i class="fa fa-phone-square" aria-hidden="true"></i>
+            <a href='<%= "tel:#{user.phone}" %>'><%=h "#{number_to_phone(user.phone, area_code: true)}<br>".html_safe %></a>
+          </div>
+        <% end %>
+      </div>
+      <% if user.current_sign_in_at %>
+        <div>
+          Last login: <%= user.current_sign_in_at.strftime('%m/%d/%Y') %> at <%= user.current_sign_in_at.strftime('%l:%M %p') %>
+        </div>
+      <% end %>
+    </div>
+  </span>
+</div>

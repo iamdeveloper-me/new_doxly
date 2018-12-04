@@ -1,0 +1,9 @@
+<%
+  title ||= nil
+  signature_packet ||= nil
+%>
+<% if signature_packet %>
+  <%= render :layout => 'shared/upload_packets_modal', :locals => { :title => title, modal_class: "upload-packets", path: signature_packet_uploaded_manual_signatures_path(signature_packet)} do %>
+    <%= render 'upload_signature_pages_form' %>
+  <% end %>
+<% end %>

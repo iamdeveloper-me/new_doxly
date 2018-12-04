@@ -1,0 +1,249 @@
+.user-role {
+  display: flex;
+  align-items: center;
+
+  &.individual {
+    border-top: 1px solid $col-border-medium;
+  }
+
+  .user {
+    display: flex;
+    transition: 0.3s;
+    width: 100%;
+
+    &.role-user, &.individual-role {
+      padding: 10px 0;
+      display: inline-flex;
+      width: 100%;
+      justify-content: space-between;
+      overflow: hidden;
+
+      .user-details__left {
+        display: flex;
+        flex-basis: 50%;
+        overflow: hidden;
+        margin-right: 4px;
+
+        .info {
+          padding-left: 15px;
+          overflow: hidden;
+
+          .name {
+            font-size: 14px;
+            font-weight: 300;
+            color: $col-dark-gray;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-weight: 400;
+
+            .firm-admin {
+              font-style: italic;
+            }
+          }
+
+          .subtitle {
+            font-size: 12px;
+            color: $col-gray-medium;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      .user-details__right {
+        flex-basis: 50%;
+        width: 100%;
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+        align-items: flex-end;
+        text-align: right;
+
+        .email {
+          width: 100%;
+          font-size: 14px;
+          font-weight: 300;
+          color: $col-dark-gray;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          font-weight: 400;
+        }
+
+        .phone {
+          font-size: 12px;
+          color: $col-gray-medium;
+          width: 100%;
+          font-weight: 300;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          font-weight: 400;
+        }
+
+        .email-invite {
+          display: flex;
+          align-items: baseline;
+          padding-top: 4px;
+          font-size: 12px;
+
+          .email-text {
+            padding-left: 4px;
+          }
+        }
+
+      }
+      &.role-user {
+        margin-left: 100px;
+        border-top: 1px solid $col-border-lighter;
+      }
+      &.individual-role {
+        padding: 20px 0px 16px 50px;
+
+        &.no-organizations:first-child {
+          border-top: none;
+        }
+      }
+    }
+
+    .details {
+      padding-left: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .name {
+        font-size: 16px;
+        font-weight: 300;
+        color: $col-dark-gray;
+
+        .firm-admin {
+          font-style: italic;
+        }
+      }
+
+      .subtitle {
+        font-size: 12px;
+        color: $col-gray-medium;
+      }
+    }
+
+    &.role-user:hover, &.individual-role:hover {
+      opacity: 1;
+    }
+  }
+
+  .delete {
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 24px;
+    width: 62px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    &.individual-user{
+      width: 56px;
+      height: 24px;
+    }
+    .trigger {
+      display: none;
+      &.wgl-delete-on-click {
+        display: flex;
+        color: $col-red;
+      }
+    }
+
+  }
+
+  &:hover {
+    .delete {
+      .trigger {
+        display: flex;
+      }
+      #dropdown-menu-button{
+        color: $col-red;
+      }
+    }
+  }
+}
+
+.empty-delete {
+  margin-right: 40px;
+}
+
+.party-view__user {
+  cursor: default;
+}
+
+.disabled-user {
+  cursor: not-allowed;
+  opacity: .5;
+  .disabled-client-text{
+    color: $col-gray;
+  }
+}
+
+.tooltip_templates {
+  display: none;
+}
+
+.tooltip-user {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  color: $col-milk;
+
+  .tooltip-header {
+    display: flex;
+    align-items: center;
+
+    .tooltip-details {
+      padding-left: 10px;
+
+      .tooltip-name {
+        color: lighten($col-blue-focus, 5%);
+        font-size: 16px;
+        font-weight: 300;
+      }
+
+      .tooltip-entity {
+        color: $col-blue-focus;
+      }
+    }
+  }
+
+  .tooltip-contact {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    color: $col-blue-focus;
+
+    i {
+      padding-right: 5px;
+      width: 25px;
+      color: lighten($col-blue-focus, 5%);
+      text-align: center;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .tooltip-email {
+      padding-bottom: 5px;
+    }
+  }
+}
+
+.entity-switch {
+  display: block;
+  margin-top: 15px;
+
+  .btn {
+    margin: 0px 0px 10px 0px;
+    display: block;
+    float: none;
+  }
+}

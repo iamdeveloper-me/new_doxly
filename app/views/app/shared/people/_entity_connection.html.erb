@@ -1,0 +1,54 @@
+<%
+  type_params = params[:type]
+  type_params = entity_connection.connected_entity.entity_type if type_params.blank?
+%>
+<div class="deal-entity-user-group toggle" id="entity-connection-<%= entity_connection.connected_entity.id %>">
+  <div class="deal-entity-user-group__header">
+    <div class="title toggle-trigger">
+      <div class="expand-toggle"></div>
+      <%= entity_connection.connected_entity.name %>
+    </div>
+    <div class="action pull-right">
+      <% if !entity_connection.is_pending && current_entity.is_counsel %>
+        <% if !entity_connection.connected_entity.is_active? && current_entity_user.role != 'read_only' %>
+          <%= link_to 'Edit', edit_entity_connection_path(entity_connection, :type => type_params), :remote => true %> |
+        <% end %>
+        <%= link_to 'Add User', new_entity_entity_user_path(entity_connection.connected_entity, :type => type_params), :remote => true if current_entity_user.role != 'read_only' %>
+      <% elsif current_entity.is_counsel %>
+        <%= link_to 'Resend Connection Invitation', resend_connection_invitation_entity_connections_path(entity_connection_id: entity_connection.id), :remote => true %>
+      <% elsif entity_connection.is_pending %>
+        <%= link_to 'Accept Connection Invitation', confirm_entity_connection_entity_connections_path(confirmation_token: entity_connection.confirmation_token), :remote => true %>
+      <% end %>
+    </div>
+  </div>
+  <div class="children">
+    <% if entity_connection.is_pending %>
+      <div class="padding-10">
+        <div className="no-results">
+          <div className="header">Connection Pending</div>
+        </div>
+      </div>
+    <% else %>
+      <% entity_connection.connected_entity.entity_users.each do |entity_user| %>
+        <% user = entity_user.user %>
+        <% next if params[:filter_text] && [user.first_name, user.last_name, user.email].join.exclude?(params[:filter_text]) && !@found_entities.include?(params[:filter_text]) %>
+        <div class="deal-entity-user">
+          <%= render 'app/shared/user', user: user, subtitle: user.email, entity_user: entity_user %>
+          <div class="deal-entity-user__actions">
+            <% if !user.confirmed? && current_entity_user.role != 'read_only' && current_entity.is_counsel%>
+              <%= link_to '', resend_invitation_entity_entity_user_path(entity_connection.connected_entity, entity_user.id, :type => params[:type]), :class => "fa fa-envelope-o left", :style => "float: left; margin-left: 7px;" %>
+              <%= link_to '', edit_entity_entity_user_path(entity_connection.connected_entity, entity_user.id, :type => params[:type]), :class => "fa fa-pencil left", :style => "float: left; margin-left: 7px;", :remote => true %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if entity_connection.connected_entity.entity_users.empty? %>
+        <div class="padding-10 empty-border-top">
+          <div className="no-results">
+            <div className="header">There aren't any users to show.</div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+class ConvertedAwsFile < AwsFile
+end

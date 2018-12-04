@@ -1,0 +1,31 @@
+<%
+  title ||= nil
+  cancel_button_label ||= "Cancel"
+  confirm_button_label ||= "Confirm"
+  confirm_button_path ||= nil
+  confirm_button_method ||= 'get'
+  disabled ||= false
+%>
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div id="modal-blocker"></div>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="modal-new-deal-label">
+        <%= title %>
+      </h4>
+    </div>
+    <div id="sliding-pane"></div>
+    <div class="modal-body">
+      <%= yield %>
+    </div>
+    <div class="modal-footer">
+      <% if confirm_button_path.present? %>
+        <%= link_to confirm_button_label, confirm_button_path, class: "btn btn-primary", remote: true, 'data-method' => confirm_button_method %>
+      <% else %>
+        <input type="submit" class="btn btn-primary submit-form" value="<%= confirm_button_label %>" id="signature-packet-submit" data-disabled="<%= disabled %>" />
+      <% end %>
+      <button type="button" class="btn btn-default pull-left cancel-form" data-dismiss="modal"><%= cancel_button_label %></button>
+    </div>
+  </div>
+</div>

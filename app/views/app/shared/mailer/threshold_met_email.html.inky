@@ -1,0 +1,28 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-sign-good.png" %>
+<% end %>
+<% @title = capture do %>
+  Voting Threshold Met on <%= @document.name %>
+<% end %>
+<% @content = capture do %>
+  <p>
+  You can review this document or the progress of other documents by visiting the signature tracker for this deal.
+  </p>
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <a href="<%= deal_signature_packets_url(@deal) %>">Access Tracker</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

@@ -1,0 +1,29 @@
+<div class="panel summary-card">
+  <div class="panel-heading">
+      <h3 class="category">DOCUMENTS TO REVIEW</h3>
+  </div>
+  <div class="panel-body">
+      <div class="summary-files">
+          <% if files.empty? %>
+            <div class="project-item-empty">
+              No documents to review
+            </div>
+          <% end %>
+          <% files.each do |file| %>
+            <%
+              path = if file.is_orphan?
+                deal_category_path(file.owner, file.owner.closing_category)
+              else
+                deal_category_path(file.parent, file.category)
+              end
+            %>
+            <div class="item item-<%= file.class == Document ? 'file' : 'folder'%>">
+              <a href="<%= path %>" class="details">
+                <i><%= file.name %></i>
+                <span>Added by <%= file.latest_version.uploader.user.name %></span>
+              </a>
+            </div>
+          <% end %>
+      </div>
+  </div>
+</div>

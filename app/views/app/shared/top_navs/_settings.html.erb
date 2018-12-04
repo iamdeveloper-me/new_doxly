@@ -1,0 +1,16 @@
+<%
+  path = current_path
+%>
+
+<% content_for :navbar_bottom do %>
+  <ul class="nav nav-tabs deal-tabs" role="tablist">
+    <li role="presentation" class="<%= 'active' if path == my_profile_path %>  deal-tab"><a href="<%= my_profile_path %>">My Profile</a></li>
+    <li role="presentation" class="<%= 'active' if path == change_email_path || path == cancel_change_email_path %> deal-tab"><a href="<%= change_email_path %>">Change Email</a></li>
+    <li role="presentation" class="<%= 'active' if path == change_password_path %> deal-tab"><a href="<%= change_password_path %>">Change Password</a></li>
+    <li role="presentation" class="<%= 'active' if path == two_factor_authentication_settings_path %> deal-tab"><a href="<%= two_factor_authentication_settings_path %>">Two-Factor Authentication</a></li>
+    <% if current_entity_user.entity.dms_entity_storage #this is the check for now. Later can be more robust %>
+      <li role="presentation" class="<%= 'active' if path == integrations_path || path == authorize_net_documents_user_credentials_path %>  deal-tab"><a href="<%= integrations_path %>">Integrations</a></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= render "shared/top_navs/index", title: 'Account Settings' %>

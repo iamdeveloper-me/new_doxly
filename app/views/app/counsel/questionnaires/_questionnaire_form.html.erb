@@ -1,0 +1,74 @@
+<%= form_for @deal, :url => save_responses_deal_questionnaires_path(@deal), :method => :post, :remote => true, :html => { :class => 'no-turboboost' } do |f| %>
+  <%
+    @questionnaire.questions.where(is_active: true).each do |question|
+      has_dependency    = question.question_dependencies.any?
+      dependent_id      = question.question_dependencies[0].dependent_question_id if has_dependency
+      dependency_class  = has_dependency ? "has-dependency" : ""
+      question_response = @question_responses.find_by :question_id => question.id
+      answers           = question_response.present? ? question_response.question_answers : []
+      # get the pre-populated answer
+      answer_value      = questionniare_answer_value(@deal, question.value_key) if question.value_key.present?
+  %>
+    <div id="<%= question.id %>" class="form-group questionnaire-question <%= dependency_class %>" data-question-id="<%= dependent_id %>">
+      <%= hidden_field_tag "deal[question_responses_attributes][][question_id]", question.id %>
+      <%= f.fields_for @question_responses do |question_response_fields| %>
+        <%= question_response_fields.fields_for :question_answers_attributes do |question_answer_fields| %>
+          <label><%= question.field %></label>
+          <% if question.type === 'DropdownQuestion' %>
+            <%
+              answer_value = answers.first&.option_id
+            %>
+            <%= question_answer_fields.select :option_id, options_for_select(question.question_options.order(:position).map{ |o| ["#{o.label}", o.id] }, [answer_value]), {:include_blank => 'Please Select...'}, { :name => "deal[question_responses_attributes][][question_answers_attributes][][option_id]", :class => 'selectpicker show-tick form-control' } %>
+          <% elsif question.type === 'NumericQuestion' %>
+            <%
+              answer_value   = answers.first&.numeric_value
+              currency       = question.unit_type === 'Currency'
+              no_type        = question.unit_type === 'None'
+              sign           = currency ? 'p' : 's'
+              symbol         = currency ? '$ ' : '%'
+              sign_placement = no_type ? '' : sign
+              sign_type      = no_type ? '' : symbol
+            %>
+            <%= question_answer_fields.text_field :numeric_value, :value => answer_value, :class => "form-control", :name => "deal[question_responses_attributes][][question_answers_attributes][][numeric_value]", data: {autonumeric: {aSign: "#{sign_type}", vMin: '0', vMax: '9999999999', aPad: false, wEmpty: 'focus', pSign: "#{sign_placement}"}} %>
+          <% elsif question.type === 'ChecklistQuestion' %>
+            <% other_option = question.question_options.any?{|a| a.label == "Other"} ? "other-option" : ""  %>
+            <div class="<%= question.id %> <%= other_option %>">
+              <%= question_answer_fields.collection_check_boxes :option_id, question.question_options.order(:position), :id, :label, {},
+                  {:name => "deal[question_responses_attributes][][question_answers_attributes][][option_id]" } do |option|
+              %>
+                <%
+                  selected     = answers.select{ |a| (a.option_id == option.object.id) || (option.label == 'Other' && a.other_option_value.present?)}.first&.option_id.present?
+                  answer_value = answers.first&.other_option_value
+                %>
+                  <div class="collection-check-box">
+                    <div class="questionnaire-options">
+                      <div class="questionnaire-check-box"><%= option.check_box({:checked => selected}) %></div>
+                      <div class="questionnaire-label"><%= option.label %></div>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+            <%
+              other_option = question_response ? question_response.question_answers.select{ |a| a.other_option_value.present? }.first : nil
+              value        = other_option ? other_option.other_option_value : nil
+            %>
+            <%= question_answer_fields.text_field :other_option_value, :value => value, :class => "form-control other-question #{question.id}", :name => "deal[question_responses_attributes][][question_answers_attributes][][other_option_value]" %>
+          <% elsif question.type === 'DateQuestion' %>
+            <%
+              answer_overridden_value = answers.first&.date_value
+              answer_value            = answer_overridden_value if answer_overridden_value.present?
+              value                   = answer_value ? answer_value.strftime('%m/%d/%Y') : nil
+            %>
+            <%= question_answer_fields.text_field :date_value, :value => value, :class => "form-control datepicker", :placeholder => "Choose Date", :name => "deal[question_responses_attributes][][question_answers_attributes][][date_value]" %>
+          <% else %>
+            <%
+              answer_overridden_value = answers.first&.text_value
+              answer_value            = answer_overridden_value if answer_overridden_value.present?
+            %>
+            <%= question_answer_fields.text_field :text_value, :value => answer_value, :class => "form-control", :name => "deal[question_responses_attributes][][question_answers_attributes][][text_value]" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

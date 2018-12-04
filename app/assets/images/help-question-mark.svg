@@ -1,0 +1,11 @@
+<svg width="24px" height="24px" viewBox="624 16 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Help-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(624.000000, 16.000000)">
+        <ellipse id="Oval" fill="#4990E2" cx="12" cy="11.5" rx="11" ry="10.5"></ellipse>
+        <text id="?" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" fill="#FFFFFF">
+            <tspan x="8" y="17">?</tspan>
+        </text>
+    </g>
+</svg>

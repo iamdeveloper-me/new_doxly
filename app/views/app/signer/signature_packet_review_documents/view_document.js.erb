@@ -1,0 +1,4 @@
+<%
+  url = viewer_url(view_signature_packet_signature_packet_review_document_path(@signature_packet, @signature_packet_review_document))
+%>
+App.SignaturePackets.viewDocument('<%= escape_javascript(render("iframe_document", :url => url, :name => @name)) %>')

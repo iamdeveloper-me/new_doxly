@@ -1,0 +1,263 @@
+html{
+  position: relative;
+  @media print {
+    width: 11in;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+#wrapper{
+  background: $col-blue-light;
+  height: 100vh;
+  overflow: hidden;
+
+  .party-view &, .signer-view & {
+      background: $col-milk-2;
+  }
+
+  &.no-sidebar{
+      background: $col-milk-2;
+  }
+
+  @media print {
+    overflow: visible;
+  }
+}
+#page-wrapper{
+  display: flex;
+  overflow: auto;
+  padding-top: 80px;
+  height: 100vh;
+  background: $col-milk-2;
+  border-left: 1px solid $col-border;
+
+  @media print {
+    border-left: none;
+    height: auto;
+  }
+
+  @media only screen and (min-width: $small-screen + 1) {
+    margin: 0 0 0 180px;
+  }
+
+  &.signing {
+    background: white;
+    padding-top: 60px;
+    height: 100%;
+
+    &.manual-signatures {
+      background: $col-blue-signing;
+    }
+
+    @media only screen and (min-width: $small-screen+1) {
+      .mobile-nav {
+        left: 181px;
+      }
+    }
+  }
+
+  .party-view &, .signer-view & {
+    border-left: 0px;
+    margin: 0;
+    &.no-margin {
+      margin: 0;
+    }
+    .mobile-nav {
+      left: 0;
+    }
+  }
+
+  &.navbar-double{
+    padding-top: 100px;
+
+    @media print {
+      padding-top: 0;
+    }
+  }
+
+  .no-sidebar &{
+    margin: 0;
+  }
+
+  .file-viewer &{
+    margin: 0;
+  }
+
+  .content{
+    padding: 0;
+    width: 100%;
+    display: flex;
+    height: 100%;
+    @media only screen and (min-width: $tablet) {
+      min-width: 700px
+    }
+
+    .container-fluid {
+      height: 100%;
+      width: 100%;
+
+      &.flex-container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .row {
+        &.deals {
+          height: 100%;
+        }
+      }
+    }
+
+    .party-view &, .signer-view & {
+      overflow: auto;
+
+      @media only screen and (min-width: $mobile+1) {
+        padding: 0 0 20px 0;
+      }
+    }
+  }
+}
+
+
+.navbar-static-side {
+  position: fixed;
+  width: 180px;
+  z-index: 101;
+
+  @media only screen and (max-width: $small-screen) {
+    display: none;
+  }
+
+  @media print {
+    display: none;
+  }
+
+  .party-view &, .signer-view & {
+    width: 130px;
+  }
+}
+
+
+.content-left{
+  @extend .col-md-8;
+  @extend .col-xs-12;
+}
+
+.content-right{
+  @extend .col-md-4;
+  @extend .col-xs-12;
+}
+
+.content-single{
+  @extend .col-xs-12;
+}
+
+.content-deal{
+  @extend .col-xs-12;
+  margin-bottom: 20px;
+  height: 574px;
+}
+.content-deal-wrapper{
+  @extend %clearfix;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.content-deal-left{
+  border: 1px solid $col-border;
+
+  @include breakpoint($bp-tablet-landscape){
+      flex-basis: 60%;
+      min-width: 0;
+  }
+
+  &.no-border {
+    border: none;
+  }
+}
+
+.content-deal-border{
+  border: 1px solid $col-border;
+}
+
+.content-deal-padding{
+  padding-right: 10px;
+}
+
+.content-deal-right{
+
+    @include breakpoint($bp-tablet-landscape){
+        flex-basis: 40%;
+        min-width: 0;
+        border-left: none;
+    }
+
+    &.no-border {
+      border: none;
+    }
+
+    .fixed-wrapper {
+      position: absolute;
+      width: 40%;
+      border: 1px solid $col-border;
+      margin-left: -1px; // This sucks but right now it is the only way I can find to overlap the borders between the left and right content so that it is only 1px wide
+    }
+}
+.content-file-viewer{
+  @extend %clearfix;
+  width: 100%;
+  margin-bottom: 20px;
+  display: table;
+}
+.content-file-viewer-wrapper{
+  @extend %clearfix;
+  position: relative;
+  display: table-row;
+  width: 100%;
+}
+
+.content-file-viewer-left{
+
+  @include breakpoint($bp-tablet-landscape){
+      display: table-cell;
+      vertical-align: top;
+      width: calc(100% - 320%);
+      border-right: 1px solid $col-border;
+      border-bottom: 1px solid $col-border;
+  }
+}
+
+.content-file-viewer-right{
+
+  @include breakpoint($bp-tablet-landscape){
+      display: table-cell;
+      vertical-align: top;
+      width: 320px;
+      border-bottom: 1px solid $col-border;
+  }
+}
+
+.content-document{
+  padding: 10px;
+}
+
+.padded-content {
+  height: 100%;
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.roles {
+  max-width: 760px;
+}
+
+.full-screen {
+  position: absolute;
+  z-index: 1001;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}

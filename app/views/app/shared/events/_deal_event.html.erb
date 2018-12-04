@@ -1,0 +1,11 @@
+<div class="section-info">
+  <b><%= event.eventable.title.upcase %> by <%= event.entity_user.name %></b>
+</div>
+<div class="section-details">
+  <% event.eventable.deal_entity_users.each do |deal_entity_user| %>
+    <% user = deal_entity_user.entity_user.user %>
+    <div class="deal-entity-user-avatar">
+      <%= render 'app/shared/user', user: user, avatar_size: 'small', avatar_only: true %>
+    </div>
+  <% end %>
+</div>

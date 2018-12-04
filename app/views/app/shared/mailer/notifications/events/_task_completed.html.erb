@@ -1,0 +1,11 @@
+<%
+  events ||= nil
+%>
+<div>
+  <p class="sub-header"><%= events.length %> tasks completed</p>
+  <% events.each do |event| %>
+    <p class="list-item">
+      <%= "#{event.eventable.name} by #{event.entity_user.name}" %>
+    </p>
+  <% end %>
+</div>

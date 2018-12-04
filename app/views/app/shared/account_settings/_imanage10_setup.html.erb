@@ -1,0 +1,43 @@
+<% alert_type ||= alert_type %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    iManage
+  </div>
+  <div class="panel-body imanage10-body">
+    <div class="explanation-text">
+      Link your iManage account to add files to Doxly or save files back to iManage.
+    </div>
+    <div class="col-md-6" id="imanage10-user-credential-form">
+      <%= form_for Imanage10UserCredential.new, :url => imanage10_user_credentials_path, :method => :post, remote: true, :html => {class:"no-turboboost"} do |f| %>
+        <div class="form-group">
+          <label for="username">iManage Username</label>
+          <%= f.text_field :username, :class => "form-control", :placeholder => "Username" %>
+        </div>
+        <div class="form-group">
+          <label for="password">iManage Password</label>
+          <%= f.password_field :password, :class => "form-control", autocomplete: "off", :placeholder => "Password" %>
+        </div>
+        <div class="link-status">
+          <% if current_entity_user.dms_user_credentialable.is_a?(Imanage10UserCredential) || alert_type == 'success' %>
+            <i class="mdi mdi-check mdi-18px linked-icon"></i>
+            <div class="link-status-text">Currently Linked</div>
+          <% else %>
+            <i class="mdi mdi-alert-circle mdi-18px not-linked-icon"></i>
+            <div class="link-status-text">Not Currently Linked</div>
+          <% end %>
+        </div>
+        <div class="margin-top-15">
+          <button type="button" class="btn btn-default pull-left" onclick="App.Helpers.navigateTo('<%= app_root_path %>')">Cancel</button>
+          <button type="submit" class="btn btn-primary pull-left margin-left-10">Save</button>
+        </div>
+      <% end %>
+    </div>
+    <% if @alert_type %>
+      <% explanation = alert_type == 'error' ? 'Something went wrong, please try again. If the problem persists, please contact Doxly support' : 'iManage account successfully linked' %>
+      <% alertClass = alert_type == 'error' ? 'error' : 'success' %>
+      <div class="dms-alert">
+        <%= render 'shared/alerts/alert', alertClass: alertClass, explanation: explanation %>
+      </div>
+    <% end %>
+  </div>
+</div>

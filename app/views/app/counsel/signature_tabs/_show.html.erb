@@ -1,0 +1,11 @@
+<%
+  signature_tab ||= nil
+  dragging_tab  ||= false
+%>
+<% if signature_tab %>
+  <div id="<%= 'dragging-tab' if dragging_tab %>" class="signature-tab <%= SignatureTab::SIGNATURE_TAB_DETAILS[signature_tab.tab_type][signature_tab.label][:class] %>">
+    <div class='tab-text'>
+      <%= SignatureTab::SIGNATURE_TAB_DETAILS[signature_tab.tab_type][signature_tab.label][:text] %>
+    </div>
+  </div>
+<% end %>

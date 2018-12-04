@@ -1,0 +1,2 @@
+class UnsignedAwsFile < AwsFile
+end

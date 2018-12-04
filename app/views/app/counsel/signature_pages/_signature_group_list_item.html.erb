@@ -1,0 +1,30 @@
+<%
+  tree_element_signature_group = signature_group.tree_element_signature_groups.find_by(tree_element_id: tree_element.id)
+  signature_group_alias = tree_element_signature_group.show_group_name? && tree_element_signature_group.alias.present? ? "(#{tree_element_signature_group.alias})" : ""
+%>
+<div class="signature-signature-group toggle" id="signature-group-<%= signature_group.id %>">
+  <div class="signature-group-header"  path="<%= show_signature_page_deal_signature_pages_path(@deal, tree_element_id: tree_element.id, signature_group_id: signature_group.id) %>">
+    <div class="signature-group-info">
+      <div class="expand-toggle large toggle-trigger"></div>
+      <div class="group-name ellipsize with-tooltip"><%= "#{signature_group.name} #{signature_group_alias}" %></div>
+    </div>
+    <div class="signature-group-info actions">
+      <div class="count"><%= pluralize(signature_group.all_signing_capacities.length, 'member') %></div>
+      <div class="delete">
+        <div class="whiteout-ui">
+          <%= link_to "Remove", deal_category_tree_element_tree_element_signature_group_path(@deal, @deal.closing_category, tree_element, tree_element_signature_group), :confirm => "Are you sure?", method: :delete, remote: true, class: "button button-primary mdi mdi-delete removal mini" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="children">
+    <% if signature_group.signature_entities.any? || signature_group.signing_capacities.any? %>
+      <% signature_group.signature_entities.each do |signature_entity| %>
+        <%= render 'app/counsel/signature_pages/signature_group_list_item_entity', signature_group: signature_group, tree_element: tree_element, signature_entity: signature_entity %>
+      <% end %>
+      <% signature_group.signing_capacities.each do |signing_capacity| %>
+        <%= render 'app/counsel/signature_pages/signature_group_list_item_user', signature_group: signature_group, tree_element: tree_element, signing_capacity: signing_capacity %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+
+<% content_for :new_section_action do %>
+   <% if @deal.is_owning_entity?(current_entity) %>
+      <div class="deal-element-add-item deal-element-add-new-section">
+        <%= link_to new_deal_category_tree_element_path(@deal.id, @category.id, parent_id: @category.id, type: 'Section'), :remote => true do %>
+          <i class="icon-icon-plus"></i>
+          Add a <%= @category.type === "ClosingCategory" ? "Stage" : "Section" %>
+        <% end %>
+      </div>
+    <% end %>
+<% end %>
+
+<%= render 'shared/deals/categories/tree' %>

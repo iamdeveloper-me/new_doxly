@@ -1,0 +1,16 @@
+<% @title = capture do %>
+  Conversion failed for <%= @version.file_name %>
+<% end %>
+<% @content = capture do %>
+  <p>
+    <b>Details</b>
+    <br /><br />
+    <u>Deal</u>: <%= @deal.title %><br />
+    <u>File type</u>: <%= @version.file_type %><br />
+    <u>File name</u>: <%= @version.file_name %><br />
+    <u>Document/Task Name</u>: <%= @tree_element ? @tree_element.name : "-Unplaced-" %><br />
+    <u>Details</u>: <%= @response %>
+  </p>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

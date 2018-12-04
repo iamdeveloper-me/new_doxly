@@ -1,0 +1,127 @@
+<%
+  signature_page                    ||= nil
+  signature_page_collection         ||= nil
+  signature_entities                ||= nil
+  signing_capacities                ||= nil
+  position                          ||= nil
+  primary_address                   ||= nil
+  copy_to_address                   ||= nil
+  show_signature_group_alias        ||= false
+  signature_group_alias             ||= nil
+  show_address_on_signature_page    ||= false
+  show_signing_capacity_date_signed ||= false
+  padding_left                        = 0
+  tree_element                        = signature_page_collection.tree_element
+  signature_group                     = signature_entities[0].root.signature_group unless signature_group_alias.present?
+%>
+<div class="signature-block <%= 'has-header' if tree_element.show_signature_page_header %>" id="block-<%= position %>">
+  <% if show_signature_group_alias %>
+    <div class="top-group"><%= signature_group_alias || signature_group.name %>:</div>
+  <% end %>
+
+  <div class="entities">
+    <% signature_entities.each do |signature_entity| %>
+      <div class="top-entity"><%= signature_entity.name %></div>
+      <% signature_entity.descendants.each_with_index do |signature_entity_each, index| %>
+        <% padding_left = 10 * (index+1) %>
+        <div class="signing-authority" style="padding-left: <%= padding_left %>px">
+          <div class="signing-individual-by">By:</div>
+          <div class="signing-placeholder"><%= signature_entity_each.name %><%= ", its #{signature_entity_each.title}" if signature_entity_each.title.present? %></div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="signing-individual" style="padding-left: <%= padding_left %>px">
+    <% signing_capacities.each do |signing_capacity| %>
+      <% user = signing_capacity.user %>
+      <div class="signing-individual-sign">
+        <div class="signing-individual-by">By:</div>
+        <div class="signing-placeholder"></div>
+      </div>
+      <div class="signing-individual-code">
+        <%= "#{user.unique_key}#{signature_page_collection&.id}" %>
+      </div>
+      <% if signing_capacity.full_name_present? %>
+        <div class="signing-individual-name">
+          <div class="margin-top-5">
+            <%= signing_capacity.name %><%= ", #{signing_capacity.title}" if signing_capacity.title_present? %>
+          </div>
+        </div>
+      <% else %>
+        <div class="signing-individual-fullname">
+          <div class="placeholder-item">
+            <div class="label">Printed Name:</div>
+            <div class="placeholder-name"></div>
+          </div>
+          <div class="signing-individual-fullname-code"><%= "#{user.unique_key_for_name}#{signature_page_collection&.id}" %></div>
+        </div>
+      <% end %>
+      <% if !signing_capacity.title_present? %>
+        <div class="signing-individual-title">
+          <div class="placeholder-item">
+            <div class="label">Title:</div>
+            <div class="placeholder-title"></div>
+          </div>
+          <div class="signing-individual-title-code"><%= "#{user.unique_key_for_title}#{signature_page_collection&.id}" %></div>
+        </div>
+      <% elsif signing_capacity.title_present? && !signing_capacity.full_name_present? %>
+        <div class="signing-individual-title">
+          Title: <%= signing_capacity.title %>
+        </div>
+      <% end %>
+      <% if show_signing_capacity_date_signed %>
+        <div class="sign date-signed">
+          <div>Dated:</div>
+          <div class="signing-placeholder"></div>
+        </div>
+        <div class="signing-individual-date-signed-code"><%= user.unique_key_for_date_signed %><%= signature_page_collection&.id %></div>
+      <% end %>
+    <% end %>
+  </div>
+  <% if show_address_on_signature_page %>
+    <div class="signing-individual-full-address <%= 'address-present' if (!primary_address.present? && tree_element.sign_manually) %>">
+      <div class="signing-individual-address-label">
+        Address:
+      </div>
+      <div class="signing-individual-address-block <%= 'address-present' if primary_address.present? %>">
+        <% if primary_address.present? %>
+          <div>
+            <%= primary_address.address_line_one if primary_address.address_line_one.present? %>
+            <%= primary_address.address_line_two if primary_address.address_line_two.present? %>
+            <div>
+              <%= primary_address.city if primary_address.city.present? %>
+              <%= ", " if primary_address.city.present? && (primary_address.state_or_province.present? || primary_address.postal_code.present?) %>
+              <%= [primary_address.state_or_province, primary_address.postal_code].reject(&:empty?).join(' ') %>
+            </div>
+          </div>
+        <% elsif tree_element.sign_manually? %>
+          <div class="address-placeholder"></div>
+          <div class="second address-placeholder"></div>
+        <% end %>
+      </div>
+      <!-- there can be addresses in the signature page that are not for the signature_page's signature_entity. We want to not create docusign tabs for them by not creating a code to attach to -->
+      <%
+        signature_page_signature_entities = signature_page_collection.signature_pages.map{ |signature_page| signature_page&.signature_entity&.root }.compact
+        is_address_for_signature_page_collection = !primary_address.present? && signature_page_signature_entities.include?(signature_entities[0])
+      %>
+      <div class="signing-individual-address-code"><%= signature_page_collection.unique_key_for_address if is_address_for_signature_page_collection %><%= signature_page_signature_entities.select{ |signature_page_entity| signature_entities.map(&:id).include?(signature_page_entity.id) }.map(&:id).sort.last if is_address_for_signature_page_collection %></div>
+    </div>
+    <% if copy_to_address.present? %>
+      <div class="signing-individual-full-address">
+        <div class="signing-individual-address-label">With Copy To:</div>
+        <div class="signing-individual-address-block <%= 'address-present' if copy_to_address.present? %>">
+          <div>
+            <%= copy_to_address.address_line_one if copy_to_address.address_line_one.present? %>
+            <%= copy_to_address.address_line_two if copy_to_address.address_line_two.present? %>
+            <div>
+              <%= copy_to_address.city if copy_to_address.city.present? %>
+              <%= ", " if copy_to_address.city.present? && (copy_to_address.state_or_province.present? || copy_to_address.postal_code.present?) %>
+              <%= [copy_to_address.state_or_province, copy_to_address.postal_code].reject(&:empty?).join(' ') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

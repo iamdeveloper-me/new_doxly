@@ -1,0 +1,31 @@
+<div class="panel panel-deals-full">
+  <div class="deals-full-group">
+    <div class="deals-full-group__header working-group-list-header">
+      <div class="header">ROLE</div>
+      <div class="header">NAME</div>
+      <div class="header">ENTITY</div>
+      <div class="header">STATUS</div>
+    </div>
+    <% @role_deal_entity_users.each do |hash| %>
+
+      <%
+        deal_entity_user = hash[:object]
+        is_individual = deal_entity_user.entity.type == "Individual"
+      %>
+      <div class="entity entity-list-item working-group-list">
+        <div class="group-info"><%= hash[:role] %></div>
+        <div class="group-info"><%= deal_entity_user.user.name %></div>
+        <div class="group-info"><%= hash[:entity] %></div>
+        <div class="add-entity-item">
+          <% if hash[:already_added] %>
+            <div>Imported</div>
+          <% else %>
+            <div class="<%= "import-button-#{hash[:temporary_uuid]} "%>">
+              <%= link_to "Import", deal_signature_group_imported_from_working_group_path(@deal, @signature_group, deal_entity_user_id: deal_entity_user.id, individual: is_individual, temporary_uuid: hash[:temporary_uuid]), method: :post, remote: true, :class => "connect-button working-group" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="section-info">
+  <b>
+    <%= event.eventable.get_category.type.underscore.split('_').collect{|c| c.capitalize}.join(' ').try(:upcase) %> :
+    <%= event.eventable.parent.try(:name).try(:upcase) || event.eventable.parent.try(:type).underscore.split('_').collect{|c| c.capitalize}.join(' ').try(:upcase) %>
+  </b>
+  <%= event.eventable.name %>
+</div>
+<div class="section-details">
+  <div class="section-details__attachment">
+    <div class="attachment-item item-file">
+      <i></i><a href="#"><%= event.eventable.name %></a>
+    </div>
+  </div>
+</div>

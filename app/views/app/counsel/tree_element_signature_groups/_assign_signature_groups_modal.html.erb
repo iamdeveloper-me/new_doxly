@@ -1,0 +1,6 @@
+<%
+  title ||= nil
+%>
+<%= render :layout => 'shared/single_button_modal', :locals => { :title => title } do %>
+  <%= render 'assign_signature_groups' %>
+<% end %>

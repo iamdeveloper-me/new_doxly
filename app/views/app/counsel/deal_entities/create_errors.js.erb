@@ -1,0 +1,4 @@
+if($('.errors-container').length > 0){
+  $('.errors-container').remove()
+}
+$('.pane-body').prepend("<%= escape_javascript render('app/shared/errors', errors: @entity.errors.full_messages) %>")

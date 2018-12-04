@@ -1,0 +1,12 @@
+<%
+  # @page_wrapper_class is used in application.html.erb to add the nav-bar padding
+  if params[:controller] != 'app/client/entities'
+    @has_top_menu ||= true
+  else
+    @has_top_menu ||= false
+  end
+  title               ||= nil
+  top_view = current_entity.is_counsel ? "shared/top_counsel" : "shared/top_client"
+%>
+
+<%= render top_view, title: title %>

@@ -1,0 +1,28 @@
+<%
+  send_deal_email_checked = params[:send_deal_invitation_email].present? ? true : false
+%>
+<%= render "app/shared/errors", :errors => @user.errors.full_messages %>
+<%= form_for @user, :url => deal_deal_individual_users_path(@deal, @user, role_id: @role.id), :method => :post, :remote => true, :html => {class:"no-turboboost"} do |form| %>
+  <div class="form-group <%= form.object.errors[:first_name].present? ? "has-error" : "" %>">
+    <label for="name">First name</label>
+    <%= form.text_field :first_name, :class => "form-control", :placeholder => "First name" %>
+  </div>
+  <div class="form-group <%= form.object.errors[:last_name].present? ? "has-error" : "" %>">
+    <label for="name">Last name</label>
+    <%= form.text_field :last_name, :class => "form-control", :placeholder => "Last name" %>
+  </div>
+  <div class="form-group <%= form.object.errors[:email].present? ? "has-error" : "" %>">
+    <label for="name">Email</label>
+    <%= form.text_field :email, :class => "form-control", :placeholder => "Email" %>
+  </div>
+  <div class="form-group <%= form.object.errors[:phone].present? ? "has-error" : ""%>">
+    <label for="name">Phone Number</label>
+    <%= form.text_field :phone, :class => "form-control", :placeholder => "Phone Number" %>
+  </div>
+  <div class="checkbox form-group margin-bottom-10 margin-top-15" id="send-checkbox">
+    <label>
+      <%= check_box_tag "send_deal_invitation_email", 1, send_deal_email_checked %> <b>Send the deal invitation email</b>
+    </label>
+  </div>
+  <%= render 'app/shared/custom_message', :hidden => !send_deal_email_checked %>
+<% end %>

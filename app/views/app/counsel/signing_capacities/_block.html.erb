@@ -1,0 +1,73 @@
+<%
+  signature_page_collection         ||= nil
+  signing_capacity                  ||= nil
+  block                             ||= nil
+  show_signature_group_alias        ||= false
+  signature_group_alias             ||= nil
+  show_address_on_signature_page    ||= false
+  show_signing_capacity_date_signed ||= false
+  padding_left                        = 0
+  tree_element                        = signature_page_collection.tree_element
+  signature_entity                    = signing_capacity.signature_entity
+  signature_group                     = (signature_entity || signing_capacity.get_signature_group) unless signature_group_alias.present?
+  user                                = signing_capacity.user
+%>
+<div class="signature-block <%= 'has-header' if tree_element.show_signature_page_header %>" id="block-<%= signing_capacity.block.position %>">
+  <% if show_signature_group_alias %>
+    <div class="top-group"><%= signature_group_alias || signature_group.name %>:</div>
+  <% end %>
+  <div class="signing-individual" style="padding-left: <%= padding_left %>px">
+    <div class="signing-individual-sign">
+      <div class="signing-placeholder no-margin"></div>
+    </div>
+    <div class="signing-individual-code no-margin">
+      <%= user.unique_key %><%= signature_page_collection&.id %>
+    </div>
+    <% if signing_capacity.full_name_present? %>
+      <div class="signing-individual-name no-margin">
+        <div class="margin-top-5">
+          <%= signing_capacity.name %><%= ", #{signing_capacity.title}" if signature_entity.present? && signing_capacity.title_present? %>
+        </div>
+      </div>
+    <% else %>
+      <div class="signing-individual-fullname">
+        <div class="placeholder-item">
+          <div class="label">Printed Name:</div>
+          <div class="placeholder-name"></div>
+        </div>
+        <div class="signing-individual-fullname-code"><%= user.unique_key_for_name %><%= signature_page_collection&.id %></div>
+      </div>
+    <% end %>
+
+    <% if show_address_on_signature_page %>
+      <div class="signing-individual-full-address <%= 'address-present' if (!signing_capacity.full_address && tree_element.sign_manually) %>">
+        <div class="signing-individual-address-label">
+          Address:
+        </div>
+        <div class="signing-individual-address-block <%= 'address-present' if signing_capacity.full_address %>">
+          <% if signing_capacity.full_address %>
+            <%= signing_capacity.full_address %>
+          <% elsif tree_element.sign_manually? %>
+            <div class="address-placeholder"></div>
+            <div class="second address-placeholder"></div>
+          <% end %>
+        </div>
+        <% is_address_for_signature_page_collection = !signing_capacity.primary_address.present? && signature_page_collection.signature_pages.map{ |signature_page| signature_page.signing_capacity }.compact.include?(signing_capacity) %>
+        <div class="signing-individual-address-code"><%= signature_page_collection.unique_key_for_address if is_address_for_signature_page_collection %><%= signing_capacity&.id if is_address_for_signature_page_collection %></div>
+      </div>
+      <% if signing_capacity.copy_to_address.present? %>
+        <div class="signing-individual-full-address">
+          <div class="signing-individual-address-label">With Copy To:</div> <div><%= signing_capacity.full_address(:copy_to_address) %></div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if show_signing_capacity_date_signed %>
+      <div class="sign date-signed">
+        <div>Dated:</div>
+        <div class="signing-placeholder"></div>
+      </div>
+      <div class="signing-individual-date-signed-code"><%= user.unique_key_for_date_signed %><%= signature_page_collection&.id %></div>
+    <% end %>
+  </div>
+</div>

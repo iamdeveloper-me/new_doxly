@@ -1,0 +1,50 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-sign-issues.png" %>
+<% end %>
+<% @title = capture do %>
+  <%= @additional_pages ? "Some Signature Pages Could Not Be Sent" : "Signatures Packet Failed To Send" %>
+<% end %>
+<% @content_one = capture do %>
+  <p class="top-box">
+    <%= @additional_pages ? "Doxly was unable to add the documents listed below to a signature packet for #{@recipient_name}." : "Doxly was unable to send a signature packet to #{@recipient_name}"%>
+    <br /><br />
+    Support has been notified and are looking into the issue now. Please <a href="mailto:support@doxly.com" class="support-link">contact us</a> if further assistance is needed.
+  </p>
+  <br />
+<% end %>
+<% @content_two = capture do %>
+  <p class="roboto">
+    <span class="whiteout-title block">Recipient</span>
+    <span class="name block whiteout-text block"><%= @recipient_name %></span>
+    <% if @copy_to.present? %>
+      <br />
+      <span class='whiteout-header block'>COPY TO</span>
+      <span class='whiteout-text block remove-top-space'><%= @copy_to %></span>
+    <% end %>
+    <% if @message.present? %>
+      <br />
+      <span class='whiteout-header block'>MESSAGE</span>
+      <span class='whiteout-text block remove-top-space'><%= @message %></span>
+    <% end %>
+  </p>
+  <p class="roboto">
+    <span class="whiteout-title block"><%= @method_text %> Packet</span>
+    <span class='whiteout-header'>DOCUMENTS</span><span class='whiteout-header signature-only'>SIGNATURE ONLY</span>
+    <span class="bottom-border"></span>
+    <% @document_objects.each do |document_object| %>
+      <span class='whiteout-text'><%= document_object[:name] %></span>
+      <span class='whiteout-text checkmark-container'><%= image_tag "ic-check-small-2x.png", class: 'checkmark', alt: 'YES' if document_object[:signature_only] %></span>
+      <span class="bottom-border"></span>
+    <% end %>
+    <% if @attached_for_review_only.any? %>
+      <br />
+      <span class='whiteout-header'>ATTACHED FOR REVIEW ONLY</span>
+      <span class="bottom-border"></span>
+      <% @attached_for_review_only.each do |name| %>
+        <span class='whiteout-text'><%= name %></span>
+        <span class="bottom-border"></span>
+      <% end %>
+    <% end %>
+  </p>
+<% end %>
+<%= render 'app/shared/mailer/layouts/multiple_section_mailer' %>

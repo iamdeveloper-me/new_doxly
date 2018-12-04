@@ -1,0 +1,21 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="toolbar-box">
+        <div class="search-input-box" id="templates-search">
+          <div class="form-group">
+            <input name="search_str"
+                id="templates_search"
+                class="input-search form-control"
+                placeholder="Search Templates"
+             />
+          </div>
+          <a class="disabled"><i class="icon-icon-search"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="row templates-list">
+      <%= render 'deal_templates_grid' %>
+    </div>
+  </div>
+</div>

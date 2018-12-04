@@ -1,0 +1,36 @@
+.net-documents-body, .see-unity-imanage-body, .imanage10-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  .explanation-text {
+    margin-bottom: 32px;
+  }
+
+  .dms-alert {
+    display: flex;
+    padding-top: 12px;
+    width: 400px;
+    padding-left: 10px
+  }
+  .link-button-container, {
+    display: flex;
+    align-items: center;
+    .link-status {
+      display: flex;
+      padding-left: 8px;
+      align-items: center;
+      .link-status-text {
+        padding-left: 2px;
+      }
+    }
+  }
+  #see-unity-imanage-user-credential-form, #imanage10-user-credential-form {
+    .link-status {
+      display: flex;
+      align-items: center;
+      .link-status-text {
+        padding-left: 2px;
+      }
+    }
+  }
+}

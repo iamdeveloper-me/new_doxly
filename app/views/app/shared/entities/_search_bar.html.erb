@@ -1,0 +1,11 @@
+<% path = refresh_list_entities_path(deal_id: @deal.try(:id), type: params[:type], new_deal: @new_deal, role_id: @role&.id) %>
+<div class="toolbar-box entity-search">
+  <div class="search-input-box entity-search" data-search-path="<%= path %>">
+    <div class="form-group">
+      <input name="search_str"
+          class="input-search form-control entity-search"
+          placeholder="Type Name"
+       />
+    </div>
+  </div>
+</div>

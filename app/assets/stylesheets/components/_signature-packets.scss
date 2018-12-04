@@ -1,0 +1,546 @@
+$collected-complete-bg-color: #85C58B;
+$collected-complete-color: #FFF;
+
+$awaiting-signature-bg-color: #DBB448;
+$awaiting-signature-color: #FFF;
+
+$not-applicable-bg-color: #DBDCDD;
+$not-applicable-color: #838383;
+
+$not-sent-bg-color: #D6A2A9;
+$not-sent-color: #FFF;
+
+$sending-bg-color: $awaiting-signature-bg-color;
+$sending-color: $awaiting-signature-color;
+
+$generating-link-bg-color: $awaiting-signature-bg-color;
+$generating-link-color: $awaiting-signature-color;
+
+$generating-download-bg-color: $awaiting-signature-bg-color;
+$generating-download-color: $awaiting-signature-color;
+
+$link-ready-bg-color: $awaiting-signature-bg-color;
+$link-ready-color: $awaiting-signature-color;
+
+$download-ready-bg-color: $awaiting-signature-bg-color;
+$download-ready-color: $awaiting-signature-color;
+
+$signing-complete-bg-color: #85C58B;
+$signing-complete-color: #FFF;
+
+$declined-bg-color: #DC5A6C;
+$declined-color: #FFF;
+
+$opened-bg-color: #6FA8EA;
+$opened-color: #FFF;
+
+$executed-signature-bg-color: $signing-complete-bg-color;
+$executed-signature-color: $signing-complete-color;
+
+$version-count: #595959;
+
+$no-email-bg-color: #D6A2A9;
+$no-email-color: #FFF;
+
+#signature-packet-grid {
+
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 0 0;
+  border: 1px solid $col-gray-light;
+
+  .grid-view {
+    flex-shrink: 0;
+  }
+
+  .user-header {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-size: 12px;
+    cursor: pointer;
+
+    &.grid-cell {
+      height: 100px;
+      border-right: 1px solid $col-silver;
+      border-bottom: 1px solid $col-silver;
+    }
+
+    .user-info {
+      display: flex;
+      flex-shrink: 0;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      .top-container {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        .ellipsis{
+          padding: 3px;
+          flex-shrink: 0;
+        }
+      }
+    }
+
+    .name, .email {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: inherit;
+      text-align: center;
+    }
+    .name {
+      color: $col-dark-blue;
+    }
+    .email {
+      min-height: 16px;
+    }
+
+    .signature-group-users {
+      display: flex;
+      flex-shrink: 0;
+      padding-top: 4px;
+
+      .signature-group-user-names {
+        width: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .group-name {
+        width: 100%;
+        color: $col-dark-blue;
+        padding-bottom: 4px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .entity-container {
+        width: 100%;
+        padding: 0 4px;
+
+        .entity-name {
+          width: 100%;
+          color: $white;
+          background-color: $col-navy;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .no-entity {
+        width: 100%;
+        height: 16px;
+      }
+    }
+
+    &:hover {
+      background-color: $col-blue-hover;
+
+      .signature-group-users .group-name {
+        color: white;
+      }
+
+      .name, .email {
+        color: white;
+      }
+
+      .ellipsis{
+        background: $white;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+
+  .document-name-col {
+    .grid-cell {
+      width: 300px;
+      border-right: 1px solid $col-silver;
+      border-bottom: 1px solid $col-silver;
+      padding-left: 10px;
+      padding-right: 10px;
+      justify-content: flex-start;
+
+      &:hover:not(.header) {
+        cursor: pointer;
+        background-color: $col-blue-hover;
+        color: $white;
+
+        .ellipsis{
+          background: white;
+          color: $col-gray;
+          border-radius: 5px;
+          cursor: pointer;
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      &.header {
+        height: 100px;
+      }
+
+      .ellipsis {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        padding: 1px 2px;
+      }
+    }
+  }
+
+  .collected-col {
+    height: 100%;
+
+    .grid-cell {
+      &.collected-complete {
+        background-color: $collected-complete-bg-color;
+        color: $collected-complete-color;
+      }
+      width: 40px;
+      font-size: 12px;
+
+      &.rotated {
+        height: 100%;
+
+        div {
+          transform: rotate(-90deg);
+          width: 100px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          white-space: nowrap;
+
+          .filler {
+            flex-grow: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .signature-type-col {
+    height: 100%;
+    .grid-cell {
+      width: 40px;
+
+      &.rotated {
+        height: 100%;
+
+        div {
+          transform: rotate(-90deg);
+          width: 100px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          white-space: nowrap;
+
+          .filler {
+            flex-grow: 1;
+          }
+
+          input[type="checkbox"] {
+            transform: rotate(90deg);
+            margin-right: 10px;
+          }
+        }
+      }
+
+      input[type="checkbox"] {
+        margin: 0;
+      }
+    }
+  }
+
+  .grid-cell {
+    &.awaiting-signature {
+      background-color: $awaiting-signature-bg-color;
+      color: $awaiting-signature-color;
+    }
+    &.not-applicable {
+      background-color: $not-applicable-bg-color;
+      color: $not-applicable-color;
+    }
+    &.not-sent {
+      background-color: $not-sent-bg-color;
+      color: $not-sent-color;
+    }
+    &.sending {
+      background-color: $sending-bg-color;
+      color: $sending-color;
+    }
+    &.generating-link {
+      background-color: $generating-link-bg-color;
+      color: $generating-link-color;
+    }
+    &.generating-download {
+      background-color: $generating-download-bg-color;
+      color: $generating-download-color;
+    }
+    &.link-ready {
+      background-color: $link-ready-bg-color;
+      color: $link-ready-color;
+    }
+    &.download-ready {
+      background-color: $download-ready-bg-color;
+      color: $download-ready-color;
+    }
+    &.signed {
+      background-color: $signing-complete-bg-color;
+      color: $signing-complete-color;
+    }
+    &.declined {
+      background-color: $declined-bg-color;
+      color: $declined-color;
+    }
+    &.opened {
+      background-color: $opened-bg-color;
+      color: $opened-color;
+    }
+    &.executed {
+      background-color: $executed-signature-bg-color;
+      color: $executed-signature-color;
+    }
+    &.executing {
+      background-color: $signing-complete-bg-color;
+      color: $signing-complete-color;
+    }
+    &.no-email {
+      background-color: $no-email-bg-color;
+      color: $no-email-color;
+    }
+    &.threshold-met {
+      flex-direction: column;
+      .threshold-met-subtext {
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+.signature-status-tooltip {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  flex-direction: column;
+  align-items: center;
+
+  .document {
+    font-size: 18px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .timestamp {
+    margin-left: 28px;
+    font-size: 95%;
+  }
+
+  &.executed-tooltip {
+    width: 200px;
+  }
+
+  &.signatures-collected-tooltip {
+    width: 300px;
+  }
+
+  &.voting-threshold-collected-tooltip {
+    width: 500px;
+  }
+}
+
+.signature-packet-confirm-list {
+  max-height: 500px;
+  overflow-y: auto;
+
+  .signer {
+    padding: 0px 0px 15px 0px;
+
+    &:last-child {
+      padding-bottom: 0px;
+    }
+
+    .signer-name {
+      margin-bottom: 5px;
+    }
+
+    .by-hand, .docusign {
+      font-style: italic;
+      padding: 5px 0px;
+    }
+  }
+}
+
+.signature-packet-list{
+  display: flex;
+  width: 100%;
+
+  .packets-container {
+    width: 100%;
+
+    .packets {
+      padding: 5px;
+
+      .document {
+        display: flex;
+        padding: 10px 10px;
+
+        .icon-packet-medium {
+          width: 38px;
+          height: 38px;
+          background: url(image_path("icon-document-collection.svg")) no-repeat;
+        }
+
+        .name {
+          padding-left: 5px;
+
+          span {
+            font-style: italic;
+            font-size: 90%;
+          }
+        }
+
+        .actions {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}
+
+.deals-full-group__header {
+  &.incomplete-header {
+    background-color: $col-red-light
+  }
+  &.complete-header {
+    background-color: $col-green-light;
+  }
+}
+.documents-list {
+  padding: 10px 20px;
+  .document{
+    display: flex;
+    justify-content: flex-start;
+    min-height: 22px;
+    .name {
+      padding-left: 6px;
+    }
+    .icon {
+      flex-shrink: 0;
+      background: url(image_path("icon-file.svg")) no-repeat;
+      background-position: center 1px;
+      width: 12px;
+    }
+  }
+}
+
+.critical-errors{
+  padding: 10px 10px 0px 10px;
+  margin-top: 10px;
+  .close {
+    font-size: 18px;
+  }
+}
+
+.signature-status-date{
+  text-align: center;
+}
+
+.multi-column-tooltip {
+  
+  &.two-column-tooltip > div > div > div {
+    flex: 0 0 50%;
+  }
+
+  &.three-column-tooltip > div > div > div {
+    flex: 0 0 33%;
+  }
+
+  > div {
+    width: 100%;
+
+    > div {
+      display: flex;
+      width: 100%;
+
+      &.tooltip-title {
+        justify-content: center;
+        font-weight: 500;
+        letter-spacing: 1px;
+        color: $version-count;
+        padding-bottom: 8px;
+      }
+
+      &:not(.tooltip-title):not(:last-child) {
+        border-bottom: 1px solid $col-gray-light;
+      }
+
+      > div {
+        padding: 4px 0;
+        text-align: center;
+
+        &:not(:last-child) {
+          border-right: 1px solid $col-gray-light;
+        }
+
+        &.tooltip-title {
+          text-align: center;
+          font-weight: 500;
+          letter-spacing: 1px;
+        }
+      }
+    }
+  }
+}
+
+.signature-status-tooltip-row{
+  padding-bottom: 5px;
+}
+
+.icon-signature-tracking {
+  display: inline-block;
+  opacity: .5;
+  width: 240px;
+  height: 240px;
+  background: url(image_path('packets-tracking.svg')) no-repeat 50% 50% / contain;
+}
+
+.right-buttons {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+}
+
+.signature-tracker {
+  padding-left: 0;
+
+  > .scroll-box {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+#packet-url {
+  display: inline-block;
+  width: 220px;
+  height: 30px;
+  margin-right: -5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.clipboard-btn {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}

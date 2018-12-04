@@ -1,0 +1,4 @@
+App.Modal.hide()
+<% @documents_affected.each do |document| %>
+  App.SignaturePackets.toggleSignatureType($(".signature-type-checkbox.document-<%= document.id %>:not(:checked)")[0])
+<% end %>

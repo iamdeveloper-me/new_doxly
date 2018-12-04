@@ -1,0 +1,47 @@
+App.Modal.show('<%= escape_javascript(render("upload_signature_pages_modal", title: "Upload signature pages", signature_packet: @signature_packet )) %>')
+var batchId = '<%= SecureRandom.hex(10) %>'
+var reviewedPath = "<%= asset_path 'reviewed.svg' %>"
+// Below is code compiled by babel from es6 to es5 for us in IE11, which why it looks so bad. Please don't modify.
+$(".doxly-dropzone").dropzone({
+  init: function init() {
+    var self = this
+    this.on("success", function (file) {
+      var doneBtn = $('.upload-done-btn');
+      var submitBtn = $('.upload-submit-btn');
+
+      if (doneBtn.is(':visible')) {
+        doneBtn.hide();
+      }
+      if (submitBtn.is(':hidden')) {
+        submitBtn.css('display', 'flex');
+        var submitHref = submitBtn.attr('href');
+        if (!(submitHref.indexOf('?') >= 0)) {
+          submitBtn.attr('href', submitHref + ("?batch_id=" + batchId + "&signature_packet_id=<%= @signature_packet.id %>"));
+        }
+      }
+    });
+    this.on("error", function(file, errorMessage) {
+      if (typeof Rollbar !== 'undefined') {
+        Rollbar.error("Manual Signature Uploading Error", errorMessage)
+      }
+      // we could check for the error type here, but we think this error message applies to any situation where uploading a file failed
+      self.removeFile(file)
+      App.FlashMessages.addMessage('error', 'This file could not be processed. The supported file types are PDF and images (JPG and PNG).')
+    })
+  },
+  url: "/signature_packets/" + '<%= @signature_packet.id %>' + "/uploads_queue?batch_id=" + batchId,
+  previewsContainer: '.received',
+  thumbnailWidth: '15',
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  },
+  previewTemplate: "<div class=\"dz-preview dz-file-preview file-upload\">\n                        <div class=\"upload-container\">\n                          <div class=\"left-box\">\n                            <div class=\"progress-circle\" data-progress=\"0\"></div>\n                            <div class=\"dz-details\">\n                              <div class=\"dz-filename\"><span data-dz-name title></span></div>\n                            </div>\n                          </div>\n\n                          <div class=\"right-box\">\n                          </div>\n                        </div>\n                        <div class=\"dz-progress\"><div class=\"dz-upload\" data-dz-uploadprogress></div></div>\n                      </div>",
+  accept: function accept(file, done) {
+    var checkImagePath = reviewedPath;
+    var id = Math.floor(Math.random() * 100000000000);
+    $('.dz-preview').last().attr('id', id);
+    App.SignaturePackets.updateUploadProgress(id, batchId, file.name, '<%= @signature_packet.id %>', checkImagePath, false, 0);
+    done();
+  },
+  acceptedFiles: '.jpeg,.jpg,.pdf,.png,.tif,.tiff,application/pdf'
+});

@@ -1,0 +1,33 @@
+<%
+  tree_element ||= nil
+%>
+<div class="signature-column" id="signature-groups">
+  <div class="column-title">
+    <div class="column-header">
+      <div>Signature Groups</div>
+      <% if tree_element.present? %>
+        <%= link_to new_deal_category_tree_element_tree_element_signature_group_path(@deal, @deal.closing_category, tree_element), remote: true do %>
+          <div class="add-button"></div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="column-container-middle whiteout-ui">
+  <% if tree_element.present? %>
+    <% if tree_element.signature_groups.present? %>
+      <% tree_element.signature_groups.each do |signature_group| %>
+        <%= render 'app/counsel/signature_pages/signature_group_list_item', signature_group: signature_group, tree_element: tree_element %>
+      <% end %>
+    <% else %>
+      <div class="empty-state">
+        <%= link_to new_deal_category_tree_element_tree_element_signature_group_path(@deal, @deal.closing_category, tree_element), remote: true do %>
+          Add a signature group to
+        <% end %>
+        <%= tree_element.name %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="empty-state">Select a document to manage signature groups</div>
+  <% end %>
+  </div>
+</div>

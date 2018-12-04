@@ -1,0 +1,6 @@
+<%
+  title ||= nil
+%>
+<%= render :layout => 'shared/modal', :locals => { :title => title, :cancel_path => cancel_set_default_signature_type_deal_signature_packets_path(@deal) } do %>
+  <%= render 'set_default_signature_type_confirm_list' %>
+<% end %>

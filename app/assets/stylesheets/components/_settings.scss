@@ -1,0 +1,63 @@
+.settings-wrapper{
+    @extend %clearfix;
+    border: 1px solid $col-border;
+    max-width: 460px;
+    padding: 30px;
+    margin: 0 auto;
+    background: $white;
+}
+
+.licenses-table-active, .licenses-table-past{
+
+  .licenses-title{
+    justify-content: flex-start;
+  }
+
+  .licenses-info, .past-licenses-header{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 600px;
+    > div{
+      flex-basis: 100px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items:flex-start;
+      justify-content: flex-start;
+      line-height: 32px;
+    }
+
+  }
+
+  .red{
+    color: red;
+  }
+
+  .big{
+    font-weight: 300;
+    color: $col-dark-blue;
+    font-size: 24px;
+  }
+
+  .border{
+    border-bottom: solid 1px #EFEFEF;
+  }
+
+  .deals-used-text, .valid-from-text, .valid-to-text{
+    text-transform: uppercase;
+  }
+
+}
+
+.team-stat-item{
+    font-weight: 300;
+    font-size: 14px;
+    color: $col-gray;
+
+    b{
+        font-size: 18px;
+        color: $col-dark-blue;
+    }
+
+}

@@ -1,0 +1,33 @@
+<div class="sign-in-wrapper">
+  <div class="wrap-narrow">
+    <div class="box-middle">
+      <div class="inner">
+        <div class="center-logo"><a href="#"><%= image_tag "logo.svg" %></a></div>
+        <div class="panel panel-window sign-in">
+          <div class="center large-text">Reset Password</div>
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), method: :post, :html => { :class => 'no-turboboost' }) do |f| %>
+          <div class="form-group">
+            <label htmlFor="input-email">Email Address</label>
+            <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12 text-right reset-button">
+                <%= f.submit "SEND RESET LINK", class: 'btn btn-primary' %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="form-group">
+              <%= link_to "Back to Sign In", new_user_session_path %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

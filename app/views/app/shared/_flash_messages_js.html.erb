@@ -1,0 +1,7 @@
+<%= yield %>
+<% if flash.any? %>
+  <% flash.each do |key, message| %>
+    <% next unless [:error, :success, :notice].include?(key.to_sym) %>
+    App.FlashMessages.addMessage('<%= key %>', '<%= message %>');
+  <% end %>
+<% end %>

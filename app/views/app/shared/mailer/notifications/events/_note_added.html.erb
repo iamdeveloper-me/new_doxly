@@ -1,0 +1,12 @@
+<%
+  events ||= nil
+  tree_elements =  events.map{ |event| event.eventable.noteable }.uniq
+%>
+<div>
+  <p class="sub-header"><%= pluralize(events.length, 'note was', 'notes were') %> added to <%= pluralize(tree_elements.length, 'checklist item', 'checklist items') %></p>
+  <% tree_elements.each do |tree_element| %>
+    <p class="list-item">
+      <%= tree_element.name %>
+    </p>
+  <% end %>
+</div>

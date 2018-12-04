@@ -1,0 +1,28 @@
+<%
+  messages      ||= nil
+  title         ||= nil
+  explanation   ||= nil
+  alert         ||= false
+  alertClass    ||= ''
+%>
+<% if messages || title || explanation %>
+  <div class="whiteout-ui whiteout-alert-container">
+    <div class="notification <%= alertClass %>">
+      <div class="notification-message">
+        <% if title %>
+          <p><b><%= title %></b></p>
+        <% end %>
+        <% if messages %>
+          <ul>
+            <% messages.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        <% if explanation %>
+          <p><%= explanation %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

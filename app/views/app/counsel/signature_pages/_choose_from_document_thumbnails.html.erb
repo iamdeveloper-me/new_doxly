@@ -1,0 +1,13 @@
+<% @version.page_count.times do |number| %>
+  <div class="choose-from-document-thumbnail-container" data-page="<%= number %>">
+    <div
+      style="<%= "background-image: url(#{download_thumbnail_sprite_deal_category_tree_element_attachment_version_path(@deal, @deal.closing_category, @version.attachment.attachable, @version.attachment, @version, time: Time.now.utc)}); background-position: #{number*85 * (-1)}px 0px; background-repeat: no-repeat; height: 110px; width: 85px;" %>"
+      class="choose-from-document-thumbnail"
+      alt="Select this page"
+      title="Select this page"
+    >
+    </div>
+    <%= number + 1 %>
+    <div class="mdi mdi-eye" data-url="<%= deal_signature_page_view_document_page_path(@deal, signature_page_id: signature_page_id, signing_capacity_id: signing_capacity_id, signature_group_id: signature_group_id, page: number) %>"></div>
+  </div>
+<% end %>

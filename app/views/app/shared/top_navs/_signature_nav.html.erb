@@ -1,0 +1,10 @@
+<div class="chev">
+  <ul class="signature-tabs" role="tablist">
+    <% if @deal.has_voting_threshold %>
+      <li role="presentation" class="signature-tab <%= 'active' if controller_name == 'deals'%>"><a href="<%=  deal_voting_threshold_path(@deal) %>">Voting Threshold</a></li>
+    <% end %>
+    <li role="presentation" class="signature-tab <%= 'active' if controller_name == 'signature_groups'%>"><a href="<%=  deal_signature_groups_path(@deal) %>">Blocks</a></li>
+    <li role="presentation" class="signature-tab <%= 'active' if controller_name == 'signature_pages'%>"><a href="<%=  deal_signature_pages_path(@deal) %>">Pages</a></li>
+    <li role="presentation" class="signature-tab <%= 'active' if controller_name == 'signature_packets'%>"><a href="<%=  deal_signature_packets_path(@deal) %>" <%= 'data-turbolinks=false' if @deal.signature_packets.sent.count == 0 %>>Packets and Tracking</a></li>
+  </ul>
+</div>

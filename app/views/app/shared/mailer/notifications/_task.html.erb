@@ -1,0 +1,16 @@
+<%
+  task ||= nil
+  events ||= nil
+%>
+<p>
+  <b class="title">"<%= task.name %>"</b>
+  <% events.each do |event_group| %>
+    <% if event_group[0] == "NOTE_ADDED" %>
+      <%= render "app/shared/mailer/notifications/events/notes_added", events: event_group[1] %>
+    <% elsif event_group[0] == "DOCUMENT_UPDATED" %>
+      <%= render "app/shared/mailer/notifications/events/document_updated", events: event_group[1] %>
+    <% elsif event_group[0] == "TASK_COMPLETED" %>
+      <%= render "app/shared/mailer/notifications/events/task_completed", events: event_group[1] %>
+    <% end %>
+  <% end %>
+</p>

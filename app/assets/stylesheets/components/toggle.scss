@@ -1,0 +1,57 @@
+.toggle {
+  .expand-toggle {
+    height: 20px;
+    width: 20px;
+    margin: 0 5px 0 5px;
+    background: url(image_path("collapsed-small.svg")) no-repeat;
+    &.large {
+      background: url(image_path("collapsed-large.svg")) no-repeat;
+    }
+    flex-shrink: 0;
+    transition-duration: 0.1s;
+    transition-property: transform;
+    cursor: pointer;
+    align-self: center;
+  }
+
+  .icon {
+    height: 16px;
+    width: 16px;
+    margin-right: 10px;
+    background: url(image_path("icon-folder.svg")) no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+  }
+
+  > .children {
+    display: none;
+  }
+
+  &.expanded {
+    > .children {
+      display: block;
+    }
+    .expand-toggle {
+      transform: rotate(90deg);
+    }
+    // TODO: these icons are folder specific and should not be in the generic toggle styles
+    .icon {
+      height: 12px;
+      background: url(image_path("icon-folder-open.svg")) no-repeat;
+      background-position: center;
+    }
+  }
+
+  &:not(.expanded) {
+    .expand-toggle {
+      transform: none;
+    }
+
+    // TODO: these icons are folder specific and should not be in the generic toggle styles
+    .icon {
+      height: 16px;
+      background: url(image_path("icon-folder.svg")) no-repeat;
+      background-position: center;
+    }
+  }
+}

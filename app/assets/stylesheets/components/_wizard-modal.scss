@@ -1,0 +1,21 @@
+.wizard-modal {
+
+  .modal-body {
+    padding: 1.6rem 0;
+    height: 55rem;
+    overflow: auto;
+  }
+
+  .modal-footer {
+    padding-top: 2.4rem;
+    border-top: solid .1rem #d1dae3;
+  }
+
+  #wizard-next, #wizard-finish, #first-step, #second-step {
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+}

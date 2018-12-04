@@ -1,0 +1,43 @@
+<%
+  title               ||= nil
+  modal_class         ||= ""
+  submit_button_label ||= "Save"
+  cancel_button_label ||= "Cancel"
+  hide_submit         ||= false
+  disable_submit      ||= false
+  cancel_path         ||= nil
+  custom_submit       ||= false
+  custom_submit_text  ||= "Save"
+  custom_submit_path  ||= nil
+  custom_submit_class ||= ""
+  show_back_button    ||= false
+  back_button_path    ||= nil
+%>
+<div class="modal-dialog <%= modal_class %>" role="document">
+  <div class="modal-content">
+    <div id="modal-blocker"></div>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="modal-new-deal-label">
+        <%= title %>
+      </h4>
+    </div>
+    <div id="sliding-pane"></div>
+    <div class="modal-body">
+      <%= yield %>
+    </div>
+    <div class="modal-footer">
+      <% if show_back_button %>
+        <%= link_to "Back", back_button_path, class:"btn btn-default", remote: true %>
+      <% end %>
+      <% if hide_submit %>
+        <!-- no button -->
+      <% elsif custom_submit %>
+        <%= link_to custom_submit_text, custom_submit_path, class:"btn btn-primary #{custom_submit_class}", method: :post, remote: true %>
+      <% else %>
+        <input type="submit" class="btn btn-primary <% unless disable_submit %>submit-form<% end %>" value="<%= submit_button_label %>" <% if disable_submit %>data-dismiss="modal"<% end %> />
+      <% end %>
+      <button type="button" class="btn btn-default pull-left cancel-form" data-dismiss="modal" path="<%= cancel_path %>"><%= cancel_button_label %></button>
+    </div>
+  </div>
+</div>

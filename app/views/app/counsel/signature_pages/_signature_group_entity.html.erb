@@ -1,0 +1,23 @@
+<%
+  signature_group ||= nil
+  signature_enity ||= nil
+  tree_element ||= nil
+  signature_group_alias ||= nil
+  show_signature_group_alias ||= false
+  signature_user_signature_entity = signature_entity.descendants.any? ? signature_entity.last_descendant : signature_entity
+  if signature_user_signature_entity.signing_capacities.any? && tree_element.present?
+    signing_capacity = signature_user_signature_entity.signing_capacities.first
+    signature_page = signing_capacity.signature_pages.select{|signature_page| signature_page.tree_element == tree_element}.first
+  else
+    signature_page = nil
+  end
+%>
+<h2><%= signature_entity.name %></h2>
+<% signature_user_signature_entity.signing_capacities.each do |signing_capacity| %>
+  <div class="gray multiple-signers"><i class="mdi mdi-subdirectory-arrow-right"></i><%= signing_capacity.name %></div>
+<% end %>
+<br />
+<br />
+<div class="signing-page-preview">
+  <%= render 'app/counsel/signature_pages/signature_page_preview_entity', signature_group: signature_group, signature_entity: signature_entity, show_signature_group_alias: show_signature_group_alias, signature_group_alias: signature_group_alias, tree_element: tree_element, signature_group_id: signature_group.id, signature_page: signature_page, is_custom: signature_page&.is_custom? %>
+</div>

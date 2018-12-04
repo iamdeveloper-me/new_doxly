@@ -1,0 +1,194 @@
+.activity-card{
+
+  background: $white;
+  box-shadow: 0px 2px 5px 0px $col-box-shadow-light, 0px 0px 0px 1px $col-box-shadow;
+  border-radius: 4px;
+  margin-bottom: 10px;
+
+  .panel-heading{
+    @extend %clearfix;
+    position: relative;
+    min-height: 16px;
+    padding: 7px 10px;
+    border-bottom: 1px solid $col-blue-light;
+
+    .title{
+      display: inline-flex;
+    }
+
+    .category{
+      font-size: 14px;
+      color: $col-dark-gray;
+      letter-spacing: 0px;
+      padding-left: 8px;
+      font-weight: 400;
+      align-self: center;
+    }
+
+    h3{
+      float: left;
+      line-height: 16px;
+    }
+
+    .timestamp{
+      font-size: 14px;
+      line-height: 16px;
+      color: $col-gray;
+      letter-spacing: 0px;
+      font-style: normal;
+      float: right;
+    }
+  }
+
+  .panel-body{
+    padding: 10px 10px;
+
+    .section-info{
+      @include singleLine;
+      font-size: 12px;
+      color: $col-dark-blue;
+      margin-bottom: 7px;
+
+      .note-info{
+        display: inline-flex;
+
+        .note-title{
+          font-size: 14px;
+          padding-right: 4px;
+        }
+
+        .note-date{
+          color: $col-gray;
+          align-self: center;
+        }
+      }
+    }
+
+    .section-details{
+      position: relative;
+      padding-bottom: 8px;
+
+      .deal-entity-user-avatar-avatar {
+        float: left;
+        margin-right:4px;
+      }
+    }
+  }
+  .section-details__document{
+    padding-left: 76px;
+    position: relative;
+    min-height: 81px;
+    &:before{
+      width: 61px;
+      height: 81px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: url(image_path("icon-document.svg")) no-repeat 50% 50% / 61px 81px;
+      content: "";
+    }
+
+    &.signed{
+      &:before{
+        background: url(image_path("icon-document.svg")) no-repeat 50% 50% / 61px 81px;
+      }
+    }
+
+    h4{
+      font-weight: 300;
+      font-size: 20px;
+      color: $col-dark-gray;
+
+      .badge{
+        background: $col-peach;
+        font-weight: 500;
+        font-size: 12px;
+        color: $white;
+
+        .gray {
+          background: #454545;
+        }
+      }
+    }
+  }
+  .section-details__note{
+    @extend %clearfix;
+    padding-top: 5px;
+    vertical-align: bottom;
+    display: flex;
+    flex-direction: row;
+
+    .note-avatar {
+      display: flex;
+    }
+
+    .note-message-container {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      padding-left: 10px;
+
+      .note-name {
+        color: $col-dark-blue-hover;
+      }
+
+      .note-message {
+        color: $col-dark-gray;
+        margin-top: 2px;
+        margin-bottom: 3px;
+        font-size: 14px;
+      }
+
+      .note-timestamp {
+        font-style: italic;
+        color: $col-dark-blue-hover;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .section-details__attachment{
+    border: 1px solid #D1DAE3;
+    border-radius: 3px;
+
+    .attachment-item{
+      @extend %clearfix;
+      line-height: 16px;
+      font-size: 12px;
+      color: $col-gray;
+      padding: 7px 14px;
+      background: #FBFDFF;
+
+      i{
+        display: inline-block;
+        vertical-align: bottom;
+        margin-right: 10px;
+      }
+
+
+      &.item-file{
+        a {
+          color: $col-gray;
+
+          &:hover {
+            color: $col-gray-hover;
+          }
+        }
+
+        i{
+          background: url(image_path('icon-file.svg')) no-repeat 50% 50% / contain;
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      .badge{
+        float: right;
+        background: $col-peach;
+        font-weight: 500;
+        font-size: 12px;
+        color: $white;
+      }
+    }
+  }
+}

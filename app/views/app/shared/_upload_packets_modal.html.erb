@@ -1,0 +1,25 @@
+<%
+  title ||= nil
+  modal_class ||= nil
+  next_packet ||= nil
+  path ||= nil
+%>
+<div class="modal-dialog <%= modal_class %>" role="document">
+  <div class="modal-content">
+    <div id="modal-blocker"></div>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="modal-new-deal-label">
+        <%= title %>
+      </h4>
+    </div>
+    <div id="sliding-pane"></div>
+    <div class="modal-body">
+      <%= yield %>
+    </div>
+    <div class="modal-footer">
+      <%= link_to 'Submit', path, class:"btn btn-primary upload-submit-btn cancel-form", method: :post, remote: true %>
+      <button type="button" class="btn upload-done-btn cancel-form" data-dismiss="modal">Done</button>
+    </div>
+  </div>
+</div>

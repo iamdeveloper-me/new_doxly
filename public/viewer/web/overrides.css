@@ -1,0 +1,40 @@
+body {
+  background-color: #cccccc;
+}
+
+#toolbarContainer, #toolbarSidebar, .findbar, .secondaryToolbar {
+  background-color: #18354c;
+  background-image: none;
+}
+
+#toolbarContainer, #toolbarSidebar, #toolbarContainer > #toolbarViewer {
+  height:40px;
+}
+
+#toolbarContainer > #toolbarViewer > #toolbarViewerLeft, #toolbarContainer > #toolbarViewer > #toolbarViewerRight, #toolbarContainer > #toolbarViewer > #toolbarViewerMiddle {
+  margin-top: 5px;
+}
+
+#toolbarSidebar .splitToolbarButton {
+  margin-top: 8px;
+}
+
+.dropdownToolbarButton > select {
+  height: 24px;
+}
+
+#viewerContainer, .findbar, #sidebarContent {
+  top: 40px;
+}
+
+#sidebarContent {
+  background-color: #7d7d7d;
+}
+
+a:focus > .thumbnail > .thumbnailSelectionRing, .thumbnail:hover > .thumbnailSelectionRing, .thumbnail.selected > .thumbnailSelectionRing {
+  background-color: #4a90e2;
+}
+
+#secondaryToolbarButtonContainer .horizontalToolbarSeparator, .presentationMode, .openFile, .bookmark, .pageUp, .pageDown, .firstPage, .lastPage, .handTool, .documentProperties, #viewAttachments {
+  display: none !important;
+}

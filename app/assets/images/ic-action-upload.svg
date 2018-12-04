@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>1C0FFA5A-8B22-431B-AED5-E2642C5E52B9</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Checklist" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Checklist---Details-Panel---Document" transform="translate(-786.000000, -99.000000)">
+            <g id="Components-/-Action-Button-/-ic-action-upload-48px" transform="translate(786.000000, 99.000000)">
+                <g id="Components-/-Action-Button-/-Background-/-Blue" fill="#4A90E2">
+                    <circle id="Oval-2" cx="24" cy="24" r="24"></circle>
+                </g>
+                <g id="Components-/-Action-Button-/-Icon48-/-Sym_Upload" stroke-width="1">
+                    <g id="Group-3" transform="translate(12.000000, 7.000000)">
+                        <g id="Group-2">
+                            <g id="Group-24" transform="translate(3.000000, 0.000000)">
+                                <path d="M9.29411765,23 L9.29411765,4.41176471" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path>
+                                <path d="M3.22855012,2.50304175 L13.7585459,2.50304175 C15.4173483,2.50304175 15.8104223,3.45469282 14.6474603,4.61765475 L5.34316312,13.921952 C4.17529461,15.0898205 3.22855012,14.6894414 3.22855012,13.0330375 L3.22855012,2.50304175 Z" id="Rectangle-15" fill="#FFFFFF" transform="translate(9.271950, 8.547181) rotate(-315.000000) translate(-9.271950, -8.547181) "></path>
+                            </g>
+                            <path d="M5.5,15.5 L5.5,12.5048815 C5.5,11.397616 6.39354265,10.5 7.50276013,10.5 L16.4972399,10.5 C17.6033337,10.5 18.5,11.3970262 18.5,12.5049466 L18.5,32.4950534 C18.5,33.6023548 17.6064574,34.5 16.4972399,34.5 L7.50276013,34.5 C6.39666625,34.5 5.5,33.6061002 5.5,32.4951185 L5.5,29.5" id="Rectangle-16" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" transform="translate(12.000000, 22.500000) rotate(-270.000000) translate(-12.000000, -22.500000) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

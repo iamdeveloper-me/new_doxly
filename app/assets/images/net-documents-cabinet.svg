@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>_cabinet</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="_cabinet">
+            <g id="Group-2" transform="translate(0.000000, 2.000000)">
+                <g id="Group" transform="translate(0.000000, 19.000000)">
+                    <path d="M0,-1.51267887e-13 L40,-1.51267887e-13 L40,16 L40,16 C40,17.1045695 39.1045695,18 38,18 L2,18 L2,18 C0.8954305,18 1.3527075e-16,17.1045695 0,16 L0,-1.51267887e-13 Z" id="Rectangle-62" fill="#225582"></path>
+                    <polygon id="Rectangle-16" fill="#FFFFFF" points="15 5 25 5 25 7 15 7"></polygon>
+                </g>
+                <g id="Group">
+                    <path d="M2,-0.000148830376 L38,-0.000148830376 L38,-0.000148830376 C39.1045695,-0.000148830376 40,0.89528167 40,1.99985117 L40,17.9998512 L0,17.9998512 L0,1.99985117 L0,1.99985117 C-1.3527075e-16,0.89528167 0.8954305,-0.000148830376 2,-0.000148830376 Z" id="Rectangle-62" fill="#225582"></path>
+                    <polygon id="Rectangle-16" fill="#FFFFFF" points="15 5 25 5 25 7 15 7"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

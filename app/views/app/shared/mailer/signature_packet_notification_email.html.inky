@@ -1,0 +1,34 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-sign-invitation.png" %>
+<% end %>
+<% @title = capture do %>
+  <%= @deal.title %>: Signature Request
+<% end %>
+<% @content = capture do %>
+  <p>
+    <% if @custom_message.present? %>
+      <%= @custom_message %>
+    <% else %>
+      <%= @owner_entity.name %> has requested your signature for documents in the deal, <%= @deal.title %>. Please click the button below to sign.
+    <% end %>
+  </p>
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <a href="<%= @url %>">
+                  Review & Sign
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

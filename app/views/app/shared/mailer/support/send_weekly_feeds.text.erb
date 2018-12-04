@@ -1,0 +1,6 @@
+Doxly User and Deal Feed
+
+<% if @start_date && @end_date %>
+  Date Range (UTC): <%= @start_date.strftime("%a, %b %-d, %Y %l:%M%p") %> - <%= @end_date.strftime("%a, %b %-d, %Y %l:%M%p") %>
+<% end %>
+Attachments: <%= @feed_files.map{ |feed_file| File.basename(feed_file) }.join(', ') %>

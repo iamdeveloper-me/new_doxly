@@ -1,0 +1,40 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-sign-reminder.png" %>
+<% end %>
+<% @title = capture do %>
+  REMINDER:  <%= @owner_entity.name %> Needs Your Signature To Complete The Deal, <i><%= @deal.title %></i>
+<% end %>
+<% @content = capture do %>
+  <p>
+    <% if @custom_message.present? %>
+      <%= @custom_message %>
+    <% else %>
+      <% if @user.has_placeholder_name? %>
+        Hello,
+      <% else %>
+        Hello <%= @user.name %>,
+      <% end %>
+      <br /><br />
+      Your signature is still required on document(s) in the deal, <i><%= @deal.title %></i>. Please click on the button below to sign.
+    <% end %>
+  </p>
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <a href="<%= @url %>">
+                  Sign
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

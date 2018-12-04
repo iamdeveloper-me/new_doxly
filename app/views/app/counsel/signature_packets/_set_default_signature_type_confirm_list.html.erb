@@ -1,0 +1,25 @@
+<b>Are you sure you want to change the default signature type to <%= @sign_manually ? "Manual" : "DocuSign" %> for this deal?</b><br><br>
+<div class="note">
+  Note: This will only affect signature packets that haven't been sent yet. Sent packets will not be affected. To change the type of a sent packet, please void it first.
+</div>
+<br>
+<% if @documents_affected.any? %>
+  The signature type on the following documents will be changed to <%= @sign_manually ? "Manual" : "DocuSign" %>:
+  <div class="documents-list">
+    <% @documents_affected.each do |tree_element| %>
+      <div class="document">
+        <div class="icon">
+        </div>
+        <div class="name">
+          <%= tree_element.name %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+<% else %>
+  No documents will be affected.
+<% end %>
+<form method="get" action="<%= set_default_signature_type_deal_signature_packets_path(@deal) %>" data-remote="true" class="no-turboboost">
+  <input type="hidden" name="sign_manually" id="sign_manually" value="<%= @sign_manually %>">
+</form>

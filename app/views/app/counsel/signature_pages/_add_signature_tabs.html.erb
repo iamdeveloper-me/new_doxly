@@ -1,0 +1,27 @@
+<div class="place-signature-tabs-buttons">
+  <div class="signature">
+    <%= link_to "Signature", new_deal_signature_page_signature_tab_path(@deal, @signature_page, tab_type: "Signature", label: "Signature", signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id), class: 'btn btn-primary', remote: true %>
+  </div>
+  <div class="full-name">
+    <%= link_to "Full Name", new_deal_signature_page_signature_tab_path(@deal, @signature_page, tab_type: "Text", label: "Full Name", signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id), class: 'btn btn-primary', remote: true %>
+  </div>
+  <div class="title">
+    <%= link_to "Title", new_deal_signature_page_signature_tab_path(@deal, @signature_page, tab_type: "Text", label: "Title", signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id), class: 'btn btn-primary', remote: true %>
+  </div>
+  <div class="date-signed">
+    <%= link_to "Date Signed", new_deal_signature_page_signature_tab_path(@deal, @signature_page, tab_type: "DateSigned", label: "Date Signed", signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id), class: 'btn btn-primary', remote: true %>
+  </div>
+  <div class="address">
+    <%= link_to "Address Line", new_deal_signature_page_signature_tab_path(@deal, @signature_page, tab_type: "Text", label: "Address Line", signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id), class: 'btn btn-primary', remote: true %>
+  </div>
+</div>
+<div class="custom-signature-page">
+  <%= image_tag url_for(controller: "signature_pages", action: "show_custom_signature_page", deal_id: @deal.id, signature_page_id: @signature_page.id, signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id, timestamp: Time.now.to_i), class: "no-turboboost custom-signature-page-img" %>
+  <%= image_tag asset_path('qr-code-sample.png'), class: 'qr-code' %>
+  <% @signature_page.signature_tabs.each do |signature_tab| %>
+    <div id="signature-tab-<%= signature_tab.id %>" class="signature-tab <%= SignatureTab::SIGNATURE_TAB_DETAILS[signature_tab.tab_type][signature_tab.label][:class] %>" style="left: <%= signature_tab.x_coordinate %>px; top: <%= signature_tab.y_coordinate %>px">
+      <%= link_to "", deal_signature_page_signature_tab_remove_path(@deal, @signature_page, signature_tab, signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id), method: :get, class: "fa fa-times-circle remove-tab", remote: true %>
+      <%= SignatureTab::SIGNATURE_TAB_DETAILS[signature_tab.tab_type][signature_tab.label][:text] %>
+    </div>
+  <% end %>
+</div>

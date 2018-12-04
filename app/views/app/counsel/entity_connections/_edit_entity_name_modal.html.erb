@@ -1,0 +1,9 @@
+<%= render :layout => 'shared/modal', :locals => { :title => title } do %>
+  <%= render "app/shared/errors", :errors => @entity.errors.full_messages.uniq %>
+  <%= form_for @entity, :url => entity_connection_path(@entity_connection, :type => params[:type]), :method => :put, :html => {class:"no-turboboost"}, remote: true do |f| %>
+  <div class="form-group <%= f.object.errors[:name].present? ? "has-error" : ""%>">
+    <label for="name">Name</label>
+    <%= f.text_field :name, {:class => "form-control", :placeholder => "Name", :name => "entity[name]"} %>
+  </div>
+  <% end %>
+<% end %>

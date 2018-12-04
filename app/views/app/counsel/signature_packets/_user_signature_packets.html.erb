@@ -1,0 +1,57 @@
+<div class="signature-packet-list">
+  <div class="packets-container">
+    <div class="packets">
+      <% @signature_packets.each_with_index do |signature_packet, i| %>
+        <%
+          if signature_packet.packet_type == "link"
+            login_token = signature_packet.user.login_tokens.find_or_create_by :is_active => true, :deal_id => @deal.id
+            link        = login_tokens_url(:token => login_token.token, :return_to => deal_signature_packets_signature_packets_path(deal_id: @deal.id))
+          end
+        %> 
+        <div class="document">
+          <div class="icon-packet-medium">
+          </div>
+          <div class="name">
+            <b>Signature Packet <%= i + 1 unless @signature_packets.size == 1 %></b> (<%= pluralize(signature_packet.signature_pages.count, 'page') %> requiring signature)<br />
+            <% if signature_packet.signature_pages_sending? %>
+              Sending...
+            <% elsif signature_packet.sent_at %>
+              <span><%= "Sent #{signature_packet.sent_at.strftime('%m/%d/%Y')} at #{signature_packet.sent_at.strftime('%l:%M%p')}" %></span>
+            <% else %>
+              <span>Sent</span>
+            <% end %>
+          </div>
+          <div class="actions">
+            <% if signature_packet.signature_pages_sending? %>
+              Sending...
+            <% else %>
+              <% if signature_packet.packet_type == "link" %>
+                <input class="form-control" type="text" value="<%= link %>" id="packet-url" readonly="true" />
+                <%= link_to "Copy Link", "javascript:", :class => 'btn btn-primary btn-sm clipboard-btn', "data-clipboard-target" => "#packet-url" %>
+              <% end %>
+              <%= link_to "Download Packet", download_deal_signature_packet_path(@deal, signature_packet), :class => 'btn btn-primary btn-sm', :target => "_blank" if signature_packet.packet_type == "download" %>
+              <%= link_to "View", deal_signature_packet_display_signature_packet_path(@deal, signature_packet, title: "Signature Packet #{i + 1 unless @signature_packets.size == 1}"), remote: true, :class => 'btn btn-primary btn-sm' %>
+              <%= link_to "View Signed", deal_signature_packet_display_signature_packet_path(@deal, signature_packet, title: "Signature Packet #{i + 1 unless @signature_packets.size == 1}", :signed => true), remote: true, :class => 'btn btn-primary btn-sm' if signature_packet.signed_aws_file.present? %>
+              <%= link_to "Void", deal_signature_packet_void_signature_packet_path(@deal, signature_packet), data: {:confirm => "Are you sure you want to void the signature packet?"}, method: :delete, remote: true, :class => 'btn btn-danger btn-sm' unless signature_packet.signature_pages.ever_executed.any? %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% [@ready_manual_pages, @ready_esignature_pages].each_with_index do |signature_pages, i| %>
+        <% if signature_pages.any? %>
+          <div class="document">
+            <div class="icon-packet-medium">
+            </div>
+            <div class="name">
+              <b>Unsent <%= i == 0 ? "Manual" : "DocuSign" %> Signature Packet</b> (<%= pluralize(signature_pages.size, 'page') %> requiring signature)<br />
+              <span>Not sent</span>
+            </div>
+            <div class="actions">
+              <%= link_to "View", view_signature_pages_deal_signature_packets_path(@deal, title: "Signature Packet #{(@signature_packets.size + 1) unless @signature_packets.size == 0}", user_id: @user.id, signature_page_ids: signature_pages.map(&:id)), remote: true, :class => 'btn btn-primary btn-sm' %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

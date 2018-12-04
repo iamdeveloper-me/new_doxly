@@ -1,0 +1,64 @@
+<%
+  signature_group            ||= nil
+  signature_group_id         ||= nil
+  signing_capacity           ||= nil
+  signature_group_alias      ||= nil
+  show_signature_group_alias ||= false
+  tree_element               ||= nil
+  signature_page             ||= nil
+  is_custom                  ||= false
+  padding_left                 = 0
+  user                         = signing_capacity.user
+  signature_entity             = signing_capacity.signature_entity
+  disabled_class               = signature_page.signature_status == 'not_sent' ? '' : 'disabled'
+  split_signature_page         = SignaturePageSplitter.split_signature_page(signature_page.signature_page_collection)
+  blocks                       = split_signature_page[:page_1]  # we are only showing the first page for now
+%>
+<% if signature_page.signature_status != 'not_sent' %>
+  <div class="notification">
+    <div class="notification-message">
+      Some customizations have been disabled because this document has been sent for signature.
+    </div>
+  </div>
+  <br />
+<% end %>
+<h3>Signature Page</h3>
+<br />
+<h4>Preview</h4>
+<br />
+<% if is_custom %>
+  <div class="page custom"><img src="<%= download_custom_page_thumbnail_deal_signature_page_path(@deal, signature_page, signature_group_id: signature_group.id, signing_capacity_id: signing_capacity.id, tree_element_id: tree_element.id, time: Time.now.to_i) %>" /></div>
+<% else %>
+  <%= link_to view_signature_page_deal_signature_pages_path(@deal, signature_group_id: signature_group, signing_capacity_id: signing_capacity.id, signature_group_alias: signature_group_alias, tree_element_id: tree_element), :remote => true do %>
+  <div class="page font__<%=@deal.font_size %>pt font__<%= @deal.parameterized_font_type %>">
+    <% if tree_element.show_signature_page_header? && !tree_element.signature_page_header_text.blank? %>
+      <div class="header">
+        <div class="header-text"><%= tree_element.signature_page_header_text %></div>
+      </div>
+    <% end %>
+    <div class="signing-block">
+      <div class="signing-block-wrapper">
+        <% if show_signature_group_alias %>
+          <div class="name"><%= signature_group_alias || signature_group.name %>:</div>
+        <% end %>
+        <%= render 'signature_pages/signature_page_thumbnail', blocks: blocks, tree_element: tree_element %>
+      </div>
+    </div>
+    <div class="footer">
+      <% if tree_element.show_signature_page_footer? %>
+        <div class="footer-text">[SIGNATURE PAGE FOR <%= tree_element.document_name.upcase %>]</div>
+      <% end %>
+      <img src="<%= asset_path('qr-code-sample.png') %>" class="qr-code">
+    </div>
+  </div>
+  <% end %>
+<% end %>
+<div class="upload-custom-page">
+  <% if is_custom %>
+    <%= link_to "Edit Signature Tabs", deal_signature_page_edit_custom_signature_page_path(@deal, signature_page, tree_element_id: tree_element.id, signing_capacity_id: signing_capacity.id, signature_group_id: signature_group_id), class: "#{disabled_class} button mini button-secondary mdi mdi-pencil", remote: true %>
+    <%= link_to "Remove Custom Page", deal_signature_page_remove_custom_signature_page_path(@deal, signature_page, tree_element_id: tree_element.id, signing_capacity_id: signing_capacity.id, signature_group_id: signature_group_id, signature_page_id: signature_page.id), class: "#{disabled_class} button mini button-secondary mdi mdi-delete", remote: true %>
+  <% else %>
+    <%= link_to "Upload Custom Page", deal_signature_page_upload_custom_signature_page_path(@deal.id, signature_page, tree_element_id: tree_element.id, signing_capacity_id: signing_capacity.id, signature_group_id: signature_group_id), class: "#{disabled_class} button mini button-secondary mdi mdi-upload", remote: true %>
+    <%= link_to "Choose From Document", deal_signature_page_choose_from_document_path(@deal.id, signature_page, tree_element_id: tree_element.id, signing_capacity_id: signing_capacity.id, signature_group_id: signature_group_id), class: "#{disabled_class} button mini button-secondary mdi mdi-upload", remote: true %>
+  <% end %>
+</div>

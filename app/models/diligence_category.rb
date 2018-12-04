@@ -1,0 +1,3 @@
+class DiligenceCategory < Category
+
+end

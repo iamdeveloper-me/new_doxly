@@ -1,0 +1,6 @@
+let selected = $('#signature-entity-<%= @signature_entity.id %>').hasClass('signature-group-user-active')
+App.SignaturePage.updateSignatureEntity(<%= @signature_entity.id %>, '<%= escape_javascript(render 'app/counsel/signature_pages/signature_group_list_item_entity', signature_group: @signature_group, tree_element: @tree_element, signature_entity: @signature_entity.root) %>')
+if (selected) {
+  $('#signature-entity-<%= @signature_entity.id %>').addClass('signature-group-user-active')
+  App.SignaturePage.updateSignaturePageEntityView('<%= escape_javascript(render 'app/counsel/signature_pages/signature_page_entity', signature_group: @signature_group, tree_element: @tree_element, signature_entity: @signature_entity.root) %>')
+}

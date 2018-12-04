@@ -1,0 +1,6 @@
+<%= form_tag uploaded_manual_signatures_deal_signature_packets_path(@deal), {:method => :post, :remote => true, :class => 'no-turboboost'} do %>
+  <div class="form-group file-input-group">
+    <label for="file">Upload Signature Pages</label>
+    <%= file_field_tag :file, :class => "file-inputs bootstrap-file-input", :accept => ".jpeg,.jpg,.pdf,.png,.tif,.tiff,application/pdf", :title => "<i class='icon-icon-uploadcloud'></i> Choose a File", "data-filename-placement" => "inside" %>
+  </div>
+<% end %>

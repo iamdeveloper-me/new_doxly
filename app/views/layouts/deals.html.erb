@@ -1,0 +1,172 @@
+<%
+  @page_wrapper_class ||= "navbar-double"
+  top_view = current_entity.is_counsel ? "shared/top_counsel" : "shared/top_client"
+  data_room_selected = controller_name == 'categories' && @deal.diligence_category == @category
+  closing_checklist_selected = controller_name == 'categories' && @deal.closing_category == @category
+  working_group_list_tab_text = @deal.can?('R', :collaborators) ? 'Working Group List' : 'Team'
+  signature_tab_selected = ['signature_groups', 'signature_pages','signature_packets'].include?(controller_name) || (params[:action] == "voting_threshold" && controller_name == "deals")
+%>
+
+<% content_for :body do %>
+  <div id="wrapper">
+    <%= render "shared/left", :top_menu_class => @page_wrapper_class %>
+    <% margin_class = !current_entity.is_counsel ? 'no-margin' : ''%>
+    <div id="page-wrapper" class="<%= @page_wrapper_class %> <%= margin_class %>">
+      <% content_for :navbar_bottom do %>
+
+      <div class="nav-container">
+        <ul class="nav nav-tabs deal-tabs" role="tablist">
+          <li role="presentation" class="deal-tab <%= 'active' if controller_name == 'roles'%>"><a href="<%= deal_roles_path(@deal) %>"><%= working_group_list_tab_text %></a></li>
+          <% if @deal.has_diligence %>
+            <li role="presentation" class="deal-tab <%= 'active' if data_room_selected %>"><a href="<%= deal_category_path(@deal, @deal.diligence_category) %>" data-turbolinks=false>Data Room</a></li>
+          <% end %>
+          <li role="presentation" class="deal-tab <%= 'active' if closing_checklist_selected %>"><a href="<%= deal_category_path(@deal, @deal.closing_category) %>" data-turbolinks=false>Checklist</a></li>
+          <% if @deal.is_owning_entity?(current_entity) %>
+            <li role="presentation" class="deal-tab <%= 'active' if signature_tab_selected %>"><a href="<%=  @deal.signature_packets.sent.count > 0 ? deal_signature_packets_path(@deal) : deal_signature_groups_path(@deal) %>" <%= 'data-turbolinks=false' if @deal.signature_packets.sent.count > 0 %>>Signatures</a></li>
+          <% end %>
+          <% unless current_entity.is_counsel? %>
+            <li role="presentation" class="deal-tab <%= 'active' if controller_name == 'signature_tracker'%>"><a href="<%= deal_signature_tracker_path(@deal) %>">Signature Tracker</a></li>
+          <% end %>
+          <% if @deal.is_owning_entity?(current_entity) %>
+            <li role="presentation" class="deal-tab <%= 'active' if (action_name == 'closing_book') || (controller_name =='closing_books')%>"><a href="<%=  deal_closing_books_path(@deal) %>" <%='data-turbolinks=false'%>>Closing Books</a></li>
+          <% end %>
+          <div class="small-screen-nav-dropdown">
+            <% if @deal.is_owning_entity?(current_entity) %>
+              <li class="dropdown deal-details deal-edit">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Deal Settings</a>
+                <ul class="user-nav dropdown-menu dropdown-menu-right">
+                  <% unless @deal.archived? %>
+                    <li >
+                      <% if @deal.closed? %>
+                        <%= link_to 'Reopen Deal', reopen_deal_path(@deal) %>
+                      <% else %>
+                        <%= link_to 'Close Deal', close_deal_path(@deal) %>
+                      <% end %>
+                    </li>
+                  <% end %>
+                  <li >
+                    <%
+                      redirect_path = if data_room_selected || closing_checklist_selected
+                        # currently throws the 2 HTML backend error for the checklists
+                        "roles"
+                      else
+                        request.original_url.split('/').last
+                      end
+                    %>
+                    <%= link_to edit_deal_path(@deal, :page => redirect_path), :remote => true do %>
+                      Edit Deal
+                    <% end %>
+                  </li>
+                  <li>
+                    <% if @deal.deal_type.questionnaire.present? %>
+                      <%= link_to edit_deal_questionnaire_path(@deal.id, @deal.deal_type.id), :remote => true do %>
+                         Questionnaire
+                      <% end %>
+                    <% end %>
+                  </li>
+                  <% if @category %>
+                    <li><%= link_to 'Apply Template', deal_category_deal_templates_path(@deal, @category), :remote => true %></li>
+                    <li><%= link_to 'Save As Template', new_deal_category_deal_template_path(@deal, @category), :remote => true %></li>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+          </div>
+          <div class="default-nav-dropdown">
+            <% if @deal.is_owning_entity?(current_entity) %>
+              <% unless @deal.archived? %>
+                <li class="deal-edit">
+                  <% if @deal.closed? %>
+                    <%= link_to reopen_deal_path(@deal), :class => "btn btn-default clear-turbolinks-cache", "data-turbolinks" => "false" do %>
+                      <i class="icon-icon-box"></i> Reopen Deal</a>
+                    <% end %>
+                  <% else %>
+                    <%= link_to close_deal_path(@deal), :class => "btn btn-default clear-turbolinks-cache", "data-turbolinks" => "false" do %>
+                      <i class="icon-icon-box"></i> Close Deal</a>
+                    <% end %>
+                  <% end %>
+                </li>
+              <% end %>
+              <li class="dropdown deal-details deal-edit">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-pencil"></i>Deal Details
+                </a>
+                <%
+                  redirect_path = if data_room_selected || closing_checklist_selected
+                    # currently throws the 2 HTML backend error for the checklists
+                    "roles"
+                  else
+                    request.original_url.split('/').last
+                  end
+                %>
+                <ul class="user-nav dropdown-menu dropdown-menu-right">
+                  <li >
+                    <%= link_to edit_deal_path(@deal, :page => redirect_path), :remote => true do %>
+                      Edit Deal
+                    <% end %>
+                  </li>
+                  <li>
+                    <% if @deal.deal_type.questionnaire.present? %>
+                      <%= link_to edit_deal_questionnaire_path(@deal.id, @deal.deal_type.id), :remote => true do %>
+                         Questionnaire
+                      <% end %>
+                    <% end %>
+                  </li>
+                </ul>
+              </li>
+              <% if @category %>
+                <li class="dropdown deal-details deal-edit">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-list-alt" aria-hidden="true"></i> Templates
+                  </a>
+                  <ul class="user-nav dropdown-menu dropdown-menu-right">
+                    <li><%= link_to 'Apply Template', deal_category_deal_templates_path(@deal, @category), :remote => true %></li>
+                    <li><%= link_to 'Save As Template', new_deal_category_deal_template_path(@deal, @category), :remote => true %></li>
+                  </ul>
+                </li>
+              <% end %>
+            <% end %>
+          </div>
+        </ul>
+
+      </div>
+      <% end %>
+      <% content_for :navbar_brand do %>
+        <div style="display: inline-flex">
+          <%
+            deal_starred = current_entity_user.has_starred_deal?(@deal)
+            path = deal_starred ? unstar_deal_path(@deal) : star_deal_path(@deal)
+            star_class = deal_starred ? 'favorite' : ''
+          %>
+          <a href="<%= path %>" class="deal-star clear-turbolinks-cache <%= star_class %>" data-turbolinks="false"><i></i></a>
+          <% if @deal.client_matter_number.present? || @deal.deal_email %>
+            <div class="email-client-number">
+              <% if @deal.client_matter_number.present? %>
+                <div class="deal-client-number">Matter #: <%= @deal.client_matter_number %></div>
+              <% end %>
+              <% if @deal.use_deal_email && @deal.deal_email %>
+                <div class="deal-client-number">Email: <%= @deal.full_deal_email %></div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <%= render top_view, title: "Deals / #{@deal.title}" %>
+      <div class="content">
+        <div class="container-fluid">
+          <div id="deals-layout-scrollable-container" class="row deals">
+            <div class="tab-content">
+              <div class="print-only-deal-name">
+                <div><%= @deal.title %></div>
+                <div><%= image_tag "logo.svg" %></div>
+              </div>
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= render 'layouts/base_layout' %>

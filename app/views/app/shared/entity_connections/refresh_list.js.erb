@@ -1,0 +1,4 @@
+$('#deal-entity-users-list').html('<%= escape_javascript(render("app/shared/people/deal_entity_users_list")) %>')
+App.Helpers.initialize()
+App.Toggles.bindToggle()
+App.LocalStorage.restoreOpenState()

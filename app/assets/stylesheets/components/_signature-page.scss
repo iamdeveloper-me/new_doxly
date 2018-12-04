@@ -1,0 +1,947 @@
+.signature-pages {
+  height: 100%;
+  margin: 0;
+
+  .page {
+    width: 230px;
+    height: 298px;
+    border: 1px solid $col-dark-gray;
+    display: flex;
+    flex-direction : column;
+    justify-content: space-between;
+    color: $col-dark-gray;
+    margin-bottom: 16px;
+
+    &.custom {
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+
+      img {
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+
+  .signature-page__columns-container {
+    width: 100%;
+    height: 100%;
+    background: $white;
+    border: 1px solid $col-border;
+    border-bottom: 2px solid $col-border;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .page-settings {
+      flex-shrink: 0;
+      padding: 8px 8px 0 0;
+
+      .page-settings__button {
+        float: right;
+      }
+    }
+
+    .signature-page__columns {
+      display: flex;
+      flex-grow: 1;
+      overflow: hidden;
+
+      .signature-column__container {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        flex-basis: 33%;
+        max-width: 33%;
+        text-align: center;
+        padding-top: 10px;
+        overflow: hidden;
+
+        .signature-column {
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+          overflow: hidden;
+
+          .column-title {
+            flex-shrink: 0;
+            font-size: 20px;
+            font-weight: 500;
+            color: $col-dark-gray;
+            padding: 0 0 10px 20px;
+            text-align: left;
+
+            .column-header {
+              display: flex;
+              justify-content: space-between;
+              white-space: nowrap;
+
+              .add-button {
+                width: 24px;
+                height: 24px;
+                background: url(image_path('add.svg')) no-repeat 50% 50% / contain;
+                margin-right: 20px;
+              }
+            }
+          }
+
+          .column-container-right, .column-container-middle, .column-container-left {
+            border-top: 2px solid $col-border;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+
+            .empty-state {
+              padding: 40px;
+              font-size: 20px;
+            }
+
+            .signature-tree-element, .signature-signature-group {
+              text-align: left;
+              border-bottom: 2px solid $col-border;
+              color: $col-dark-gray;
+              cursor: pointer;
+              font-size: 16px;
+
+              .signature-group-header {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                min-height: 42px;
+                padding: 10px 12px;
+                align-items: center;
+
+                &:hover {
+                  .signature-group-info {
+                    .count {
+                      display: none;
+                    }
+                    .delete {
+                      display: flex;
+                      align-self: center;
+                      position: relative;
+                    }
+                  }
+                }
+
+                &.signature-group-active {
+                  background: $col-blue;
+                  color: $white;
+
+                  .expand-toggle {
+                    background: url(image_path("collapsed-large-white.svg")) no-repeat;
+                  }
+                }
+
+                .signature-group-info {
+                  display: flex;
+                  padding-right: 10px;
+                  overflow: hidden;
+
+                  .group-name {
+                    font-style: 1.6rem;
+                    font-weight: 500;
+                  }
+
+                  &.actions {
+                    flex-shrink: 0;
+                  }
+
+                  .count {
+                    font-size: 1.2rem;
+                    align-self: center;
+                  }
+
+                  .delete {
+                    display: none;
+                  }
+                }
+              }
+
+              .signature-group-user {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 4px 20px 4px 42px;
+                font-size: 1.3rem;
+                min-height: 32px;
+                color: $col-dark-gray;
+
+                &.signature-entity {
+                  align-items: flex-start;
+                }
+
+                .name {
+                  overflow: hidden;
+                }
+
+                &.excluded {
+                  .name {
+                    font-style: italic;
+                    font-size: 1.3rem;
+                    opacity: .7;
+                  }
+                  .excluded-badge {
+                    display: block;
+                    font-style: italic;
+                    font-size: 1.3rem;
+                    opacity: .7;
+                    padding-right: 4px;
+                  }
+                }
+
+                &:hover {
+                  .action {
+                    display: block;
+                  }
+                  .excluded-badge {
+                    display: none;
+                  }
+                }
+
+                .action, .excluded-badge {
+                  display: none;
+                }
+
+                &.signature-group-user-active {
+                  background: $col-blue;
+                  color: $white;
+
+                  .name {
+                    .note {
+                      color: $white;
+                    }
+                  }
+                }
+              }
+
+              &.document-title {
+                font-weight: 500;
+                border-bottom: 2px solid $col-border;
+                flex-shrink: 0;
+
+                .tree-element-names {
+                  margin: 10px 20px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+              }
+
+              &.signature-tree-element-active {
+                background: $col-blue;
+                color: $white;
+              }
+            }
+
+            .signature-page-column {
+              padding: 20px;
+              text-align: left;
+
+              .multiple-signers {
+                padding-top: 4px;
+              }
+
+              .tree-element-name {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                font-size: 20px;
+                font-weight: 500;
+                color: $col-dark-gray;
+                padding-bottom: 20px;
+              }
+
+              .signature-group {
+                display: flex;
+                flex-direction: column;
+
+                .sign-label {
+                  font-size: 16px;
+                }
+
+                .group-name {
+                  font-size: 20px;
+                  color: $col-dark-gray;
+                  font-weight: 500;
+                  padding-top: 4px;
+                }
+
+                .member-count {
+                  font-size: 16px;
+                  color: $col-dark-gray;
+                  padding-top: 2px;
+                }
+              }
+
+              .upload-custom-page {
+                display: flex;
+                align-items: flex-start;
+                .button {
+                  margin-bottom: 16px;
+                  margin-right: 10px;
+                }
+              }
+
+              .sent-page {
+                color: $col-gray;
+                font-style: italic;
+              }
+
+              .signing-member {
+                display: flex;
+                flex-direction: column;
+                padding-top: 20px;
+
+                .signer-name {
+                  color: $col-dark-gray;
+                  font-weight: 500;
+                  font-size: 20px;
+                  padding-top: 4px;
+                }
+              }
+
+              .signing-page {
+                border: 0px;
+              }
+
+              .signing-page-preview {
+
+                .title {
+                  padding-bottom: 10px;
+                  color: $col-gray;
+                }
+
+                .page {
+
+                  .signing-block {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+                    flex: 1;
+                    font-size: 55%;
+                    margin-top: 30px;
+                    margin-right: 10px;
+                    white-space: nowrap;
+
+                    .name {
+                      font-weight: 500;
+                      padding-top: 2px;
+                    }
+
+                    .signing-authority {
+                      font-size: 80%;
+                      padding-top: 2px;
+                      white-space: normal;
+                    }
+
+                    .signing-block-wrapper {
+                      min-width: 100px;
+                      max-width: 120px;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                    }
+                    .signing-individual-full-address {
+                      padding-top: 5px;
+                      display: flex;
+                      min-height: 22px;
+                      .signing-individual-address-block {
+                        flex-grow: 1;
+                        margin-left: 2px;
+                        .address-placeholder {
+                          margin-top: 8px;
+                          border-bottom: 1px solid $col-dark-gray;
+                          flex-grow: 1;
+                        }
+                      }
+                    }
+                  }
+
+                  .signing-individual{
+                    font-size: 80%;
+                    width: 100%;
+                    padding-top: 8px;
+
+                    .sign {
+                      display: flex;
+
+                      .signing-break {
+                        margin-top: 10px;
+                      }
+
+                      .signing-placeholder {
+                        border-bottom: 1px solid $col-dark-gray;
+                        flex-grow: 1;
+                      }
+
+                      &.date-signed {
+                        margin-top: 5px;
+                      }
+                    }
+
+                    .placeholder-item {
+                      display: flex;
+
+                      .item-label {
+                        margin-right: 5px;
+                      }
+
+                      .placeholder {
+                        flex-grow: 1;
+                        border-bottom: 1px solid $col-dark-gray;
+                      }
+                    }
+
+                    .signing-individual-name {
+                      margin-top: 3px;
+                      margin-left: 10px;
+                      font-size: 80%;
+
+                      &.no-margin {
+                        margin-left: 0;
+                      }
+                    }
+
+                    .signing-individual-title, .signing-individual-fullname {
+                      padding-top: 5px;
+                    }
+
+                    .signing-individual-address {
+                      margin-left: 10px;
+                      font-size: 80%;
+
+                      &.no-margin {
+                        margin-left: 0;
+                      }
+                    }
+
+                    .signing-individual-address-label, .signing-individual-address-block {
+                      vertical-align: top;
+                      display: inline-block;
+                    }
+
+                    .signature-individual-copy-address{
+                      font-size: 80%;
+                    }
+                  }
+
+                  .footer {
+                    margin: 8px 8px;
+                    position: relative;
+
+                    .footer-text {
+                      text-align: center;
+                      font-size: 40%;
+                      padding: 0px 35px;
+                    }
+
+                    .qr-code {
+                      position: absolute;
+                      bottom: 0;
+                      right: 0;
+                      z-index: 1000;
+                      padding: 2px;
+                      border: 1px solid black;
+                      background-color: white;
+                      height: 30px;
+                      width: 30px;
+                    }
+                  }
+
+                  .header {
+                    margin: 20px 8px -20px 8px;
+                    position: relative;
+
+                    .header-text {
+                      text-indent: 16px;
+                      font-size: 40%;
+                    }
+                  }
+                }
+              }
+
+              .footer-container {
+                width: 100%;
+
+                .preview {
+
+                  .footer-preview {
+                    .border-container {
+                      width: 300px;
+
+                      .preview-top-border {
+                        height: 40px;
+                        background: url(image_path('document-shade.svg')) no-repeat 50% 50% / contain;
+                        margin-bottom: -14px;
+                        transform: rotate(1deg);
+                      }
+                    }
+
+                    .footer-preview-box {
+                      width: 285px;
+                      min-height: 70px;
+                      border: 1px solid $col-border;
+                      border-top: none;
+                      box-shadow: 0.5px 1px 2px 0 rgba(0, 0, 0, 0.24);
+                      margin-left: 5px;
+
+                      .line-break {
+                        padding-top: 40px;
+                        margin: 0 10px;
+                        border-bottom: 1px solid $col-border;
+                      }
+
+                      .preview-text {
+                        overflow: hidden;
+                        text-align: center;
+                        color: $col-dark-gray;
+                        padding-top: 4px;
+                        font-weight: 500;
+                        font-size: 12px;
+                      }
+                    }
+                  }
+
+                  .footer-edit {
+                    display: flex;
+                    color: $col-blue;
+                    padding-top: 8px;
+                    margin-left: 5px;
+
+                    i {
+                      padding-top: 2px;
+                    }
+
+                    .edit {
+                      padding-left: 8px;
+                      font-size: 14px;
+                    }
+                  }
+                }
+              }
+
+              .address-container, .date-signed-container {
+                width: 100%;
+
+                .show-address-checkbox, .show-date-signed-checkbox {
+                  display: flex;
+                  padding: 0px 0px 15px 0px;
+
+                  .show-address-label, .show-date-signed-label {
+                    color: $col-dark-gray;
+                    font-size: 16px;
+                    font-weight: 500;
+                    margin-left: 8px;
+                    cursor: pointer;
+                  }
+                }
+              }
+
+              .header-container {
+                width: 100%;
+
+                .preview {
+
+                  .header-preview {
+                    .border-container {
+                      width: 300px;
+
+                      .preview-bottom-border {
+                        height: 40px;
+                        background: url(image_path('document-shade.svg')) no-repeat 50% 50% / contain;
+                        margin-top: -14px;
+                        transform: rotate(181deg);
+                      }
+                    }
+
+                    .header-preview-box {
+                      width: 285px;
+                      min-height: 70px;
+                      border: 1px solid $col-border;
+                      border-bottom: none;
+                      box-shadow: 0.5px 1px 2px 0 rgba(0, 0, 0, 0.24);
+                      margin-left: 5px;
+
+                      .line-break {
+                        padding-bottom: 40px;
+                        margin: 0 10px;
+                        border-top: 1px solid $col-border;
+                      }
+
+                      .preview-text {
+                        text-indent: .5in;
+                        color: $col-dark-gray;
+                        padding: 24px 8px 16px 8px;
+                        font-weight: 500;
+                        font-size: 12px;
+                        overflow: hidden;
+                      }
+                    }
+                  }
+
+                  .header-edit {
+                    display: flex;
+                    color: $col-blue;
+                    padding-top: 8px;
+                    margin-left: 5px;
+
+                    i {
+                      padding-top: 2px;
+                    }
+
+                    .edit {
+                      padding-left: 8px;
+                      font-size: 14px;
+                    }
+                  }
+                }
+              }
+
+              .alias-container {
+
+                .alias-description {
+                  font-style: italic;
+                }
+
+                .form-group {
+                  margin-right: 24px;
+
+                  .submit-buttons {
+                    display: flex;
+                    justify-content: space-between;
+                  }
+                }
+              }
+
+              .multiple-copies-container {
+                width: 100%;
+
+                .multiple-copies-dropdown {
+                  display: flex;
+
+                  label {
+                    color: $col-dark-gray;
+                    font-size: 16px;
+                    font-weight: 500;
+                    margin-left: 8px;
+                    cursor: pointer;
+                  }
+                }
+              }
+
+              .excluded-signer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 50px 20%;
+
+                i {
+                  color: $col-gray-light;
+                  font-size: 64px;
+                }
+
+                h3 {
+                  margin-bottom: 8px;
+                }
+
+                p {
+                  margin-bottom: 24px;
+                  width: 100%;
+                  text-align: center;
+                }
+              }
+
+              .disabled {
+                h3, p {
+                  opacity: 0.85;
+                  color: #808994 !important;
+                }
+
+                .preview {
+                  opacity: 0.65;
+                }
+              }
+            }
+          }
+
+          .column-container-left {
+            border-left: 1px solid $col-border;
+            border-right: 2px solid $col-border;
+            border-collapse: collapse;
+            height: 100%;
+          }
+
+          .column-container-middle {
+            height: 100%;
+            border-right: 2px solid $col-border;
+          }
+
+          .column-container-right {
+            height: 90%;
+            border-right: 1px solid $col-border;
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+.add-signature-group-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.add-signature-group-list {
+  border: 2px solid $col-gray-light;
+  color: $col-dark-gray;
+  height: 400px;
+  overflow: scroll;
+
+  .add-signature-group {
+    border-bottom: 2px solid $col-gray-light;
+    padding: 10px 0px;
+
+    .top-bar {
+      display: flex;
+
+      .signature-group-name {
+        display:flex;
+        align-items: center;
+        font-size: 16px;
+        flex-grow: 1;
+      }
+
+      .add-button {
+        display: flex;
+        flex-grow: 0;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 10px;
+
+        .connect-button {
+          font-size: 12px;
+          padding: 5px 20px;
+          color: white;
+          border: 1px solid $col-blue;
+          background: #fff;
+          box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+          margin: 0 0 0 10px;
+          background-color: $col-blue;
+        }
+      }
+    }
+
+    .signature-group-users {
+      padding-left: 40px;
+
+      .user-name {
+        font-size: 14px;
+        padding: 2px 0px;
+      }
+    }
+  }
+
+  .name {
+    padding: 4px 20px 4px 42px;
+    font-size: 1.2rem;
+    min-height: 32px;
+  }
+  .children {
+    padding-top: 5px;
+  }
+}
+
+.icon-signature-page {
+  display: inline-block;
+  opacity: .5;
+  width: 240px;
+  height: 240px;
+  background: url(image_path('signature-pages.svg')) no-repeat 50% 50% / contain;
+}
+
+.place-signature-tabs-buttons {
+  display: flex;
+  flex-direction: column;
+  > div {
+    padding: 0 12px 12px 12px;
+    > a {
+      min-width: 108px;
+    }
+  }
+}
+
+.custom-signature-page {
+  height: 792px;
+  width: 612px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  .custom-signature-page-img {
+    border: 2px solid $col-gray-light;
+    height: 788px;
+    width: 608px;
+  }
+  .signature-tab {
+    opacity: .8;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    display: flex;
+    align-items: flex-end;
+    padding: 2px 2px 0 4px;
+    font-size: 10px;
+    color: $col-red-signing-tab-text;
+    background-color: $col-yellow-signing-tab;
+    border-radius: 2px;
+    font-weight: bold;
+
+    &#dragging-tab {
+      opacity: .4;
+    }
+    &.sign {
+      height: 32px;
+      width: 50px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    &.name {
+      width: 162px;
+    }
+    &.date-signed {
+      width: 100px;
+    }
+    &.address-line {
+      width: 200px
+    }
+
+    &.title {
+      width: 180px;
+    }
+    .remove-tab {
+      position: absolute;
+      cursor: pointer;
+      font-size: 16px;
+      background: radial-gradient(circle at center, white 0, transparent 100%); // to keep the edges of the background from showing.
+      border-radius: 50%;
+      top: -5px;
+      right: -4px;
+      color: $col-red-signing-tab-text;
+    }
+  }
+  .qr-code {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    z-index: 1000; /* just to be sure it isn't covered by text */
+    padding: 5px;
+    border: 1px solid black;
+    background-color: white;
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.excluded-tooltip {
+  padding: 4px;
+
+  p {
+    padding: 2px 0;
+  }
+}
+
+.custom-signature-page-modal {
+  .modal-body {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.choose-from-document-modal {
+  #sliding-pane .view-document-page {
+    width: 90%;
+    margin-left: -45%;
+    z-index: 1000;
+
+    iframe {
+      width: 100%;
+      height: 500px;
+    }
+  }
+}
+
+.choose-from-document-container {
+  .choose-from-document-pending {
+    text-align: center;
+    font-size: 12pt;
+    margin-bottom: 20px;
+
+    img {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 15px;
+      opacity: 0.5;
+    }
+  }
+
+
+
+  .choose-from-document-header {
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .choose-from-document-title {
+    }
+  }
+
+  .choose-from-document-thumbnails {
+    height: 400px;
+    overflow: auto;
+    border-bottom: 1px solid $gray-lighter;
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    .choose-from-document-thumbnail-container {
+      position: relative;
+      padding: 4px 4px 0px 4px;
+      cursor: pointer;
+      z-index: 997;
+      text-align: center;
+      height: 135px;
+      margin-right: 12px;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: $gray-lighter;
+      }
+
+      &.selected {
+        background-color: $light-blue;
+        color: $white;
+      }
+
+      .choose-from-document-thumbnail {
+        width: 85px;
+        height: 110px;
+        border: 1px solid $gray-light;
+        position: relative;
+        background-color: $white;
+      }
+
+      .mdi-eye {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        padding: 4px 16px 4px 12px;
+        color: $gray-light;
+        font-size: 20px;
+      }
+    }
+  }
+}

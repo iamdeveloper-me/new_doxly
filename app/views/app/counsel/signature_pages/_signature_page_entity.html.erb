@@ -1,0 +1,22 @@
+<%
+  tree_element ||= nil
+  signature_group ||= nil
+  signature_entity ||= nil
+  return unless signature_entity
+%>
+<div class="signature-column" id="signature-page-entity">
+  <div class="column-title">Signature Page</div>
+  <div class="column-container-right whiteout-ui">
+    <% if tree_element.present? %>
+      <div class="signature-page-column">
+        <% if signature_entity.all_signing_capacities.any? && !signature_entity.included?(tree_element.id) %>
+          <%= render 'app/counsel/signature_pages/excluded_signers', signature_group: signature_group, tree_element: tree_element, signature_entity: signature_entity %>
+        <% else %>
+          <%= render 'app/counsel/signature_pages/signature_page_details', signature_group: signature_group, signature_entity: signature_entity, tree_element: tree_element %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="empty-state">Select a document, group or individual to view more details</div>
+    <% end %>
+  </div>
+</div>

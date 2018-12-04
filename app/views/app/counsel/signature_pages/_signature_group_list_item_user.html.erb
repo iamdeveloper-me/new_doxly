@@ -1,0 +1,36 @@
+<%
+  signing_capacity_tree_element_signature_pages = signing_capacity.unscoped_tree_element_signature_pages(tree_element.id)
+  block_collection = signing_capacity.get_block_collection
+  included = signing_capacity_tree_element_signature_pages.where(is_enabled: true).any?
+  can_exclude = included && signing_capacity_tree_element_signature_pages.where.not(signature_status: 'not_sent').empty?
+%>
+<div id="<%= "signature-group-user-#{signing_capacity.id}" %>" class="signature-group-user <%= "excluded" if !included %>" path="<%= show_signature_page_deal_signature_pages_path(@deal, tree_element_id: tree_element.id, signing_capacity_id: signing_capacity.id, signature_group_id: signature_group.id) %>">
+  <div class="name">
+    <div class="ellipsize with-tooltip"><%= signing_capacity.name %></div>
+  </div>
+  <div class="action">
+    <% if included && can_exclude %>
+      <%= link_to "Exclude", exclude_deal_signature_group_block_collection_signing_capacity_path(@deal, signature_group, block_collection, signing_capacity, tree_element_id: tree_element.id), remote: true, class: "button mini button-secondary mdi mdi-account-outline" %>
+    <% elsif included && !can_exclude %>
+      <div class="has-excluded-tooltip" data-tooltip-content="<%= "#tooltip_content_#{signing_capacity.id}" %>">
+        <%=
+          link_to "Exclude",
+          exclude_deal_signature_group_block_collection_signing_capacity_path(@deal, signature_group, block_collection, signing_capacity, tree_element_id: tree_element.id),
+          remote: true,
+          class: "button mini button-secondary mdi mdi-account-outline disabled"
+        %>
+      </div>
+      <div class="tooltip_templates">
+        <div class="tooltip-content excluded-tooltip whiteout-ui" id="<%= "tooltip_content_#{signing_capacity.id}" %>">
+          <p>This signer cannot be removed.</p>
+          <p class="gray">The signature page has already been sent for signature.</p>
+        </div>
+      </div>
+    <% else %>
+      <%= link_to "Include", include_deal_signature_group_block_collection_signing_capacity_path(@deal, signature_group, block_collection, signing_capacity, tree_element_id: tree_element.id), remote: true, class: "button mini button-secondary mdi mdi-account" %>
+    <% end %>
+  </div>
+  <div class="excluded-badge">
+    Excluded
+  </div>
+</div>

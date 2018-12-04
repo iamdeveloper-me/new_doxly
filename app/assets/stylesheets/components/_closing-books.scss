@@ -1,0 +1,239 @@
+.closing-book-document-select {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  .closing-book-index {
+    li{
+      font-weight: 500;
+      font-size: $base-font-size;
+      color: $col-dark-gray;
+      .section-checkbox{
+        padding: 2px 0 2px 0;
+
+        label {
+          display: flex;
+          align-items: center;
+
+          input{
+            padding: 20px 5px 20px 20px;
+            margin: 0;
+            cursor: pointer;
+          }
+          a{
+            font-weight: 500;
+            color: $col-blue;
+          }
+          .section-name {
+            margin-left: 5px;
+            width: 90%;
+            color: $col-blue;
+
+            &.disabled-section {
+              font-size: 14px;
+              font-weight: 500;
+              font-style: italic;
+              color: $col-gray-medium-light;
+            }
+          }
+        }
+      }
+
+      &.no-documents {
+        font-weight: normal;
+        margin-left: 15px;
+      }
+    }
+    .document-checkbox{
+      padding: 10px 20px 10px 10px;
+
+      label {
+          width: 100%;
+          display: flex;
+
+          .excluded-document {
+            display: flex;
+            font-style: italic;
+            color: $col-gray-medium-light;
+            font-weight: normal;
+            margin-left: 5px;
+            width: 90%;
+
+            .question {
+              color: $col-blue;
+              cursor: pointer;
+              padding-left: 4px;
+            }
+          }
+
+        span{
+          font-weight: normal;
+          margin-left: 5px;
+          width: 90%;
+        }
+
+        a{
+          font-weight: normal;
+          color: $col-blue;
+          padding-left: 5px;
+        }
+
+        a:hover{
+          color: $col-blue-hover
+        }
+
+        input {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
+.form-check{
+  padding: 10px 0px;
+}
+
+.closing-book{
+  .closing-book__buttons{
+    text-align: right;
+    margin: 0 13% 20px 0;
+  }
+}
+
+.panel-closing-books-full{
+  padding: 0;
+  border: 1px solid $col-border;
+  border-radius: 0;
+  width: 74%;
+  margin: auto;
+
+  &.fixed-width {
+    width: 75%;
+    margin: auto;
+  }
+
+  .deals-full-group{
+
+  }
+  .deals-full-group__header{
+    font-weight: 500;
+    font-size: 10px;
+    color: $col-gray;
+    letter-spacing: 2.5px;
+    height: 30px;
+    border-bottom: 1px solid $col-border;
+    padding: 10px;
+    line-height: 1;
+    text-transform: uppercase;
+    background: $col-green-light-2;
+  }
+  .deals-full-group__closing-books{
+    padding: 0;
+
+    .closing-book-item{
+      display: block;
+      font-size: 0;
+      padding: 10px 10px;
+      border-bottom: 1px solid $col-border;
+
+      .item-body {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        padding: 0 0 0 5px;
+
+        .title {
+          font-size: 13px;
+          color: $col-gray;
+        }
+
+        .item-body__created-date{
+          width: 30%;
+          display: inline-block;
+          vertical-align: top;
+        }
+        .item-body__documents-count{
+          width: 30%;
+          display: inline-block;
+          vertical-align: top;
+        }
+        .item-body__documents-status {
+          width: 15%;
+          display: inline-block;
+          vertical-align: top;
+
+          .progress-error {
+            color: $col-red
+          }
+        }
+        .item-body__actions{
+          width: 25%;
+          display: inline-block;
+          vertical-align: top;
+
+          a {
+            margin-right: 3px;
+          }
+          a:last-child {
+            margin-left: 3px;
+            margin-right: 0px;
+          }
+          .timestamp {
+            float: right;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            b {
+              align-self: flex-start;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.closing-book-header {
+  font-size: 1.8rem !important;
+  color: #1E354A !important;
+  font-weight: 400 !important;
+  padding-bottom: 8px;
+}
+
+.cover-page-section {
+  width: 100%;
+}
+
+.closing-book-upload-description {
+  max-width: 320px;
+  padding-bottom: 16px;
+  padding-top: 8px;
+}
+
+.closing-book-cover-page-preview {
+  width: 220px;
+  height: 285px;
+  margin: 8px 0px 16px 0px;
+  cursor: pointer;
+  border: 1px solid $col-gray-medium;
+}
+
+.closing-book-cover-page img {
+  width: 612px;
+  height: 792px;
+  margin: auto;
+  border: 1px solid $col-gray-medium;
+}
+
+.closing-book-tooltip {
+  font-size: 12px;
+  color: $col-gray-dark;
+
+  .tooltip-text {
+    padding-top: 8px;
+  }
+}
+
+

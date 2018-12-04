@@ -1,0 +1,73 @@
+<%
+  deal_organization ||= nil
+  org = deal_organization&.entity
+  role ||= nil
+  org_user_count = pluralize(deal_organization.deal_entity_users.length, 'member')
+  address = org.primary_address
+%>
+<div class="entity-group toggle expanded" id="deal-org-<%= deal_organization.id %>"  data-id="<%= org.id %>">
+  <div class="entity-details role-search">
+    <div class="toggle-trigger">
+      <div class="expand-toggle"></div>
+      <div class="avatar company large">
+        <div class="no-photo <%= deal_organization.entity.try(:avatar_color) %>"><%= deal_organization.entity.initials %></div>
+      </div>
+    </div>
+    <div class="details">
+      <div class="details__left">
+        <div class="name"><%= org.name %></div>
+        <div class="title"> <%= role.name %> (<%= org_user_count %>)</div>
+      </div>
+      <div class="details__right">
+        <div class="address">
+          <% if address.present? %>
+            <div class="address-text"><%= address.address_line_one %></div>
+            <div class="address-text"><%= address.address_line_two %></div>
+            <div class="address-text">
+              <% comma = (address.city && address.state_or_province) ? ',' : '' %>
+              <%= address.city %><%= comma %>
+              <%= address.state_or_province %>
+              <%= address.postal_code %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% if @deal.is_owning_entity?(current_entity) && @deal.can?(/D/, :entities) %>
+      <div class="delete whiteout-ui">
+        <div class="dropdown">
+          <button type="button" class="button mdi mdi-delete mdi-24px trigger wgl-delete" name="button" id="dropdown-menu-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+          <div class="whiteout-dropdown dropdown-menu expanded dropdown-caret card" aria-labelledby="dropdown-menu-button">
+            <div class="dropdown-header">
+              <p>Remove this organization?</p>
+            </div>
+            <div class="dropdown-row">
+              <div class="dropdown-column">
+                <p class="gray">For this role, the organization will no longer have permission to this deal.</p>
+              </div>
+            </div>
+            <div class="dropdown-footer">
+              <button type="button" class="button small button-secondary" id="role-cancel" name="button">Cancel</button>
+              <%= link_to deal_deal_entity_path(@deal.id, deal_organization.id, role_id: role.id), :confirm => "Are you sure?", method: :delete, remote: true do %>
+                <button type="button" class="button small button-primary mdi mdi-delete wgl-delete removal" name="button">Remove</button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="empty-delete"></div>
+    <% end %>
+  </div>
+  <div class="children">
+    <div class="users-for-deal-org-<%= deal_organization.id %> entity-members">
+      <% deal_organization.deal_entity_users.each do |deal_entity_user| %>
+        <% user = deal_entity_user.user %>
+        <%= render 'app/shared/user', user: user, user_role: true, deal_entity_user: deal_entity_user, entity_user: deal_entity_user.entity_user %>
+      <% end %>
+    </div>
+    <% if @deal.is_owning_entity?(current_entity) && @deal.can?(/C/, :team_members) %>
+      <div class="add-individual" id="add-individual-<%= role.id %>"><i class="fa fa-plus-circle"></i><span><%= link_to "Add Member to #{deal_organization.entity.name}", new_deal_deal_entity_deal_organization_user_path(deal_entity_id: deal_organization.id), remote: true %></span></div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-daily-digest.png" %>
+<% end %>
+<% @title = "Hello #{@user.name}," %>
+<% @subtitle = @subtitle %>
+<% @content = capture do %>
+  <%
+    events_shown = false
+    @deals.each do |deal|
+  %>
+    <%
+      # get the events the user can see in this deal
+      events = deal.events_between(@start_time, @end_time).select{ |event| @user.can_see_event?(event, @entity_user) } || []
+      if events.empty?
+        next
+      end
+
+      # sort them by type
+      grouped_by_type = deal.group_events_by_type(events)
+
+      # find the first and last events
+      first_group = grouped_by_type.keys.first
+      last_group = grouped_by_type.keys.last
+      events_shown = true
+    %>
+    <row>
+      <columns>
+        <div class='deal-title'><%= deal.title.upcase %></div>
+      </columns>
+    </row>
+    <% grouped_by_type.each do |key, value| %>
+      <% class_name = key.downcase %>
+      <row class="deal-event <%= first_group == key ? 'first' : '' %> <%= last_group == key ? 'last' : '' %>">
+        <columns>
+          <%= render "app/shared/mailer/notifications/events/#{class_name}", events: value %>
+        </columns>
+      </row>
+    <% end %>
+  <% end %>
+  <div class='unsubscribe'>To opt out of the daily digest, visit your account settings on <%= link_to 'Doxly', my_profile_url %></div>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/notification_mailer' %>

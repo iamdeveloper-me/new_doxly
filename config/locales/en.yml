@@ -1,0 +1,156 @@
+en:
+  activerecord:
+    errors:
+      models:
+        to_do:
+          attributes:
+            deal_entity_user:
+              must_match_deal_entity: "must be in your organization"
+              is_restricted_and_cannot_be_added: 'is restricted from this item and cannot be added to the to-do.'
+        completion_status:
+          attributes:
+            tree_element:
+              uniqueness_by_deal_entity: "should only have one completion status per organization per document"
+            is_complete:
+              already_exists: "already exists for this closing checklist item"
+              only_set_by_owner: "can only be set on closing by owning organization"
+        entity_user:
+          attributes:
+            user_id:
+              uniqueness_by_user: "can only be added once to an organization"
+        entity:
+          attributes:
+            name:
+              is_already_taken: "is already taken"
+        responsible_party:
+          attributes:
+            tree_element:
+              cannot_be_third: "can only have two responsible parties at a time."
+            deal_entity:
+              must_match_deal: "must match the deal."
+            deal_entity_user:
+              must_match_deal_entity: "must match the deal entity."
+        attachment:
+          attributes:
+            attachable:
+              must_be_in_the_same_deal: "must be in the same deal"
+        tree_element:
+          attributes:
+            type:
+              type_cannot_be_changed_if_signature_required: "cannot be changed if signature required"
+          cannot_delete_if_sent_for_signature: "Cannot delete a document with sent or completed signatures"
+        signature_page:
+          custom_page_upload_must_be_right_extension: "File must be a PDF, DOCX, or DOC"
+          could_not_convert_file: 'Unable to convert the uploaded custom page to PDF. Please try again.'
+          document_page_could_not_be_saved: 'The document page could not be saved. Please try again.'
+          document_could_not_be_retrieved: 'The document could not be retrieved from the checklist. Please try again.'
+          select_a_document_page: 'Please select a page from the document.'
+          attributes:
+            is_enabled:
+              cannot_exclude: 'Cannot exclude a signer whose signature page has already been sent.'
+        signature_page_execution:
+          attributes:
+            version:
+              must_be_in_the_checklist: 'must be placed in the checklist'
+          read_only: 'cannot be modified'
+        closing_book:
+          cover_page_could_not_be_converted: 'Cover page could not be converted'
+          cover_page_upload_must_be_correct_extension: 'File must be a PDF, DOCX, or DOC.'
+          could_not_convert_file: 'Unable to use the uploaded file as the cover page.'
+        signature_packet_review_document:
+          attributes:
+            tree_element:
+              cannot_be_present_with_aws_file: 'cannot be present with aws file'
+        user:
+          attributes:
+            email:
+                cannot_be_changed: 'cannot be changed once set'
+          already_exists_in_group: 'Signer already exists in this signature group.'
+        unmatched_signature_upload_page:
+          cannot_undo: 'Cannot undo executed signature page.'
+        signature_group:
+          cannot_consolidate: 'Cannot consolidate a block containing a user with sent signature pages.'
+          cannot_delete: 'Cannot delete a block containing a user with sent signature pages.'
+          cannot_edit: 'Cannot edit a block containing a user with sent signature pages.'
+          cannot_link: 'Cannot link blocks that have already been sent for signing.'
+          cannot_unlink: 'Cannot unlink blocks that have already been sent for signing.'
+          deal_closed: 'Cannot add, edit, or delete blocks after deal has been closed.'
+    messages:
+      taken: "is already in use"
+      inclusion: "is not included in the list"
+      exclusion: "is reserved"
+      invalid: "is invalid"
+      confirmation: "doesn't match confirmation"
+      accepted: "must be accepted"
+      empty: "can't be empty"
+      blank: "can't be blank"
+      too_long: "is too long"
+      too_short: "is too short"
+      wrong_length: "is the wrong length"
+      not_a_number: "is not a number"
+      invalid_date: "is not a valid date"
+      invalid_time: "is not a valid time"
+      invalid_datetime: "is not a valid datetime"
+      is_at: "must be at %{restriction}"
+      before: "must be before %{restriction}"
+      on_or_before: "must be on or before %{restriction}"
+      after: "must be after %{restriction}"
+      on_or_after: "must be on or after %{restriction}"
+      required: "is required"
+    attributes:
+      completion_status:
+        is_complete: "Completion Status"
+        tree_element: "Completion Status"
+      organization:
+        name: "Name"
+        is_counsel: "Is Counsel?"
+      esignature_provider:
+        is_demo: "Is Demo/Sandbox/Developer Account"
+      signing_capacity:
+        user: "Signer"
+      responsible_party:
+        tree_element: "Item"
+      to_do:
+        deal_entity_user: "Assigned user"
+      version:
+        attachment: 'File'
+  errors:
+    dms_api_error: "Couldn't reach the document management system, please try again. Contact Doxly Support if the issue persists"
+    title: "Error"
+    not_found: "Not found"
+    failure: "Something went wrong"
+    forbidden: "You do not have the permission to perform this action."
+    403_main: "You do not have the permission to perform this action"
+    403_sub: "Please contact your administrator for assistance."
+    404_main: "Oops, the page you were looking for could not be found"
+    404_sub: "Please try another URL."
+    500_main: "Something went wrong. Please try again."
+    500_sub: "If this issue persists, %s."
+    500_link_text: "please let us know"
+    home: "Home"
+    back: "Back"
+    cannot_upload: "Unable to upload file."
+    dms_token_errors:
+      net_documents: "Cannot verify Net Documents User Credentials, please re-link your account on the integrations page in Account Settings."
+      see_unity_imanage: "Cannot verify iManage User Credentials, please re-link your account on the integrations page in Account Settings."
+      imanage10: "Cannot verify iManage User Credentials, please re-link your account on the integrations page in Account Settings."
+    two_factor_authentication:
+      an_error_occurred: "An error occurred while configuring two-factor authentication for your account. Please contact Doxly support."
+      not_allowed_to_disable: "You can not disable two-factor on your account because one or more of the organizations you belong to requires two-factor authentication."
+      unable_to_disable: "Unable to disable two-factor authentication on your account. Please contact Doxly support."
+      unable_to_generate_recovery_codes: "Unable generate recovery codes for your account. Please contact Doxly support."
+  validation_errors:
+    delete_notes: "You are only allowed to delete your own notes"
+    upload_file: "The attached file could not be uploaded. Please try again."
+    delete_file_sent_for_signature: "Cannot delete a document with sent or completed signatures"
+    cannot_delete_reserved_items: "This checklist item is either reserved or has reserved items under it and cannot be deleted"
+  deals:
+    categories:
+      diligence_category:
+        new_section_modal_title: "New Section"
+        edit_section_modal_title: "Edit Section"
+        new_file_modal_title: "New File"
+      closing_category:
+        new_section_modal_title: "New Stage"
+        edit_section_modal_title: "Edit Stage"
+        new_file_modal_title: "New Document"

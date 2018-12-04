@@ -1,0 +1,166 @@
+.notes-panel{
+  min-height: 450px;
+
+  .notes-panel-toggle{
+    padding: 10px;
+    border-bottom: 1px solid $col-border;
+
+    .content-deal-right &{
+      background: $col-green-light-3;
+    }
+
+    .btn-group{
+      width: 100%;
+
+      .btn{
+        width: 50%;
+        border: 1px solid $col-border;
+        background: $white;
+        color: $col-dark-blue;
+        box-shadow: 0px 1px 2px 0px $col-box-shadow;
+
+        &:focus{
+          background: $white;
+        }
+        &:hover{
+          background: $col-blue-light;
+        }
+
+        &.toggle-active{
+          background: $col-blue;
+          color: $white;
+          border-color: $col-blue-hover;
+          &:focus{
+            background: $col-blue;
+            color: $white;
+            border-color: $col-blue-hover;
+          }
+          &:hover{
+            background: $col-blue-hover;
+          }
+        }
+      }
+    }
+  }
+  .notes-panel__recipients{
+    padding: 10px 20px 10px 18px;
+    border-bottom: 1px solid $col-border;
+  }
+  .notes-panel-details__instance{
+    background: $white;
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+    transition: visibility .3s ease, opacity .3s ease, display .3s ease;
+    &.toggle-active{
+      visibility: visible;
+      opacity: 1;
+      display: block;
+    }
+  }
+  .notes-panel__recipients-wrapper{
+    position: relative;
+    line-height:5px;
+
+    .recipients-items{
+      position: relative;
+      padding-left: 30px;
+      display: inline-block;
+      width: 100%;
+
+      &:before{
+        font-size: 14px;
+        color: $col-gray;
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: "To: ";
+        line-height: 20px;
+      }
+
+      .avatar{
+        margin-bottom: 2px;
+        margin-right:4px;
+      }
+    }
+    .recipient-add{
+      position: absolute;
+      right: 0;
+      top: 3px;
+    }
+  }
+
+  .notes-panel__messages{
+    background-color: $col-blue-light;
+    padding: 10px;
+    overflow-y: auto;
+
+    .note-item {
+      display: flex;
+      flex-direction: row;
+      padding: 7px 0px;
+
+      .note-avatar {
+        display: flex;
+      }
+
+      .note-message-container {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        padding-left: 10px;
+
+        .note-name {
+          color: $col-dark-blue-hover;
+        }
+
+        .note-message {
+          color: $col-dark-gray;
+          margin-top: 2px;
+          margin-bottom: 3px;
+          font-size: 14px;
+        }
+
+        .note-timestamp {
+          font-style: italic;
+          color: $col-dark-blue-hover;
+          font-size: 12px;
+        }
+      }
+
+      .note-message-delete {
+        display: flex;
+        flex-direction: column;
+        width: 10px;
+        margin-left: 15px;
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .notes-panel__send{
+    padding: 10px;
+    border-top: 1px solid $col-border;
+
+    form{
+      position: relative;
+      padding-right: 60px;
+
+      .notes-panel__message{
+        height: 30px;
+        line-height: 28px;
+      }
+
+      .btn{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50px;
+        min-width: 50px;
+        padding: 0;
+        height: 30px;
+        line-height: 28px;
+      }
+    }
+  }
+}

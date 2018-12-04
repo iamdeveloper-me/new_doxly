@@ -1,0 +1,12 @@
+<div>
+  <div class="row crumbs">
+    <%= render 'app/shared/top_navs/signature_nav' %>
+  </div>
+  <div id="signature-blocks" class="react-root" data-turbolinks-permanent></div>
+</div>
+
+<script>
+  $(function() {
+    App.React.renderSignatureGroupsPage()
+  })
+</script>

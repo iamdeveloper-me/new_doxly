@@ -1,0 +1,2 @@
+module Controllers::Attachments
+end

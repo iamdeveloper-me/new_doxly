@@ -1,0 +1,25 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-email-upload-error.png" %>
+<% end %>
+<% @title = capture do %>
+  Document(s) Failed to Upload to Doxly
+<% end %>
+<% @content = capture do %>
+  <p>
+    Unfortunately, the following document(s) failed to upload to the <%= @deal.title %> deal within Doxly.
+    <br /><br />
+    <b>
+      <% @errors.keys.each do |key| %>
+        <%= key %><br />
+      <% end %>
+    </b>
+  </p>
+  <br />
+  <br />
+  <br />
+  <p class="text-center">
+    Please try again. If you continue to experience issues, please contact Doxly support at <a href="mailto: <%= Doxly.config.support_email %>"><%= Doxly.config.support_email %></a>.
+  </p>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

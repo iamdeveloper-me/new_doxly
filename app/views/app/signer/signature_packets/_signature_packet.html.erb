@@ -1,0 +1,83 @@
+<%
+  processing               ||= false
+  signature_packets_size   ||= nil
+  signature_packet_hash    ||= {}
+  signature_packet         = signature_packet_hash[:signature_packet]
+  review_documents_length  = signature_packet.signature_packet_review_documents.length
+%>
+<!-- nothing should render without the presence of signature_packet -->
+<% if signature_packet %>
+  <!-- variables that shouldn't be set unless signature_packet exists -->
+  <%
+    signature_pages = signature_packet.signature_pages
+    is_docusign = signature_packet.docusign_envelope_id.present?
+    tree_elements = signature_pages.map(&:tree_element).uniq
+  %>
+  <div class="signature-packet panel activity-card" id="signature-packet-<%= signature_packet.id %>">
+    <div class="main-box">
+      <div class="info">
+        <div class="icon">
+          <% if is_docusign %>
+            <%= image_tag 'ic-signature-docusign-48-px.svg' %>
+          <% else %>
+            <%= image_tag 'ic-signature-manual-48-px.svg' %>
+          <% end %>
+        </div>
+        <div class="signature-packet-info">
+          <div class="icon-packet-medium"></div>
+          <div class="packet-data">
+            <div class="name">
+              Packet <%= signature_packet_hash[:i].to_i + 1 unless signature_packets_size == 1 %> <span>(<%= pluralize(signature_pages.count, "page") %>)</span>
+            </div>
+            <div class="metadata">
+              <div class="prepared">
+                Prepared <%= signature_packet.sent_at.strftime("%b %-d, %Y") %>
+              </div>
+              <div class="document-page-numbers">
+                <%
+                  documents_count = review_documents_length > 0 ? "#{pluralize(review_documents_length, "document")} and " : ""
+                  signature_pages_count = pluralize(signature_pages.length, "signature page")
+                  included_in_packet = "#{documents_count}#{signature_pages_count} included in this packet"
+                %>
+                <%= included_in_packet %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-box">
+        <div class="buttons">
+          <% if signature_packet.all_signature_pages_completed? %>
+            <div class="sign-button">
+              <%= link_to signature_packet_view_completed_packet_path(signature_packet), remote: true, class: "btn review-btn" do %>
+                Print & download signatures
+              <% end %>
+            </div>
+          <% elsif !processing %>
+            <div class="sign-button">
+            <%= link_to signature_packet_sign_packet_path(signature_packet, redirect: 'deal_signature_packets'), class: "btn pink-btn" do %>
+              <%= is_docusign ? "Sign electronically" : "Sign manually" %>
+            <% end %>
+            </div>
+          <% end %>
+          <% if review_documents_length > 0 %>
+            <div class="review <%= 'processing' if processing %>">
+              <%= link_to 'Review documents', signature_packet_path(signature_packet) %>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+    <% if signature_packet.upload_attempted_at && signature_packet.completed_at == nil && !processing %>
+      <div class="missing-pages">
+        <div class="tag">
+          <%= image_tag "missing-document-tag.svg"%>
+        </div>
+        <div class="explanation">
+          Doxly was unable to process or has not received <%= pluralize(signature_packet.signature_pages.select{|sp| !sp.complete?}.count, "signature page") %>.
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

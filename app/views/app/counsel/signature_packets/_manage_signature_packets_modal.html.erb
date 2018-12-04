@@ -1,0 +1,6 @@
+<%
+  title ||= nil
+%>
+<%= render :layout => 'shared/single_button_modal', :locals => { :title => title, :modal_class => 'semi-large' } do %>
+  <%= render 'user_signature_packets' %>
+<% end %>

@@ -1,0 +1,21 @@
+<%
+  tree_element ||= nil
+  signature_group ||= nil
+  signature_entity ||= nil
+  signature_user_signature_entity = signature_entity.descendants.any? ? signature_entity.last_descendant : signature_entity
+%>
+<h2><%= signature_entity.name %></h2>
+<% if signature_entity.descendants.any? %>
+  <% signature_entity.descendants.each do |signature_entity| %>
+    <h2><%= signature_entity.name %></h2>
+  <% end %>
+<% end %>
+  <% signature_user_signature_entity.signing_capacities.each do |signing_capacity| %>
+    <div class="gray multiple-signers"><i class="mdi mdi-subdirectory-arrow-right"></i><%= signing_capacity.name %></div>
+  <% end %>
+<div class="excluded-signer">
+  <i class="mdi mdi-account-outline"></i>
+  <h3>Signers Excluded</h3>
+  <p>These signers have been excluded from the signing group for this document.</p>
+  <%= link_to "Include", include_deal_signature_group_block_collection_signature_entity_path(@deal, signature_group, signature_user_signature_entity.root.block_collection.id, signature_user_signature_entity.id, tree_element_id: tree_element.id), remote: true, class: "button mini button-secondary mdi mdi-account-outline" %>
+</div>

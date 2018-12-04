@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta id="viewport" name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+  <%= stylesheet_link_tag 'application', media: 'all'%>
+</head>
+<body>
+  <div class="sign-in-wrapper">
+    <div class="wrap-narrow">
+      <div class="box-middle">
+        <div class="inner">
+          <div class="center-logo"><%= image_tag "logo.svg" %></div>
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+              <h3 class="panel-title"><b><%= t('errors.title') %></b></h3>
+            </div>
+            <div class="panel-body">
+              <%= yield :body %>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="form-group center">
+                <%= link_to 'Back', "javascript: history.back();" %> | 
+                <%= link_to 'Home', '/' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

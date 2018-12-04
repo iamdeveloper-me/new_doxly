@@ -1,0 +1,12 @@
+<%
+  title ||= nil
+  url ||= nil
+%>
+<%= render layout: 'shared/sliding_pane', locals: {
+    title: title, 
+    single_button: true, 
+    custom_class_name: 'view-document-page', 
+    single_button_label: 'Close'
+  } do %>
+  <iframe src="<%= url %>"></iframe>
+<% end %>

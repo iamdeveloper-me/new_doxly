@@ -1,0 +1,22 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="toolbar-box">
+        <div class="search-input-box manage-people">
+          <div class="form-group">
+            <input name="search_str"
+                id="people_search"
+                class="input-search form-control"
+                placeholder="Search People"
+             />
+          </div>
+          <a class="disabled"><i class="icon-icon-search"></i></a>
+        </div>
+        <%= link_to 'Add New Organization', new_deal_deal_entity_path(@deal), :remote => true, :class => 'action-button btn btn-primary' %>
+      </div>
+    </div>
+    <div class="row people-list">
+      <%= render 'app/counsel/deal_entities/deal_entities_list' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<%
+  wording = current_entity.id == @entity.id ? 'Team Member' : 'Collaborator'
+%>
+<h2 class="first">ADD EXISTING <%= wording %>s</h2>
+<div class="panel panel-deals-full">
+  <div class="deals-full-group">
+    <div class="deals-full-group__header">NAME</div>
+    <% @entity.entity_users.includes(:user).order("users.last_name").each do |entity_user| %>
+      <% if entity_user.persisted? %>
+        <div class="entity">
+          <div class="details">
+            <div class="name"><%= entity_user.name %> <%= "(firm administrator)" if entity_user.entity_id == current_entity.id && entity_user.can_see_all_deals? %></div>
+          </div>
+          <div class="add-entity-item <%= "org_user_#{entity_user.id}" %>">
+              <% if entity_user.deal_entity_users.find_by(deal_entity_id: @deal_entity.id) %>
+                Already On The Deal
+              <% else %>
+                <%= link_to "Add", deal_deal_entity_deal_organization_users_path(@deal.id, @deal_entity.id, entity_user_id: entity_user.id), method: :post, remote: true, :class => "connect-button" %>
+              <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <% if @entity.entity_users.where("id IS NOT NULL").empty? %>
+      <div class="padding-10">
+          <div>Entity Has No Active Users</div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= render "app/shared/errors", :errors => @entity_user.errors.full_messages %>
+<%= form_for @entity_user.user, :url => deal_deal_entity_deal_organization_users_path(@deal, @deal_entity), :method => :post, :html => {class:"no-turboboost"} do |f| %>
+  <%= hidden_field_tag :entity_id, @entity.id, {:class => "form-control"} %>
+  <h2>INVITE NEW <%= wording %></h2>
+  <%
+    if !@entity.is_counsel?
+      role = "client"
+    elsif @deal.is_owning_entity?(@entity)
+      role = "owning_counsel"
+    else
+      role = "opposing_counsel"
+    end
+  %>
+  <%= render 'shared/people/team_member_form_fields', :form => f %>
+  <%= hidden_field_tag "deal_entity_user[role]", role %>
+  <!-- don't want to overwrite the form field that is rendered when adding a user to one's own organization from the WGL -->
+  <% unless @entity === current_entity %>
+    <%= hidden_field_tag "entity_user[role]", "standard_user" %>
+  <% end %>
+<% end %>

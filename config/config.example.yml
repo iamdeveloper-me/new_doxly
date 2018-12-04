@@ -1,0 +1,98 @@
+default: &default
+  host_name: 'app.localhost.com'
+  port: 3000
+  protocol: 'http'
+  reply_email: 'success@doxly.com'
+  support_email: 'support@doxly.com'
+  alerts_email: 'development@doxly.com'
+  alerts_reply_email: 'alerts@doxly.com'
+  feeds_email: ''
+  admin_email:
+  aws_enabled: false
+  aws_access_key_id:
+  aws_secret_access_key:
+  aws_region: 'us-east-1'
+  mail_safe: true
+  mail_safe_destination: "development@doxly.com"
+  smtp_host:
+  smtp_port:
+  smtp_user:
+  smtp_password:
+  smtp_authtype: "basic"
+  smtp_starttls_auto: true
+  s3_bucket: "dev"
+  docusign_demo_url: "https://demo.docusign.net/restapi"
+  docusign_live_url: "https://www.docusign.net/restapi"
+  docusign_api_version: 'v2'
+  records_per_page: 20
+  min_ie_version: 11
+  min_edge_version: 14
+  min_firefox_version: 45
+  min_chrome_version: 50
+  min_opera_version: 37
+  min_safari_version: 9.1
+  ie_user_agent_name: "Internet Explorer"
+  edge_user_agent_name: "Edge"
+  firefox_user_agent_name: "Firefox"
+  chrome_user_agent_name: "Chrome"
+  safari_user_agent_name: "Safari"
+  opera_user_agent_name: "Opera"
+  rollbar_client_token:
+  rollbar_server_token:
+  ga_token:
+  encryption_password:
+  zendesk_base_url: "https://doxlyhelp.zendesk.com"
+  zendesk_secret:
+  mailtrap_username:
+  mailtrap_password:
+  deal_email_beginning:
+  deal_email_ending:
+  deal_email_username:
+  deal_email_password:
+  default_admin_username:
+  default_admin_password:
+  timeout_interval: "45"
+  # set to false if you want the api to return friendly messages instead of raising errors
+  api_debug_mode: true
+  api_url: 'http://api.localhost.com:3000'
+  temp_dir: "storage/tempdir"
+  closing_books_dir: "storage/closing-books"
+  signature_management_dir: "storage/signature-management"
+  hdd_storage_dir: "storage/hdd-storage"
+  docusign_integrator_key:
+  docusign_is_demo: true
+  java_home_path:
+  cloudconvert_api_key:
+  net_documents_us_client_id:
+  net_documents_eu_client_id:
+  net_documents_au_client_id:
+  net_documents_us_client_secret:
+  net_documents_eu_client_secret:
+  net_documents_au_client_secret:
+  minimum_document_retention_minutes_duration: 60
+  net_documents_us_api_url: "https://api.vault.netvoyage.com"
+  net_documents_eu_api_url: "https://api.eu.netvoyage.com"
+  net_documents_au_api_url: "https://api.au.netvoyage.com"
+  net_documents_api_version_number: '1'
+  net_documents_us_login_base_url:
+  net_documents_eu_login_base_url:
+  net_documents_au_login_base_url:
+  net_documents_hdd_storage_dir: "storage/tempdir/net-documents"
+  see_unity_imanage_api_version_number: '1'
+  see_unity_imanage_hdd_storage_dir: "storage/tempdir/see-unity-imanage"
+  otp_secret_encryption_key:
+  non_sso_subdomains: ['app'] # put your ngrok or pagekite subdomains here so you can avoid the sso screen
+  imanage10_api_version_number:
+  imanage10_hdd_storage_dir: "storage/tempdir/imanage-10"
+  aws_qa_efs_mount_path:
+  aws_demo_efs_mount_path:
+  aws_production_efs_mount_path:
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

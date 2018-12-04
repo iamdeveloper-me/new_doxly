@@ -1,0 +1,24 @@
+<div class="deal-entity-user-group toggle">
+  <div class="deal-entity-user-group__header">
+    <div class="title toggle-trigger">
+      <div class="expand-toggle"></div>
+      Connected Individuals
+    </div>
+  </div>
+  <div class="children">
+    <% individual_connections.each do |individual_connection| %>
+      <% entity_user = individual_connection.connected_entity&.entity_users&.first %>
+      <% next unless entity_user %>
+      <% user = entity_user.user %>
+      <div class="deal-entity-user">
+        <%= render 'app/shared/user', user: user, subtitle: user.email, entity_user: entity_user %>
+        <div class="deal-entity-user__actions">
+          <% if !user.confirmed? && current_entity_user.role != 'read_only' && current_entity.is_counsel%>
+            <%= link_to '', resend_invitation_entity_entity_user_path(individual_connection.connected_entity, entity_user.id), :class => "fa fa-envelope-o left", :style => "float: left; margin-left: 7px;" %>
+            <%= link_to '', edit_entity_entity_user_path(individual_connection.connected_entity, entity_user.id), :class => "fa fa-pencil left", :style => "float: left; margin-left: 7px;", :remote => true %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

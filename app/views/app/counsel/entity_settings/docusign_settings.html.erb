@@ -1,0 +1,24 @@
+<%
+  @page_wrapper_class ||= "navbar-double"
+%>
+
+<%= render 'shared/top_navs/entity_settings' %>
+
+<div class="content">
+  <div class="padded-content">
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Organization DocuSign Settings
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6" id="docusign-settings-form">
+              <%= render 'app/counsel/entity_settings/docusign_settings_form', :esignature_provider => @esignature_provider %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

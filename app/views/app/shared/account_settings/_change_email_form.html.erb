@@ -1,0 +1,26 @@
+<%= render "app/shared/errors", :errors => current_user.errors.full_messages %>
+<%= form_for current_user, :url => change_email_path, :method => :post do |f| %>
+  <div class="form-group">
+    <label for="input-user-email">Current Email</label>
+    <%= text_field_tag :current_email, current_user.email, :class => "form-control", :placeholder => "Current Email", :disabled => true %>
+  </div>
+  <div class="form-group <%= f.object.errors[:email].present? ? "has-error" : ""%>">
+    <label for="input-user-email">New Email</label>
+    <%= f.text_field :email, :class => "form-control", :placeholder => "New Email", :value => params[:user] ? params[:user][:email] : '' %>
+    <% if f.object.unconfirmed_email.present? %>
+      <div class="help-block">
+        <u>Unconfirmed email</u>: <%= f.object.unconfirmed_email %>
+        (<a href="<%= reconfirm_change_email_path %>" data-method="put">Resend Confirmation Email</a> &nbsp;|&nbsp;
+        <a href="<%= cancel_change_email_path %>" data-method="put">Cancel Email Change</a>)
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group <%= f.object.errors[:current_password].present? ? "has-error" : ""%>">
+    <label for="input-user-password">Current Password</label>
+    <%= f.password_field :password, :class => "form-control", autocomplete: "off", :placeholder => "Current Password" %>
+  </div>
+  <div class="margin-top-15">
+    <button type="button" class="btn btn-default pull-left" onclick="App.Helpers.navigateTo('<%= app_root_path %>')">Cancel</button>
+    <input type="submit" class="btn btn-primary pull-left margin-left-10" value="Save" />
+  </div>
+<% end %>

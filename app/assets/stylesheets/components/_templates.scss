@@ -1,0 +1,58 @@
+#templates-search {
+  width: 100%;
+}
+
+.templates-list {
+  max-height: 500px;
+  overflow-y: scroll;
+  margin-bottom: 15px;
+  border-top: 1px solid $col-border;
+  border-bottom: 1px solid $col-border;
+
+  .template-grid {
+    .entity-templates-title {
+      color: $col-dark-blue;
+      margin-top: 8px;
+    }
+    .default-templates-title {
+      color: $col-dark-blue;
+      margin-top: 24px;
+    }
+
+    .template {
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      margin: 5px 0 5px 0;
+      border: 1px solid $col-border;
+      border-radius: 4px;
+      padding: 20px;
+      position: relative;
+
+      .thumbnail {
+        img {
+          height: 200px;
+          width: 200px;
+        }
+      }
+
+      .icon {
+        i {
+          margin-right: 15px;
+          color: $col-dark-gray;
+        }
+      }
+
+      .title {
+        font-weight: 300;
+        font-size: 16px;
+        color: $col-dark-gray;
+      }
+
+      .sub-title {
+        font-size: 12px;
+        color: $col-gray-medium;
+      }
+    }
+  }
+}

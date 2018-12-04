@@ -1,0 +1,19 @@
+.browser-warning {
+  .browser-warning-header {
+    color: $col-dark-gray;
+  }
+
+  .browser-warning-icons {
+    margin: 15px 0px 5px;
+
+    div {
+      display: inline-block;
+      width: 32%;
+
+      img {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+}

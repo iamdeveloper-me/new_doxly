@@ -1,0 +1,39 @@
+<%
+  class_name =  if self.try(:is_ie11?)
+                  "ie11"
+                elsif self.try(:is_edge?)
+                  "edge"
+                elsif self.try(:is_safari10?) # needs to be above safari
+                  "safari10"
+                elsif self.try(:is_safari?)
+                  "safari"
+                else
+                  ""
+                end
+  js_file   = self.try(:current_user).present? ? 'application' : 'login'
+%>
+<!DOCTYPE html>
+<html class="<%= class_name %>">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doxly</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => "reload" %>
+  <%= javascript_include_tag js_file, "data-turbolinks-track" => "reload" %>
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+  <%= render 'app/shared/rollbar' %>
+  <%= render 'app/shared/google_analytics' %>
+</head>
+<body class="<%= self.try(:current_context_css_class) %> <%= self.try(:signing_workflow_class) %>" data-api-url="<%= Doxly.config.api_url %>" data-env-development="<%= Rails.env.development? %>">
+  <%= render 'app/shared/flash_messages' %>
+
+  <%= yield :body %>
+
+  <%= render 'app/shared/modal_container' %>
+  <%= render 'app/shared/loading_indicator' %>
+  <%= javascript_include_tag 'react.bundle', 'data-turbolinks-eval': false, defer: true if self.try(:current_user).present? %>
+  </body>
+</html>

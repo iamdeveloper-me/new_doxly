@@ -1,0 +1,45 @@
+<%
+  signature_entity              ||= nil
+  block_collection                = signature_entity.block_collection
+  signature_user_signature_entity = signature_entity.descendants.any? ? signature_entity.last_descendant : signature_entity
+  signing_capacity                = signature_user_signature_entity.signing_capacities.first
+  return if signing_capacity.nil?
+  signing_capacity_tree_element_signature_pages = signing_capacity.unscoped_tree_element_signature_pages(tree_element.id).flatten
+  included                        = signing_capacity_tree_element_signature_pages.any? {|signature_page| signature_page.is_enabled == true}
+  can_exclude                     = included && signing_capacity_tree_element_signature_pages.any? && signing_capacity_tree_element_signature_pages.all? {|signature_page| signature_page.signature_status == 'not_sent'}
+%>
+<div id="<%= "signature-entity-#{signature_user_signature_entity.id}" %>" class="signature-group-user signature-entity <%= "excluded" if !included %>" path="<%= show_signature_page_entity_deal_signature_pages_path(@deal, tree_element_id: tree_element.id, signature_group_id: signature_group.id, signature_entity_id: signature_entity.id) %>">
+  <div class="name">
+    <div class="ellipsize with-tooltip">
+      <span><%= signature_entity.name %></span><br>
+      <% signature_user_signature_entity.signing_capacities.each do |signing_capacity| %>
+        <div class="note gray"><i class="mdi mdi-subdirectory-arrow-right"></i> <%= signing_capacity.name %></div>
+      <% end %>
+    </div>
+  </div>
+  <div class="action">
+    <% if included && can_exclude %>
+      <%= link_to "Exclude", exclude_deal_signature_group_block_collection_signature_entity_path(@deal, signature_group, block_collection, signature_user_signature_entity.id, tree_element_id: tree_element.id), remote: true, class: "button mini button-secondary mdi mdi-account-outline" %>
+    <% elsif included && !can_exclude %>
+      <div class="has-excluded-tooltip" data-tooltip-content="<%= "#tooltip_content_#{signing_capacity.id}" %>">
+        <%=
+          link_to "Exclude",
+          exclude_deal_signature_group_block_collection_signing_capacity_path(@deal, signature_group, block_collection, signing_capacity, tree_element_id: tree_element.id),
+          remote: true,
+          class: "button mini button-secondary mdi mdi-account-outline disabled"
+        %>
+      </div>
+      <div class="tooltip_templates">
+        <div class="tooltip-content excluded-tooltip whiteout-ui" id="<%= "tooltip_content_#{signing_capacity.id}" %>">
+          <p>This signer cannot be removed.</p>
+          <p class="gray">The signature page has already been sent for signature.</p>
+        </div>
+      </div>
+    <% else %>
+      <%= link_to "Include", include_deal_signature_group_block_collection_signature_entity_path(@deal, signature_group, block_collection, signature_user_signature_entity.id, tree_element_id: tree_element.id), remote: true, class: "button mini button-secondary mdi mdi-account" %>
+    <% end %>
+  </div>
+  <div class="excluded-badge">
+    Excluded
+  </div>
+</div>

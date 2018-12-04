@@ -1,0 +1,9 @@
+<%= @deal.title %>: Additional Signature Request
+
+<% if @custom_message.present? %>
+  <%= @custom_message %>
+<% else %>
+  <%= @owner_entity.name %> requests your signatures for additional documents for the deal, <%= @deal.title %>. Please click the link below to sign.
+<% end %>
+
+<% @url %>

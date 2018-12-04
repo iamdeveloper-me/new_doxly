@@ -1,0 +1,3 @@
+web: thin -R config.ru -a 127.0.0.1 -p 3000 --threaded start
+worker: rake jobs:work
+fakes3: fakes3 -r ../ -p $PORT

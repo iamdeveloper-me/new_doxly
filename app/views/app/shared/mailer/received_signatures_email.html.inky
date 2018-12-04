@@ -1,0 +1,23 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-sign-good.png" %>
+<% end %>
+<% @title = capture do %>
+  Your Signature Process Is Complete!
+<% end %>
+<% @content = capture do %>
+  <p>
+  <% if @user.has_placeholder_name? %>
+    Hello,
+  <% else %>
+    Hello <%= @name %>,
+  <% end %>
+    <br /><br />
+    <%= @owner_entity.name %> received your signatures for the deal, <i><%= @deal.title %></i>.
+
+    You have completed all the documents that require your signature at this time! <%= @owner_entity.name %> will contact you if further assistance is needed.
+  </p>
+  <br />
+
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

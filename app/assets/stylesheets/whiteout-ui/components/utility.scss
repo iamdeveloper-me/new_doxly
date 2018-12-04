@@ -1,0 +1,354 @@
+/* Base Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.whiteout-ui {
+  // Company Colors
+  .company-color {
+    &.avatar {
+      * {
+        color: $white;
+        mix-blend-mode: normal!important;
+      }
+      &.red {
+        background-color: $c-red;
+      }
+      &.purple {
+        background-color: $c-purple;
+      }
+      &.orange {
+        background-color: $c-orange;
+      }
+      &.green {
+        background-color: $c-green;
+      }
+      &.teal {
+        background-color: $c-teal;
+      }
+      &.blue {
+        background-color: $c-blue;
+      }
+      &.indigo {
+        background-color: $c-indigo;
+      }
+      &.lblue {
+        background-color:  $c-lblue;
+      }
+      &.lindigo {
+        background-color: $c-lindigo;
+      }
+      &.lred {
+        background-color: $c-lred;
+      }
+      &.lgreen {
+        background-color: $c-lgreen;
+      }
+      &.lpurple {
+        background-color: $c-lpurple;
+      }
+      &.pink {
+        background-color: $c-pink;
+      }
+      &.dred {
+        background-color: $c-dred;
+      }
+      &.dgreen {
+        background-color: $c-dgreen;
+      }
+      &.dblue {
+        background-color: $c-dblue;
+      }
+      &.dindigo {
+        background-color: $c-dindigo;
+      }
+      &.dpurple {
+        background-color: $c-dpurple;
+      }
+      &.dpink {
+        background-color: $c-dpink;
+      }
+
+    }
+    &.control-dropdown {
+      border-width: 0;
+      height: 2.4rem!important;
+      padding-top: 0!important;
+      padding-bottom: 0!important;
+      font-size: 1.2rem!important;
+      color: $white!important;
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMzFweCIgaGVpZ2h0PSIzMHB4IiB2aWV3Qm94PSIwIDAgMzEgMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQ3LjEgKDQ1NDIyKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5SZWN0YW5nbGU8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBkPSJNMTAsMS43NTI1NjIyMyBDMTAsMS42OTEwNjg4MSA5Ljk3NTU5NDg3LDEuNjM5ODI0MyA5Ljk0MTQyNzcsMS41OTM3MDQyNSBMOC40ODIwMDEyMiwwLjA2MTQ5MzQxMTQgQzguNDAzOTA0ODIsLTAuMDIwNDk3ODAzOCA4LjI2MjM1NTA5LC0wLjAyMDQ5NzgwMzggOC4xODQyNTg2OSwwLjA2MTQ5MzQxMTQgTDUuMDAxODMwMzgsMy40MTI4ODQzMyBMMS44MTk0MDIwNywwLjA2MTQ5MzQxMTQgQzEuNzQxMzA1NjcsLTAuMDIwNDk3ODAzOCAxLjU5OTc1NTk1LC0wLjAyMDQ5NzgwMzggMS41MjE2NTk1NSwwLjA2MTQ5MzQxMTQgTDAuMDYyMjMzMDY4OSwxLjU5MzcwNDI1IEMtMC4wMjA3NDQzNTYzLDEuNjc1Njk1NDYgLTAuMDIwNzQ0MzU2MywxLjgyNDMwNDU0IDAuMDYyMjMzMDY4OSwxLjkwNjI5NTc1IEw0Ljg1MDUxODYxLDYuOTM4NTA2NTkgQzQuOTMzNDk2MDMsNy4wMjA0OTc4IDUuMDcwMTY0NzMsNy4wMjA0OTc4IDUuMTUzMTQyMTYsNi45Mzg1MDY1OSBMOS45NDE0Mjc3LDEuOTA2Mjk1NzUgQzkuOTc1NTk0ODcsMS44NjAxNzU3IDEwLDEuODE0MDU1NjQgMTAsMS43NTI1NjIyMyBMMTAsMS43NTI1NjIyMyBaIiBpZD0icGF0aC0xIj48L3BhdGg+CiAgICA8L2RlZnM+CiAgICA8ZyBpZD0iRG94bHktRGVzaWduLUxpYnJhcnkiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJGb3JtLUZpZWxkcy0mYW1wOy1Db250cm9scyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTY2My4wMDAwMDAsIC0xMTA5LjAwMDAwMCkiPgogICAgICAgICAgICA8ZyBpZD0iQ29sb3IvRmlsbC1EYXJrLUdyYXkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY3NC4wMDAwMDAsIDExMjEuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8bWFzayBpZD0ibWFzay0yIiBmaWxsPSJ3aGl0ZSI+CiAgICAgICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4KICAgICAgICAgICAgICAgIDwvbWFzaz4KICAgICAgICAgICAgICAgIDx1c2UgaWQ9Ik1hc2siIGZpbGw9IiNGRkZGRkYiIHhsaW5rOmhyZWY9IiNwYXRoLTEiPjwvdXNlPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=');
+      &.red {
+        background-color: $c-red;
+      }
+      &.purple {
+        background-color: $c-purple;
+      }
+      &.orange {
+        background-color: $c-orange;
+      }
+      &.green {
+        background-color: $c-green;
+      }
+      &.teal {
+        background-color: $c-teal;
+      }
+      &.blue {
+        background-color: $c-blue;
+      }
+      &.indigo {
+        background-color: $c-indigo;
+      }
+      &.lblue {
+        background-color:  $c-lblue;
+      }
+      &.lindigo {
+        background-color: $c-lindigo;
+      }
+      &.lred {
+        background-color: $c-lred;
+      }
+      &.lgreen {
+        background-color: $c-lgreen;
+      }
+      &.lpurple {
+        background-color: $c-lpurple;
+      }
+      &.pink {
+        background-color: $c-pink;
+      }
+      &.dred {
+        background-color: $c-dred;
+      }
+      &.dgreen {
+        background-color: $c-dgreen;
+      }
+      &.dblue {
+        background-color: $c-dblue;
+      }
+      &.dindigo {
+        background-color: $c-dindigo;
+      }
+      &.dpurple {
+        background-color: $c-dpurple;
+      }
+      &.dpink {
+        background-color: $c-dpink;
+      }
+    }
+    &.bar {
+      width: 0.5rem;
+      height: 2.2rem;
+      margin-right: 5px;
+      display: inline-block;
+      vertical-align: middle;
+      background-color: $status-gray;
+      &.red {
+        background-color: $c-red;
+      }
+      &.purple {
+        background-color: $c-purple;
+      }
+      &.orange {
+        background-color: $c-orange;
+      }
+      &.green {
+        background-color: $c-green;
+      }
+      &.teal {
+        background-color: $c-teal;
+      }
+      &.blue {
+        background-color: $c-blue;
+      }
+      &.indigo {
+        background-color: $c-indigo;
+      }
+      &.lblue {
+        background-color:  $c-lblue;
+      }
+      &.lindigo {
+        background-color: $c-lindigo;
+      }
+      &.lred {
+        background-color: $c-lred;
+      }
+      &.lgreen {
+        background-color: $c-lgreen;
+      }
+      &.lpurple {
+        background-color: $c-lpurple;
+      }
+      &.pink {
+        background-color: $c-pink;
+      }
+      &.dred {
+        background-color: $c-dred;
+      }
+      &.dgreen {
+        background-color: $c-dgreen;
+      }
+      &.dblue {
+        background-color: $c-dblue;
+      }
+      &.dindigo {
+        background-color: $c-dindigo;
+      }
+      &.dpurple {
+        background-color: $c-dpurple;
+      }
+      &.dpink {
+        background-color: $c-dpink;
+      }
+    }
+    &.before {
+      &:before {
+        content: '';
+        width: 5px;
+        height: 22px;
+        margin-right: 5px;
+        background-color: $status-gray;
+      }
+      &.red {
+        &:before {
+          background-color: $c-red;
+        }
+      }
+      &.purple {
+        &:before {
+          background-color: $c-purple;
+        }
+      }
+      &.orange {
+        &:before {
+          background-color: $c-orange;
+        }
+      }
+      &.green {
+        &:before {
+          background-color: $c-green;
+        }
+      }
+      &.teal {
+        &:before {
+          background-color: $c-teal;
+        }
+      }
+      &.blue {
+        &:before {
+          background-color: $c-blue;
+        }
+      }
+      &.indigo {
+        &:before {
+          background-color: $c-indigo;
+        }
+      }
+      &.lblue {
+        &:before {
+          background-color:  $c-lblue;
+        }
+      }
+      &.lindigo {
+        &:before {
+          background-color: $c-lindigo;
+        }
+      }
+      &.lred {
+        &:before {
+          background-color: $c-lred;
+        }
+      }
+      &.lgreen {
+        &:before {
+          background-color: $c-lgreen;
+        }
+      }
+      &.lpurple {
+        &:before {
+          background-color: $c-lpurple;
+        }
+      }
+      &.pink {
+        &:before {
+          background-color: $c-pink;
+        }
+      }
+      &.dred {
+        &:before {
+          background-color: $c-dred;
+        }
+      }
+      &.dgreen {
+        &:before {
+          background-color: $c-dgreen;
+        }
+      }
+      &.dblue {
+        &:before {
+          background-color: $c-dblue;
+        }
+      }
+      &.dindigo {
+        &:before {
+          background-color: $c-dindigo;
+        }
+      }
+      &.dpurple {
+        &:before {
+          background-color: $c-dpurple;
+        }
+      }
+      &.dpink {
+        &:before {
+          background-color: $c-dpink;
+        }
+      }
+    }
+  }
+
+  // Status Indicators
+  .status-indicator {
+    width: 1.0rem;
+    height: 1.0rem;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-color: $status-gray;
+    margin-right: 0.5rem;
+    &.not-started {
+      background-color: $error;
+    }
+    &.draft {
+      background-color: $warning;
+    }
+    &.final {
+      background-color: $complete;
+    }
+    &.executed {
+      background-color: $text-primary;
+    }
+  }
+
+  // Status
+  .status {
+    min-width: 12rem;
+    padding: 4px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    font-size: 1.2rem;
+    line-height: 1;
+    text-align: center;
+    display: inline-block;
+    background-color: $status-gray;
+    color: $dark-gray;
+    font-weight: 600;
+    &.in-progress {
+      color: $warning;
+      background-color: $status-peach;
+    }
+    &.complete {
+      color: $complete;
+      background-color: $status-green;
+    }
+  }
+}

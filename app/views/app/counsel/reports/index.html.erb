@@ -1,0 +1,70 @@
+<%
+  periods = [
+    {value: "6_months", label: "6 Months"},
+    {value: "3_months", label: "3 Months"},
+    {value: "1_month", label: "Last Month"}
+  ]
+
+  deals_by_member   = JSON.parse(@deals_by_member)
+  displayed_members = deals_by_member['members'].map do |member|
+    record     = deals_by_member['results'].select { |result| result['user_id'] == member['id'] }
+    count      = record && record.first['count']
+    "<div class='team-list-item'>
+        <div class='team'>
+          #{render 'app/shared/user', user: current_entity.users.find_by(:id => member['id']), avatar_size: "medium"}
+        </div>
+        <div class='stat'>
+          #{count}
+        </div>
+        <div class='graph'>
+          <div class='report-user-bars'>1,2,4,16,8,2,9,12,16,10</div>
+        </div>
+    </div>"
+  end.join('').html_safe
+  top_view = current_entity.is_counsel ? "shared/top_counsel" : "shared/top_client"
+%>
+
+<%= render "shared/top_counsel", title: 'Reports' %>
+<div class="content padded-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-report">
+          <div class="title">
+            <h4>Deals by Type</h4>
+          </div>
+          <div class="report" id="report_11">
+          </div>
+          <div class="report-legend" id="report_legend_11"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="panel panel-report">
+          <div class="title">
+              <h4>Deals Size</h4>
+          </div>
+          <div class="report" id="report_22">
+          </div>
+          <div class="report-legend" id="report_legend_22"></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="panel panel-report">
+          <div class="title">
+              <h4>Deals by Team Members</h4>
+          </div>
+          <div class="team-report">
+            <%= displayed_members %>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script language="javascript">
+  App.Reports.buildReportByType(<%= raw(@deals_by_type) %>);
+  App.Reports.buildReportBySize(<%= raw(@deals_by_size) %>);
+</script>

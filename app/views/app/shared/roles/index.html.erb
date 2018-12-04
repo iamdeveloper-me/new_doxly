@@ -1,0 +1,32 @@
+<div class="content <%= controller_name %> <%= @deal.is_owning_entity?(current_entity) ? 'is_owning_entity' : nil %>">
+  <div class="padded-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="toolbar-box category">
+          <div class="search-input-box">
+            <div class="form-group">
+              <input name="search_str" id="role_search" class="input-search form-control" placeholder="Search for Individual or Organization"/>
+            </div>
+            <a class="disabled"><i class="icon-icon-search"></i></a>
+          </div>
+          <% if @deal.can?(/C/, :roles) %>
+            <%= link_to 'Add Role', new_deal_role_path, :remote => true, :class => 'action-button btn btn-primary', :id => 'add-role' if @deal.is_owning_entity?(current_entity) %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row" id="role-list">
+        <div class="content-single">
+          <% unless current_entity.is_counsel? %>
+            <div class="alert alert-info" role="alert">
+              <strong>Note:</strong> Please contact your legal team to add additional members.
+            </div>
+          <% end %>
+
+          <% @deal_roles.each do |deal_role| %>
+            <%= render 'app/shared/roles/show', deal_role: deal_role %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,412 @@
+.deal-project{
+
+}
+.deal-title-counsel{
+  max-width: 450px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 28px;
+}
+
+.deal-star{
+  display: inline-block;
+  padding-left: 5px;
+
+  i{
+      display: block;
+      color: $col-yellow;
+      font-size: 14px;
+
+      &:after{
+          @extend %icomoon;
+          @extend %icon-star-empty;
+          line-height: 28px;
+      }
+  }
+
+  &.favorite{
+      i{
+          &:after{
+              @extend %icon-star;
+          }
+      }
+  }
+
+  &:hover{
+      i{
+          color: $col-yellow-hover;
+      }
+  }
+}
+
+.email-client-number{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  .deal-client-number{
+    font-size: 12px;
+    padding-left: 10px;
+    line-height: 15px;
+  }
+}
+
+.use-deal-email-fields {
+  display: flex;
+  align-items: center;
+
+  div:nth-child(2) {
+    flex-grow: 1;
+  }
+  div {
+    margin-right: 2px;
+  }
+}
+
+.deal-tabs{
+  width: 100%;
+  display: block;
+  clear: both;
+  border-bottom: 0px hidden;
+  padding-left: 20px;
+
+  li{
+    &.deal-edit{
+      border: 0px none;
+      float: right;
+      > a{
+        font-size: 12px;
+        padding: 5px 10px;
+        color: $col-blue;
+        border: 1px solid $col-border;
+        background: $white;
+        box-shadow: 0px 1px 2px 0px $col-box-shadow;
+        margin: 0 0 0 10px;
+        border-radius: 0;
+
+        i{
+            margin-right: 5px;
+        }
+
+        &:hover{
+            color: $col-blue-hover;
+        }
+      }
+      .dropdown-menu{
+        min-width: 0;
+        li{
+          width: 100%;
+           a{
+            color: $col-dark-blue;
+            border: none;
+            min-width: 104px;
+            padding: 0px 10px;
+            &:hover{
+              background-color: $col-white-smoke;
+            }
+          }
+        }
+      }
+    }
+    &.deal-details {
+      font-weight: 500;
+      > a {
+        padding: 5px 15px;
+      }
+    }
+  }
+}
+
+.main {
+  min-width: 735px;
+}
+
+.nav-container {
+  clear: both;
+}
+
+.deal-task-details{
+  padding: 20px;
+  background: $col-green-light-3;
+
+  .deal-task-details__header{
+    position: relative;
+    @extend %clearfix;
+    h4{
+        font-weight: 300;
+        font-size: 24px;
+        color: $col-dark-gray;
+        line-height: 30px;
+        padding-right: 60px;
+        float: left;
+    }
+
+    .badge{
+        background: $col-peach;
+    }
+
+    .dropdown{
+        display: inline-block;
+        float: right;
+
+        .dropdown-menu{
+            right: 0;
+            left: auto;
+        }
+    }
+
+    a.dropdown-toggle{
+        width: 30px;
+        height: 30px;
+        border: 1px solid $col-border;
+        line-height: 28px;
+        text-align: center;
+        background: $white;
+        display: inline-block;
+
+        &:hover{
+            border-color: $col-blue-focus;
+
+            color: $col-blue-hover;
+        }
+
+        i{
+            color: $col-blue;
+            font-size: 14px;
+        }
+    }
+  }
+  .deal-task-details__body{
+      font-size: 14px;
+      color: $col-gray;
+      line-height: 20px;
+      padding: 10px 0 0 0;
+
+      p{
+          font-size: 14px;
+          color: $col-gray;
+          line-height: 20px;
+          margin-bottom: 20px;
+      }
+  }
+      .ico-document{
+          margin: 0 auto 10px;
+          position: relative;
+          width: 134px;
+          height: 177px;
+          background: url(image_path("icon-preview.svg")) no-repeat 50% 50% / 134px 177px;
+      }
+      .buttons{
+          @extend %clearfix;
+          width: 134px;
+          margin: 0 auto;
+
+          .btn{
+              padding: 0;
+              min-width: auto;
+
+              & + .btn{
+                  float: right;
+              }
+          }
+      }
+  .collapse-trigger{
+      float: none;
+      color: $col-blue;
+
+      &:focus{
+          color: $col-blue;
+      }
+      &:hover{
+          color: $col-blue-hover;
+      }
+      i, span{
+      }
+  }
+
+  .button-box {
+
+    .btn-primary {
+      background: $white;
+      width: 100%;
+      max-width: 300px;
+      margin: 5px auto 5px auto;
+      display: block;
+      box-shadow: 0px 1px 2px 0px $col-box-shadow;
+      color: $col-blue;
+      border: 1px solid $col-border;
+      font-size: 14px;
+      padding: 10px 10px;
+
+      &:hover{
+          color: $col-blue-hover;
+      }
+
+      &:active {
+        background: $white;
+        border: 1px solid $col-border;
+      }
+    }
+  }
+
+}
+.deal-closing-book{
+  @extend .col-xs-12;
+  position: relative;
+
+  .buttons{
+      text-align: right;
+
+      .btn{
+          min-width: 0;
+          margin: 0 10px;
+      }
+  }
+}
+
+.deal-closing-book__inner{
+  max-width: 640px;
+  margin: 10% auto;
+
+  .closing-book-card{
+    background: $white;
+    box-shadow: 0px 2px 5px 0px $col-box-shadow-light, 0px 0px 0px 1px $col-box-shadow;
+    border-radius: 0px;
+    margin-bottom: 10px;
+
+    .panel-body{
+
+      .info{
+        line-height: 36px;
+
+        &.counsel{
+          padding-bottom: 12px;
+        }
+      }
+    }
+  }
+}
+
+.deal-closing-book__dummy-item{
+  border: 1px solid $col-border;
+  height: 500px;
+  position: relative;
+  @include vertical-align('.title');
+
+  .title{
+      width: 100%;
+
+      h3{
+          text-align: center;
+          font-weight: 300;
+          font-size: 36px;
+          color: $col-gray;
+      }
+      h4{
+          text-align: center;
+          font-weight: 300;
+          font-size: 24px;
+          color: $col-gray;
+      }
+  }
+
+}
+
+.deal-element-add-new-task {
+padding: 0 0 0 20px !important; // TODO: clean up this horrible, horrible CSS (the horror! the horror!)
+line-height: 40px !important;
+}
+
+.deal-element-add-new-section {
+padding: 5px 0 5px 10px;
+}
+
+.deal-element-add-item{
+> span, a {
+  font-size: 12px;
+  letter-spacing: 0px;
+  line-height: 40px;
+  color: $col-blue;
+
+  i {
+      font-size: 10px;
+
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
+}
+
+.category-view-no-results {
+.header {
+    font-weight: 300;
+    font-size: 20px;
+    color: $col-dark-gray;
+    line-height: 20px;
+  }
+
+  ul {
+    list-style: circle inside;
+    padding-left: 10px;
+    padding-top: 5px;
+    line-height:22px;
+  }
+}
+
+.category-view-no-sections {
+.header {
+    font-weight: 300;
+    font-size: 20px;
+    color: $col-dark-gray;
+    line-height: 20px;
+    margin-bottom:10px;
+  }
+}
+
+.deal-element-add-new-section a i, .signature-group-add-entity a i {
+  display: inline-block;
+  position: relative;
+  border-radius: 999px;
+  background: #4A90E2;
+  color: #fff;
+  font-size: 10px;
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.form-group .bootstrap-select.btn-group.inline-field {
+  width: 45%;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.nav-tabs.deal-tabs li.active a {
+  cursor: pointer;
+}
+
+.small-screen-nav-dropdown {
+  display: none;
+
+  @media only screen and (max-width: 1024px) {
+    display: block;
+  }
+}
+
+.default-nav-dropdown {
+  display: block;
+
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.placeholder-info {
+  font-style: italic;
+  padding-left: 20px;
+}

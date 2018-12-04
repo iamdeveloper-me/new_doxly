@@ -1,0 +1,168 @@
+.summary-card{
+    background: $white;
+    box-shadow: 0px 10px 20px 0px $col-box-shadow-light, 0px 0px 0px 1px $col-box-shadow;
+    border-radius: 0px;
+    padding: 0;
+    margin-bottom: 20px;
+
+    .panel-heading{
+        position: relative;
+        min-height: 16px;
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+        padding: 7px 10px;
+        box-shadow: inset 0px -1px 0px 0px $col-gray-very-light;
+        h3{
+            line-height: 16px;
+        }
+
+        .category{
+            color: $col-dark-gray;
+            font-weight: 500;
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+    }
+    .panel-body{
+        padding: 0;
+    }
+
+    .summary-projects{
+        @extend %clearfix;
+    }
+    .summary-deal-entity-users{
+        a{
+            @extend %clearfix;
+            display: block;
+
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+
+        .project-item{
+            box-shadow: inset 0px -1px 0px 0px $col-gray-very-light;
+
+            &:not(.no-last) {
+              &:last-of-type{
+                  box-shadow: none;
+              }
+            }
+
+        }
+    }
+    .summary-assignments {
+      .project-item {
+        display: inline-flex;
+        align-items: center;
+        box-shadow: inset 0px -1px 0px 0px $col-gray-very-light;
+        width: 100%;
+
+        &:last-of-type {
+            box-shadow: none;
+        }
+
+        .icon-item-file {
+          display: inline-block;
+          vertical-align: top;
+          width: 32px;
+          height: 32px;
+          background: url(image_path("icon-file.svg")) no-repeat 50% 50% / contain;
+        }
+
+        .assignment {
+          flex-direction: column;
+          padding-left: 8px;
+
+          h4 {
+            padding-bottom: 4px;
+            font-weight: 300;
+            font-size: 16px;
+            color: $col-dark-gray;
+          }
+
+          span {
+            font-size: 12px;
+            color: $col-gray;
+            line-height: 1;
+          }
+
+        }
+      }
+    }
+    .summary-files{
+        .item{
+            padding: 10px;
+            box-shadow: inset 0px -1px 0px 0px $col-gray-very-light;
+            .details{
+                padding-left: 50px;
+                position: relative;
+                //min-height: 45px;
+                display: block;
+
+                &:hover{
+                    opacity: 0.8;
+                }
+                i{
+                    @include singleLine;
+                    font-style: normal;
+                    display: block;
+                    font-weight: 300;
+                    font-size: 16px;
+                    color: $col-dark-gray;
+                }
+                span{
+                    @include singleLine;
+                    display: block;
+                    font-size: 12px;
+                    color: $col-gray;
+                    line-height: 1;
+                }
+                &:before{
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 45px;
+                    width: 45px;
+                }
+            }
+            &.item-file{
+                .details{
+                    &:before{
+                        background: url(image_path("icon-file.svg")) no-repeat 50% 0 / 24px 32px;
+                    }
+                }
+            }
+            &.item-folder{
+                .details{
+                    &:before{
+                        background: url(image_path("icon-folder.svg")) no-repeat 50% 0 / 32px 24px;
+                    }
+                }
+            }
+            &:last-of-type{
+                box-shadow: none;
+            }
+
+            .sign-document-overview-btn{
+              color: $col-milk;
+              background-color: $col-blue;
+              border: 1px solid $col-blue;
+              padding: 2px 10px;
+            }
+
+            .sign-document-overview-btn:hover{
+              background-color: darken($col-blue, 10%);
+            }
+        }
+
+        .signature-status{
+          display: inline-flex;
+          min-width: 150px;
+          align-items: baseline;
+          justify-content: space-around;
+        }
+    }
+}

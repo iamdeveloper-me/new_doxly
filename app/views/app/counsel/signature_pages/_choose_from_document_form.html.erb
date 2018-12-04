@@ -1,0 +1,35 @@
+<%
+  use_template = params[:use_template] || false
+%>
+<%= render "app/shared/errors", :errors => @signature_page.errors.full_messages %>
+<%= form_for @signature_page, :url => deal_signature_page_process_choose_from_document_path(@deal, @signature_page, signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id, use_template: use_template), :method => :post, :remote => true, :html => { :class => 'no-turboboost' } do |f| %>
+  <div class="whiteout-ui">
+    <div class="choose-from-document-container">
+      <% if @version.nil? || @version.page_count.nil? %>
+        <div class="choose-from-document-pending">
+          <img src="<%= asset_path("ic-document-generic-text.svg") %>" />
+          <% if @version.nil? %>
+            The document has not yet been uploaded. Please upload the document to the checklist and try again.
+          <% else %>
+            The document page thumbnails are currently being generated. Please check back in a few minutes.
+          <% end %>
+        </div>
+      <% else %>
+        <div class="choose-from-document-header">
+          <div class="choose-from-document-title">
+            Choose a page from the document to use as the signature page.
+          </div>
+          <% if @version.is_on_dms? %>
+            <div class="choose-from-document-synch-button">
+              <%= link_to "Sync Thumbnails", deal_category_tree_element_attachment_version_sync_thumbnails_path(@deal, @deal.closing_category, @version.attachment.attachable, @version.attachment, @version, signature_page_id: @signature_page.id, signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id), remote: true, class: "button mdi mdi-sync" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="choose-from-document-thumbnails">
+          <%= render 'choose_from_document_thumbnails', { version: @version, signature_page_id: @signature_page.id, signing_capacity_id: @signing_capacity.id, signature_group_id: @signature_group.id }  %>
+        </div>
+        <input type="hidden" name="page" value="" />
+      <% end %>
+    </div>
+  </div>
+<% end %>

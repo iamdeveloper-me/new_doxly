@@ -1,0 +1,2 @@
+class CachedConvertedAwsFile < ConvertedAwsFile
+end

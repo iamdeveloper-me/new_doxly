@@ -1,0 +1,5 @@
+<%
+  message ||= nil
+%>
+
+App.FlashMessages.addMessage('error', '<%= message || t("errors.403_main") %>');

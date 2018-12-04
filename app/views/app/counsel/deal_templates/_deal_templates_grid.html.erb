@@ -1,0 +1,48 @@
+
+<div class="template-grid">
+  <% if @entity_templates.any? %>
+    <div class="entity-templates-title">
+      <%= current_entity.name %>'s Templates
+    </div>
+    <% @entity_templates.each do |template| %>
+      <%= link_to select_deal_category_deal_template_path(@deal, @category, template), :remote => true do %>
+        <div class="template">
+          <div class="icon">
+            <i class="fa fa-list-alt fa-2x" aria-hidden="true"></i>
+          </div>
+          <div class="text">
+            <div class="title">
+              <%= template.name %>
+            </div>
+            <div class="sub-title">
+              <%= template.deal_types.map{|deal_type| deal_type.name}.join(", ") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+  <!-- likely never going to be empty -->
+  <% if @default_templates.any? %>
+    <div class="default-templates-title">
+      Default Templates
+    </div>
+    <% @default_templates.each do |template| %>
+      <%= link_to select_deal_category_deal_template_path(@deal, @category, template), :remote => true do %>
+        <div class="template">
+          <div class="icon">
+            <i class="fa fa-list-alt fa-2x" aria-hidden="true"></i>
+          </div>
+          <div class="text">
+            <div class="title">
+              <%= template.name %>
+            </div>
+            <div class="sub-title">
+              <%= template.deal_types.map{|deal_type| deal_type.name}.join(", ") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

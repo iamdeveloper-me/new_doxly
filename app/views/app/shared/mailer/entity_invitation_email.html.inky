@@ -1,0 +1,25 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-join-invite.png" %>
+<% end %>
+<% @title = capture do %>
+  You've Been Invited to Join <%= @entity.is_a?(Individual) ? "" : "#{@entity.name} on " %>Doxly
+<% end %>
+<% @content = capture do %>
+  <p>To accept this invitation, click the button below to sign up.</p>
+  <h1></h1>
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td><a href="<%= @url %>">Accept Invite</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

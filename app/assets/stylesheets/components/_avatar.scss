@@ -1,0 +1,65 @@
+.avatar {
+
+  border-radius: 999px;
+  overflow: hidden;
+  float: left;
+
+  &.small {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    line-height: 20px;
+    margin: 2px;
+  }
+
+  &.semi-medium {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    line-height: 24px;
+  }
+
+  &.medium {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px;
+  }
+
+  &.large {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    font-size: 16px;
+    line-height: 32px;
+
+    &.company {
+      border-radius: 4px;
+    }
+
+    img {
+      min-height: 100%;
+      min-width: 100%;
+    }
+  }
+
+  .no-photo {
+    color: $col-gray-medium;
+    letter-spacing: -0.21px;
+    text-align: center;
+
+    &.orange {
+      color: $white;
+      background-color: $col-peach;
+    }
+
+    &.blue {
+      color: $col-blue;
+      background-color: $col-avatar-blue-light;
+    }
+
+    &.grey {
+      background-color: $col-gray-light;
+    }
+  }
+}

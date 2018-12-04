@@ -1,0 +1,25 @@
+<%
+  title ||= nil
+%>
+<div class="wizard-modal whiteout-ui">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-new-deal-label">
+          <%= title %>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <%= yield %>
+      </div>
+      <div class="modal-footer">
+        <button class="button-primary pull-left cancel-form" data-dismiss="modal">Cancel</button>
+        <input id="wizard-next" class="button-primary submit-form pull-right visible" type="submit" value="Next">
+        <div id="wizard-finish">
+          <button id="wizard-back" class="button-secondary">Back</button>
+          <input class="button-primary submit-form" type="submit" value="Finish">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

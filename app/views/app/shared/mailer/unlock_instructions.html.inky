@@ -1,0 +1,25 @@
+<% @title = "Doxly Account Locked" %>
+<% @content = capture do %>
+  <p> Hello <%= @resource.name %>,</p>
+  <p>Your account has been locked due to an excessive number of unsuccessful login attempts. Please click the button below to unlock your account.</p>
+  <h1></h1>
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td><a href="<%= unlock_url(@resource, unlock_token: @token) %>">Unlock Account</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+  <br />
+  <p>
+    If you have received this email in error, or if you have not attempted to access your account, please contact <a href="mailto: <%= Doxly.config.support_email %>"><%= Doxly.config.support_email %></a>.
+  </p>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

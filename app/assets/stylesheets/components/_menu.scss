@@ -1,0 +1,42 @@
+/*
+  DO NOT ADD STYLES FOR A SPECIFIC MENU TO THIS FILE,
+  THIS IS FOR OUR GENERIC DOXLY MENU COMPONENT *ONLY*
+*/
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  color: $col-dark-gray;
+  font-size: 14px;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  .timestamp {
+    font-style: italic;
+  }
+
+  .link {
+    display: flex;
+    flex-direction: row;
+    height: 25px;
+    align-items: center;
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      margin: 0 8px 0 0;
+
+      &.delete {
+        color: $col-red-text;
+      }
+    }
+  }
+}

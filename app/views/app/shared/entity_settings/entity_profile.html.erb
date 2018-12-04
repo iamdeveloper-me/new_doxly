@@ -1,0 +1,24 @@
+<%
+  @page_wrapper_class ||= "navbar-double"
+%>
+
+<%= render 'shared/top_navs/entity_settings' %>
+
+<div class="content">
+  <div class="padded-content">
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Organization Profile
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6" id="entity_profile_form">
+              <%= render 'entity_profile_form' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<% @role_ids.each do |role_id| %>
+  App.DealEntityUsers.update("<%= escape_javascript(render('app/shared/company', deal_organization: @deal_entity, role: @deal_entity.roles.find(role_id))) %>", "<%= @deal_entity.id %>", "<%= role_id %>", "<%= @entity_user_id %>")
+<% end %>
+App.Modal.hide()
+App.Toggles.bindToggle()

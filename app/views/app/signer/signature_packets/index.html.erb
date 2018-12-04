@@ -1,0 +1,73 @@
+<%= render 'signer_nav_bar' %>
+
+<%
+  deals_that_require_attention = current_user.deals_that_require_attention
+  active_deals = @deals.select{|deal| deal.status == "open"} - deals_that_require_attention
+  closed_deals = @deals.reject{|deal| deal.status == "open"}
+%>
+<%= render 'shared/top_mobile' %>
+<div class="content">
+  <div class="padded-content">
+    <div class="container-fluid">
+      <div class="signature-index-content">
+        <div class="deals-signature-container">
+          <% if @deals.any? %>
+            <div class="greeting <%= 'no-attention' if deals_that_require_attention.empty? %>">
+              <% if current_user.full_name_present? %>
+                Hello, <%= current_user.first_name %>.
+              <% else %>
+                Hello,
+              <% end %>
+              You have <%= pluralize(deals_that_require_attention.length, 'active deal') %> that require<%= 's' if deals_that_require_attention.length == 1 %> your attention.
+            </div>
+            <% if deals_that_require_attention.any? %>
+              <div class="deal-types-box requires-attention">
+                <div class="titles">
+                  <div class="title requires-attention">Deals that need your attention</div>
+                </div>
+
+                <div class='deal-cards'>
+                  <% deals_that_require_attention.each do |deal| %>
+                    <%= render 'deal_card', deal: deal, requires_attention: true %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            <% if active_deals.any? %>
+              <div class="deal-types-box">
+                <div class="titles">
+                  <div class="title">Active deals</div>
+                  <div class="subtitle">These deals are still in progress</div>
+                </div>
+                <div class='deal-cards'>
+                  <% active_deals.each do |deal| %>
+                    <%= render 'deal_card', deal: deal %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            <% if closed_deals.any? %>
+              <div class="deal-types-box">
+                <div class="titles">
+                  <div class="title">Closed deals</div>
+                  <div class="subtitle">These deals have closed and are no longer active</div>
+                </div>
+                <div class='deal-cards'>
+                  <% closed_deals.each do |deal| %>
+                    <%= render 'deal_card', deal: deal %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="empty-state">
+              <i class="icon-no-signature-packets"></i>
+              <div>No signature packets to sign.</div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

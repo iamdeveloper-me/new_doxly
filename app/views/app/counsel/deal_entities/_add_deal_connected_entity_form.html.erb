@@ -1,0 +1,31 @@
+<%
+  if params[:type] || @errors == 'people_page'
+    path = entity_connections_path
+  else
+    path = deal_deal_entities_path(deal_id: @deal, role_id: @role.id)
+  end
+  is_working_group = !params[:type]
+  is_counsel       = params[:type] == "law_firm"
+%>
+
+<%= form_for @entity, :url => path, :method => :post, :html => {class:"no-turboboost"}, remote: true do |f| %>
+  <div class="whiteout-ui">
+    <div class="control control-input large input-row <%= f.object.errors[:name].present? ? "has-error" : ""%>">
+      <label>Name</label>
+      <%= f.text_field :name, :value => @search_term, :placeholder => "Entity Name" %>
+    </div>
+    <% if is_working_group %>
+      <div  class="control control-checkbox law-firm-checkbox">
+        <%= f.check_box :is_counsel, {id: "is-law-firm"} %>
+        <label for="is-law-firm">Is Law Firm?</label>
+      </div>
+    <% else %>
+      <%= f.hidden_field :is_counsel, value: is_counsel %>
+    <% end %>
+    <div class="address-group organization">
+      <%= fields_for :primary_address, (@entity.primary_address || @entity.build_primary_address) do |fields_for_address| %>
+        <%= render "app/shared/address_fields", :fields_for_address => fields_for_address %>
+      <% end %>
+    </div>
+  <% end %>
+  </div>

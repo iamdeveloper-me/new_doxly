@@ -1,0 +1,108 @@
+<%
+  form ||= nil
+  entity_user ||= nil
+  action_type ||= 'change_settings'
+  cancel_path ||= nil
+  options = EntityUser::ROLES.keys.map{ |k| [ k.titleize, k, {class: k.gsub("_", "-"), disabled: current_entity_user.is_disabled?(k)} ] }
+  is_disabled = current_entity_user.user.id == form.object.id || current_entity_user.is_disabled?(entity_user.role)
+  is_admin = current_entity_user.is_entity_admin?
+%>
+
+<div class="row">
+  <div class="col-md-6">
+    <% if current_entity_user.user.id == form.object.id %>
+      <div class="form-group">
+        <label for="input-user-photo">User Photo</label>
+        <div class="upload-avatar">
+            <div class="avatar-photo">
+              <% user = form.object %>
+              <% is_current_user = user == current_user %>
+              <% if form.object && form.object.avatar.file.present? %>
+                <div class="avatar large" data-current-user="<%= is_current_user %>" data-assigned-by-current-user="false"><%= image_tag show_user_avatar_path(id: user.id) %></div>
+              <% else %>
+                <div class="avatar large" data-current-user="<%= is_current_user %>" data-assigned-by-current-user="false"><div class="no-photo <%= user.try(:avatar_color) %>"><%= "#{user.initials.upcase}"%></div></div>
+              <% end %>
+            </div>
+            <div class="avatar-button">
+              <%= form.file_field :avatar,  class: 'file-inputs bootstrap-file-input', id: 'input-user-photo', 'data-filename-placement': 'inside', title: "Upload New" %>
+              <%= form.hidden_field :avatar_cache %>
+            </div>
+        </div>
+        <% if form.object.avatar.file.present? %>
+          <div class="margin-top-5">
+            <label>
+              <%= form.check_box :remove_avatar, { :style => "margin-right: 5px; margin-top: -3px" } %>
+              Remove Photo
+            </label>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="form-group <%= form.object.errors[:first_name].present? ? "has-error" : ""%>">
+      <label for="input-user-fname">First Name</label>
+      <%= form.text_field :first_name, :class => "form-control", :placeholder => "First Name" %>
+    </div>
+    <div class="form-group <%= form.object.errors[:last_name].present? ? "has-error" : ""%>">
+      <label for="input-user-lname">Last Name</label>
+      <%= form.text_field :last_name, :class => "form-control", :placeholder => "Last Name" %>
+    </div>
+    <% unless current_entity.is_a?(Individual) %>
+      <%= fields_for :entity_user, entity_user do |entity_user_fields| %>
+        <div class="form-group <%= entity_user.errors[:title].present? ? "has-error" : ""%>">
+          <label for="input-user-company">Title Within Organization</label>
+          <%= entity_user_fields.text_field :title, :class => "form-control", :placeholder => "Title Within Organization" %>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="form-group <%= form.object.errors[:address].present? ? "has-error" : ""%>">
+      <label for="input-user-email">Address</label>
+      <%= form.text_field :address, :class => "form-control", :placeholder => "Address" %>
+    </div>
+    <div class="form-group <%= form.object.errors[:city].present? ? "has-error" : ""%>">
+      <label for="input-user-email">City</label>
+      <%= form.text_field :city, :class => "form-control", :placeholder => "City" %>
+    </div>
+    <div class="form-group <%= form.object.errors[:state].present? ? "has-error" : ""%>">
+      <label for="input-user-email">State</label>
+      <%= form.text_field :state, :class => "form-control", :placeholder => "State" %>
+    </div>
+    <div class="form-group <%= form.object.errors[:zip].present? ? "has-error" : ""%>">
+      <label for="input-user-email">Zip</label>
+      <%= form.text_field :zip, :class => "form-control", :placeholder => "Zip" %>
+    </div>
+    <div class="form-group <%= form.object.errors[:phone].present? ? "has-error" : ""%>">
+      <label for="input-user-email">Phone</label>
+      <%= form.text_field :phone, :class => "form-control", :placeholder => "Phone" %>
+    </div>
+    <div class="form-group <%= form.object.errors[:fax].present? ? "has-error" : ""%>">
+      <label for="input-user-email">Fax</label>
+      <%= form.text_field :fax, :class => "form-control", :placeholder => "Fax" %>
+    </div>
+    <%= fields_for :entity_user, entity_user do |entity_user_fields| %>
+      <div class="form-group">
+        <label for="exampleSelect1">Email Notification Settings</label>
+        <!-- can't get classes to apply... -->
+        <%= entity_user_fields.select(:email_digest_preference, EntityUser::EMAIL_DIGEST_PREFERENCES.invert.to_a, {}, {:class => 'selectpicker show-tick select-border-radius form-control'}) %>
+      </div>
+      <div class="form-group">
+        <div class="form-group">
+          <label for="projected_close_date">User Role</label>
+          <% user_role = entity_user.role %>
+          <%= entity_user_fields.select :role, options_for_select(options, selected: user_role), {}, {:class => 'selectpicker show-tick select-border-radius form-control title', :disabled => is_disabled} %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_entity_user.is_entity_admin? %>
+      <div class="form-group">
+        <div class="form-group">
+          <label for="is_enabled">User Disabled?</label>
+          <%= form.select(:is_enabled,[['No', true],['Yes', false]], {}, {:class => 'selectpicker show-tick select-border-radius form-control title', :disabled => is_disabled}) %>
+        </div>
+      </div>
+    <% end %>
+    <div class="margin-top-15">
+      <button type="button" class="btn btn-default pull-left" onclick="<%= cancel_path %>">Cancel</button>
+      <button type="submit" class="btn btn-primary pull-left margin-left-10">Save</button>
+    </div>
+  </div>
+</div>

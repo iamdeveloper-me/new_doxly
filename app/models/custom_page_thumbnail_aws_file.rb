@@ -1,0 +1,2 @@
+class CustomPageThumbnailAwsFile < AwsFile
+end

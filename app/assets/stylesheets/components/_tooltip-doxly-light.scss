@@ -1,0 +1,66 @@
+$col-tooltip-doxly-light-bg: rgb(250,250,250);
+$col-tooltip-doxly-light-border: $col-gray-light;
+$col-tooltip-doxly-light-text: $col-gray-heavy;
+
+.tooltipster-sidetip.tooltipster-doxly-light .tooltipster-box {
+    border-radius: 0px;
+    border: 1px solid $col-tooltip-doxly-light-border;
+    background: $col-tooltip-doxly-light-bg;
+    box-shadow: 0px 2px 5px 0px $col-box-shadow-light, 0px 0px 0px 1px $col-box-shadow;
+}
+.tooltipster-sidetip.tooltipster-doxly-light .tooltipster-content {
+    color: $col-tooltip-doxly-light-text;
+}
+.tooltipster-sidetip.tooltipster-doxly-light .tooltipster-arrow {
+    height: 9px;
+    margin-left: -9px;
+    width: 18px
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-left .tooltipster-arrow,
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-right .tooltipster-arrow {
+    height: 18px;
+    margin-left: 0;
+    margin-top: -9px;
+    width: 9px
+}
+.tooltipster-sidetip.tooltipster-doxly-light .tooltipster-arrow-background {
+    border: 9px solid transparent
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-bottom .tooltipster-arrow-background {
+    border-bottom-color: $col-tooltip-doxly-light-bg;
+    top: 1px
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-left .tooltipster-arrow-background {
+    border-left-color: $col-tooltip-doxly-light-bg;
+    left: -1px
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-right .tooltipster-arrow-background {
+    border-right-color: $col-tooltip-doxly-light-bg;
+    left: 1px
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-top .tooltipster-arrow-background {
+    border-top-color: $col-tooltip-doxly-light-bg;
+    top: -1px
+}
+.tooltipster-sidetip.tooltipster-doxly-light .tooltipster-arrow-border {
+    border: 9px solid transparent
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-bottom .tooltipster-arrow-border {
+    border-bottom-color: $col-tooltip-doxly-light-border
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-left .tooltipster-arrow-border {
+    border-left-color: $col-tooltip-doxly-light-border
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-right .tooltipster-arrow-border {
+    border-right-color: $col-tooltip-doxly-light-border;
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-top .tooltipster-arrow-border {
+    border-top-color: $col-tooltip-doxly-light-border;
+    box-shadow: 0px 2px 5px 0px rgba($col-box-shadow-light, .25);
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-bottom .tooltipster-arrow-uncropped {
+    top: -9px
+}
+.tooltipster-sidetip.tooltipster-doxly-light.tooltipster-right .tooltipster-arrow-uncropped {
+    left: -9px
+}

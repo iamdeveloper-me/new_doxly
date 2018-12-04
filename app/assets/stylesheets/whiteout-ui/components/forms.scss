@@ -1,0 +1,294 @@
+/* Forms
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.whiteout-ui {
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="text"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="password"],
+  textarea,
+  select,
+  .control-dropdown {
+    font-size: 1.4rem;
+    font-weight: 400;
+    height: 4.0rem;
+    width: 100%;
+    padding: 1rem 1rem;
+    /* The 6px vertically centers text on FF, ignored by Webkit */
+    background-color: $white;
+    border: 1px solid $status-gray;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+    &:focus {
+      outline: 0;
+      border-color: $blue;
+    }
+    &:-ms-input-placeholder { /* for IE11 */
+      color: rgba(0,0,0,0.25);
+    }
+    &::-webkit-input-placeholder { /* for Edge */
+      color: rgba(0,0,0,0.25);
+    }
+    &::placeholder { /* for modern browsers */
+      color: rgba(0,0,0,0.25);
+    }
+    &:invalid, &.invalid {
+      box-shadow: 0 0 0 1px $error;
+      border-color: $error;
+    }
+    &:disabled, &.disabled {
+      opacity: 0.8;
+      background-color: $light-gray;
+      color: $dark-gray!important;
+      cursor: not-allowed;
+    }
+  }
+
+  /* Removes awkward default styles on some inputs for iOS */
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="text"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="password"],
+  textarea,
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  select, .control-dropdown {
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMzBweCIgaGVpZ2h0PSIzMHB4IiB2aWV3Qm94PSIwIDAgMzAgMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQ3LjEgKDQ1NDIyKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5SZWN0YW5nbGUgNzwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPgogICAgICAgIDxwYXRoIGQ9Ik03MzAsMTE0NC43NTI1NiBDNzMwLDExNDQuNjkxMDcgNzI5Ljk3NTU5NSwxMTQ0LjYzOTgyIDcyOS45NDE0MjgsMTE0NC41OTM3IEw3MjguNDgyMDAxLDExNDMuMDYxNDkgQzcyOC40MDM5MDUsMTE0Mi45Nzk1IDcyOC4yNjIzNTUsMTE0Mi45Nzk1IDcyOC4xODQyNTksMTE0My4wNjE0OSBMNzI1LjAwMTgzLDExNDYuNDEyODggTDcyMS44MTk0MDIsMTE0My4wNjE0OSBDNzIxLjc0MTMwNiwxMTQyLjk3OTUgNzIxLjU5OTc1NiwxMTQyLjk3OTUgNzIxLjUyMTY2LDExNDMuMDYxNDkgTDcyMC4wNjIyMzMsMTE0NC41OTM3IEM3MTkuOTc5MjU2LDExNDQuNjc1NyA3MTkuOTc5MjU2LDExNDQuODI0MyA3MjAuMDYyMjMzLDExNDQuOTA2MyBMNzI0Ljg1MDUxOSwxMTQ5LjkzODUxIEM3MjQuOTMzNDk2LDExNTAuMDIwNSA3MjUuMDcwMTY1LDExNTAuMDIwNSA3MjUuMTUzMTQyLDExNDkuOTM4NTEgTDcyOS45NDE0MjgsMTE0NC45MDYzIEM3MjkuOTc1NTk1LDExNDQuODYwMTggNzMwLDExNDQuODE0MDYgNzMwLDExNDQuNzUyNTYgTDczMCwxMTQ0Ljc1MjU2IFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJEb3hseS1EZXNpZ24tTGlicmFyeSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkZvcm0tRmllbGRzLSZhbXA7LUNvbnRyb2xzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNzEwLjAwMDAwMCwgLTExMzEuMDAwMDAwKSI+CiAgICAgICAgICAgIDxtYXNrIGlkPSJtYXNrLTIiIGZpbGw9IndoaXRlIj4KICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+CiAgICAgICAgICAgIDwvbWFzaz4KICAgICAgICAgICAgPHVzZSBpZD0iTWFzayIgZmlsbD0iIzAwMDAwMCIgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=');
+    padding-right: 35px;
+    background-repeat: no-repeat;
+    background-position: right center;
+  }
+
+  textarea {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  label,
+  legend {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: $text-default;
+  }
+
+  .control {
+    margin-bottom: 1.2rem;
+    position: relative;
+    // &:last-of-type {
+    //     margin-bottom: 0;
+    // }
+    &-input {
+      &.floating {
+        label {
+          position: absolute;
+          left: 12px;
+          bottom: 15px;
+          transition: all $transition-speed-2 $transition-type;
+          margin-bottom: 0;
+        }
+        input[type="email"],
+        input[type="number"],
+        input[type="search"],
+        input[type="text"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="password"],
+        textarea,
+        select {
+          border-color: $status-gray!important;
+          box-shadow: none!important;
+          padding: 1.5rem  1rem 0.5rem;
+          &:focus {
+            border-color: $blue!important;
+          }
+          &:focus ~ label, &:valid ~ label {
+            bottom: 25px;
+          }
+        }
+        &.mini {
+          label {
+            padding: 0 4px;
+            left: 8px;
+            bottom: 10px;
+          }
+          input[type="email"],
+          input[type="number"],
+          input[type="search"],
+          input[type="text"],
+          input[type="tel"],
+          input[type="url"],
+          input[type="password"],
+          textarea,
+          select {
+            &:focus ~ label, &:valid ~ label {
+              bottom: 24px;
+              background-color: $white;
+            }
+          }
+        }
+      }
+      .mdi {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        font-size: 1.9rem;
+        bottom: 9px;
+        left: 11px;
+        color: $dark-gray;
+      }
+      .mdi ~ input {
+        padding-left: 37px!important;
+      }
+      &.mini {
+        input[type="email"],
+        input[type="number"],
+        input[type="search"],
+        input[type="text"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="password"],
+        textarea,
+        select {
+          height: 3.0rem;
+          padding: 0.7rem 1.0rem;
+        }
+        textarea {
+          min-height: 7.0rem;
+        }
+        .mdi {
+          bottom: 4px;
+        }
+      }
+      &.medium {
+        input[type="email"],
+        input[type="number"],
+        input[type="search"],
+        input[type="text"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="password"],
+        textarea,
+        select {
+          max-width: 32rem;
+        }
+      }
+      &.large {
+        input[type="email"],
+        input[type="number"],
+        input[type="search"],
+        input[type="text"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="password"],
+        textarea,
+        select {
+          max-width: 69rem;
+        }
+      }
+      label {
+        display: block;
+        text-transform: uppercase;
+        font-size: 1.0rem;
+        color: $text-light;
+        font-weight: 500;
+        letter-spacing: 2.5px;
+        margin-bottom: 0.7rem;
+      }
+    }
+    &-checkbox,
+    &-radio {
+      label {
+        line-height: 1;
+        padding: 0.1rem 0;
+        vertical-align: middle;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-left: 2.6rem;
+        cursor: pointer;
+        &:before,
+        &:after {
+          transform: translate(0, -50%);
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: 1.6rem;
+          height: 1.6rem;
+          border-radius: 4px;
+          background-color: $white;
+          transition: all $transition-speed-1 $transition-type;
+        }
+        &:after {
+          content: "\F12C";
+          font-family: "Material Design Icons";
+          transform: translate(0, -45%) scale(0);
+          background-color: $blue;
+          color: $blue;
+          font-size: 1.3rem;
+          text-align: center;
+          width: 14px;
+          height: 14px;
+          left: 1px;
+          border: 0px solid $white;
+        }
+        &:before {
+          border: 2px solid $dark-gray;
+        }
+      }
+      input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        &:checked ~ label:before {
+          background: $blue;
+          border-width: 0;
+        }
+        &:checked ~ label:after {
+          transform: translate(0, -45%) scale(1);
+          color: $white;
+        }
+        &:disabled ~ label:before, {
+          border-color: $status-gray;
+        }
+        &:disabled ~ label {
+          opacity: 0.85;
+          color: $dark-gray!important;
+        }
+      }
+    }
+    &-radio {
+      label:before,
+      label:after {
+        content: '';
+        border-radius: 50%;
+      }
+      input {
+        &:checked ~ label:before {
+          background: $white;
+          border-width: 2px;
+          border-color: $blue;
+        }
+        &:checked ~ label:after {
+          transform: translate(0, -50%) scale(0.65);
+          background: $blue;
+        }
+        &:disabled ~ label:before, {
+          background-color: $white;
+        }
+      }
+    }
+  }
+}

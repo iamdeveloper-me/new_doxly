@@ -1,0 +1,61 @@
+.ie11 {
+
+  #signature-packet-grid .signature-type-col .grid-cell, #signature-packet-grid .collected-col .grid-cell {
+    width: 90px;
+
+    > div {
+      display: block !important;
+
+      > input {
+        margin-right: 2px !important;
+      }
+    }
+  }
+
+  #signature-packet-grid {
+    .document-name-col .grid-cell.header, .grid-cols .grid-col .grid-cell.user-header {
+      height: 120px;
+    }
+  }
+
+  .signature-page-column {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .flex-grid {
+    display: flex;
+
+    .flex-grid-left-box {
+      flex: 3 0;
+    }
+    .flex-grid-type {
+      flex: 0 0 128px;
+    }
+    .flex-grid-doc {
+      flex: 0 0 128px;
+    }
+    .flex-grid-status {
+      flex: 0 0 128px;
+    }
+    .flex-grid-last-change {
+      flex: 0 0 96px;
+    }
+    .flex-grid-signature {
+      flex: 0 0 96px;
+    }
+    .flex-grid-details {
+      flex: 1 0;
+    }
+    .flex-grid-review-status {
+      flex: 0 0 40%;
+
+      div {
+        width: 136px !important;
+      }
+    }
+    .flex-grid-actions {
+      flex: 0 0 96px;
+    }
+  }
+}

@@ -1,0 +1,108 @@
+<%
+  tree_element ||= nil
+  any_packets = tree_element&.has_signature_packets?
+%>
+<h2><%= tree_element.name %></h2>
+<div id="tree-element-signature-page-options">
+  <% if any_packets %>
+    <br />
+    <div class="notification">
+      <div class="notification-message">
+        Some customizations have been disabled because this document has been sent for signature.
+      </div>
+    </div>
+    <br />
+  <% end %>
+  <div class="multiple-copies-container <%= 'disabled' if any_packets %>">
+    <br />
+    <h3>Copies</h3>
+    <br />
+    <p>Increase the number of copies if you need to deliver separate, unique signature pages to other parties.</p>
+    <br />
+    <div class="multiple-copies-dropdown dropdown">
+      <%= form_for @tree_element, url: update_multiple_pages_deal_category_tree_element_path(@deal, @deal.closing_category, @tree_element), remote: true, method: :put do |f| %>
+        <div class="form-group">
+          <%= f.select :number_of_signature_page_copies, options_for_select((1..TreeElement::MAX_SIGNATURE_PAGE_COPIES).to_a, selected: @tree_element.number_of_signature_page_copies), {}, class: "selectpicker show-tick select-border-radius form-control", disabled: any_packets %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="address-container <%= 'disabled' if any_packets %>">
+    <br /><br />
+    <h3>Address</h3>
+    <br />
+    <div class="control control-checkbox">
+      <%= check_box_tag('show_address_on_signature_page', '1', tree_element.show_address_on_signature_page?, {id: "show-address-checkbox", disabled: any_packets, data: { path: set_show_address_deal_category_tree_element_path(@deal, @deal.closing_category, tree_element) }}) %>
+      <label for="show-address-checkbox">
+        Show the address below the signature block.
+      </label>
+    </div>
+  </div>
+  <div class="date-signed-container <%= 'disabled' if any_packets %>">
+    <br /><br />
+    <h3>Date</h3>
+    <br />
+    <div class="control control-checkbox">
+      <%= check_box_tag('show_signing_capacity_date_signed', '1', tree_element.show_signing_capacity_date_signed?, {id: "show-date-signed-checkbox", disabled: any_packets, data: { path: set_show_date_signed_deal_category_tree_element_path(@deal, @deal.closing_category, tree_element) }}) %>
+      <label for="show-date-signed-checkbox">
+        Show date of execution. For manual packets, a space is provided for the signer to add a date.
+      </label>
+    </div>
+  </div>
+  <div class="header-container <%= 'disabled' if any_packets %>">
+    <br /><br />
+    <h3>Header</h3>
+    <br />
+    <div class="control control-checkbox">
+      <%= check_box_tag('show_signature_page_header', '1', tree_element.show_signature_page_header?, {id: "show-header-checkbox", disabled: any_packets, data: { path: set_show_header_deal_category_tree_element_path(@deal, @deal.closing_category, tree_element) }}) %>
+      <label for="show-header-checkbox">
+        Show at the top of each signature page.
+      </label>
+    </div>
+    <div class="preview <%= 'hidden' unless tree_element.show_signature_page_header? %>">
+      <br />
+      <h4>Preview</h4>
+      <br />
+      <div class="header-preview">
+        <div class="header-preview-box">
+          <% if !tree_element.signature_page_header_text.blank? %>
+            <div class="preview-text"><%= tree_element.signature_page_header_text %></div>
+          <% end %>
+        </div>
+        <div class="border-container">
+          <div class="preview-bottom-border"></div>
+        </div>
+      </div>
+        <div class="header-edit">
+          <%= link_to 'Edit Header', deal_category_tree_element_edit_signature_page_header_path(@deal, @deal.closing_category, tree_element), :class => "button mini button-secondary mdi mdi-pencil #{'disabled' if any_packets}", :remote => true %>
+        </div>
+    </div>
+  </div>
+  <div class="footer-container <%= 'disabled' if any_packets %>">
+    <br /><br />
+    <h3>Footer</h3>
+    <br />
+    <div class="control control-checkbox">
+      <%= check_box_tag('show_signature_page_footer', '1', tree_element.show_signature_page_footer?, {id: "show-footer-checkbox", disabled: any_packets, data: { path: set_show_footer_deal_category_tree_element_path(@deal, @deal.closing_category, tree_element) }}) %>
+      <label for="show-footer-checkbox">
+        Show at the bottom of each signature page
+      </label>
+    </div>
+    <div class="preview <%= 'hidden' unless tree_element.show_signature_page_footer? %>">
+      <br />
+      <h4>Preview</h4>
+      <div class="footer-preview">
+        <div class="border-container">
+          <div class="preview-top-border"></div>
+        </div>
+        <div class="footer-preview-box">
+          <div class="line-break"></div>
+          <div class="preview-text">SIGNATURE PAGE FOR <%= tree_element.document_name.upcase %></div>
+        </div>
+      </div>
+        <div class="footer-edit">
+          <%= link_to 'Edit Footer', deal_category_tree_element_edit_signature_page_footer_path(@deal, @deal.closing_category, tree_element, signature_page_footer: true), :class => "button mini button-secondary mdi mdi-pencil #{'disabled' if any_packets}", :remote => true %>
+        </div>
+    </div>
+  </div>
+</div>

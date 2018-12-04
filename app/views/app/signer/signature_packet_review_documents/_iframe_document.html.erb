@@ -1,0 +1,14 @@
+<%
+  name ||= "Document"
+  url ||= nil
+%>
+<% if url %>
+  <iframe class="iframe" src="<%= url %>"></iframe>
+<% else %>
+  <div class="fake-document">
+    <div class="empty">
+      <i class="fa fa-file-text fa-3x" aria-hidden="true"></i>
+      "<%= name %>" Not Yet Uploaded
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+<%
+  tree_element ||= nil
+  signature_group ||= nil
+  signing_capacity ||= nil
+  signature_entity ||= nil
+  tree_element_signature_group = (signature_group || signing_capacity.get_signature_group).tree_element_signature_groups.find_by(tree_element_id: tree_element.id) if signature_group.present?
+%>
+<% if !signature_group.present? %>
+  <%= render 'app/counsel/signature_pages/address_header_and_footer', tree_element: tree_element %>
+<% end %>
+<% if signing_capacity.present? %>
+  <%= render 'app/counsel/signature_pages/signing_capacity', signature_group: signature_group, signing_capacity: signing_capacity, tree_element: tree_element, show_signature_group_alias: tree_element_signature_group.show_group_name?, signature_group_alias: tree_element_signature_group.alias %>
+<% elsif signature_entity.present? %>
+  <%= render 'app/counsel/signature_pages/signature_group_entity', signature_group: signature_group, tree_element: tree_element, signature_entity: signature_entity, tree_element_signature_group: tree_element_signature_group %>
+<% elsif signature_group.present? %>
+  <%= render 'app/counsel/signature_pages/signing_alias', tree_element: tree_element, tree_element_signature_group: tree_element_signature_group %>
+<% end %>

@@ -1,0 +1,71 @@
+<%
+  current_deal_entities = @deal.try(:entities)&.to_a
+  current_role_entities = @role.try(:entities)&.to_a
+  current_connected_entities = current_entity.connected_entities.to_a
+%>
+<h2 class="first"><%= (@search_term.nil? || @search_term.empty?) && !params[:type] ? "SUGGESTED ORGANIZATIONS" : "MATCHES" %></h2>
+<div class="panel panel-deals-full">
+  <div class="deals-full-group">
+    <div class="deals-full-group__header entity-list-header"><span>NAME</span><span class="entities-right-header-box"><span>LAW FIRM?</span><span>STATUS</span></span></div>
+    <% if @entities&.empty? %>
+      <div class="padding-10 ">
+        <div className="no-results">
+          <div className="header">No Results Found</div>
+        </div>
+      </div>
+    <% else %>
+      <% @entities.sort_by{ |e| e.name.downcase }.each do |entity| %>
+        <div class="entity entity-list-item">
+          <div class="details left-box">
+            <div class="name"><%= entity.name %></div>
+          </div>
+          <div class=right-box>
+            <div class="add-entity-item <%= "org_#{entity.id}" %>">
+              <%= entity.is_counsel ? "Yes" : "No" %>
+              <div class="<%= "connect-button-#{entity.id} "%>">
+                <% if params[:type] || @errors == 'people_page' %>
+                  <% if current_connected_entities.include?(entity) %>
+                    <span>Already Connected</span>
+                  <% else %>
+                    <%= link_to "Connect", entity_connections_path(entity_id: entity.id), method: :post, remote: true, :class => "connect-button" %>
+                  <% end %>
+                <% else %>
+                  <% if current_role_entities&.include?(entity) %>
+                    <span>Already Added</span>
+                  <% else %>
+                    <%= link_to "Add", deal_deal_entities_path(entity_id: entity.id, deal_id: @deal, role_id: @role.id), method: :post, remote: true, :class => "connect-button" %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<% if !@search_term.nil? && !@search_term.empty? %>
+  <% 
+    case params[:type]
+    when "law_firm"; type = "A LAW FIRM"
+    when "party"; type = "A PARTY"
+    else  type = "AN ORGANIZATION"
+    end
+  %>
+  <h2 class="first">NO MATCH? CREATE <%= type %></h2>
+
+  <%
+    if params[:type]
+      link = add_address_entity_connections_path(search_term: @search_term, type: params[:type])
+    elsif @new_deal
+      link = add_address_deals_path(@deal, search_term: @search_term, new_deal: true)
+    else
+      link = add_address_deal_deal_entities_path(@deal, role_id: @role.id, search_term: @search_term)
+    end
+  %>
+  <div class="entity-create">
+    <%= link_to link, remote: true, :class => 'btn btn-primary' do %>
+      Create <%= type.split[1..-1].join(' ').downcase %>  '<%= @search_term %>'
+    <% end %>
+  </div>
+<% end %>

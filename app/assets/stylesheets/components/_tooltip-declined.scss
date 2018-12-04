@@ -1,0 +1,34 @@
+.tooltipster-sidetip.tooltipster-light.tooltipster-signature.tooltipster-declined{
+  $col-button-red: #E88C97;
+  $col-left-red: opacify(#44151B, .24);
+  $col-border-red: #803C44;
+  $col-background-red: #B84351;
+  .tooltipster-arrow .tooltipster-arrow-uncropped{
+    .tooltipster-arrow-background{
+      border-top-color: $col-background-red;
+    }
+    .tooltipster-arrow-border{
+      border-top-color: $col-border-red;
+    }
+  }
+  .tooltipster-box {
+    background-color: $col-background-red;
+    border: 1px solid $col-border-red;
+    .tooltipster-content{
+      .left-status{
+        background-color: $col-left-red;
+        color: $col-button-red;
+      }
+      .reminder-button > a {
+        background-color: $col-button-red;
+        color: #44151B;
+      }
+      .timestamp{
+        color: #E8ABB2;
+        span{
+          color: #F4E1E3;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="60" viewBox="0 0 44 60">
+    <g fill="none" fill-rule="evenodd">
+        <g stroke="#555" stroke-width="1.5">
+            <path fill="#FFF" stroke-linecap="round" stroke-linejoin="round" d="M1 5.328A2.33 2.33 0 0 1 3.327 3H29l14 14v38.678A2.32 2.32 0 0 1 40.682 58H3.318A2.328 2.328 0 0 1 1 55.672V5.328z"/>
+            <path d="M29 3v11.672A2.327 2.327 0 0 0 31.328 17H43"/>
+        </g>
+        <text fill="#18354C" font-family="Roboto-Bold, Roboto" font-size="10" font-weight="bold">
+            <tspan x="12.786" y="54">PDF</tspan>
+        </text>
+        <path stroke="#EF2000" stroke-width="1.5" d="M12.44 39.57c3.438 4.33 12.051-22.225 7.356-20.967-4.695 1.258 8.925 23.597 11.128 17.604 2.203-5.993-21.923-.967-18.485 3.363z"/>
+    </g>
+</svg>

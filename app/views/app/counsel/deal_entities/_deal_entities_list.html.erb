@@ -1,0 +1,13 @@
+<% @deal_entities.each do |deal_entity| %>
+  <div class="<%="deal-org-outer-#{deal_entity.id}"%>">
+    <%= render 'app/counsel/deal_entities/deal_entity', deal_entity: deal_entity %>
+  </div>
+<% end %>
+
+<% if @deal_entities.empty? %>
+  <div class="panel panel-list">
+    <div className="no-results padding-10">
+      <div className="header">There aren't any collaborator's to show.</div>
+    </div>
+  </div>
+<% end %>

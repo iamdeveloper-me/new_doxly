@@ -1,0 +1,39 @@
+<div class="sign-in-wrapper">
+  <div class="wrap-narrow">
+    <div class="box-middle">
+      <div class="inner">
+        <div class="center-logo"><a href="#"><%= image_tag "logo.png" %></a></div>
+        <div class="panel panel-window sign-in">
+          <div class="whiteout-ui">
+            <h3>Two-Factor Authentication</h3>
+            <br />
+            <p class="gray">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</p>
+            <br />
+            </div>
+          <%= form_for(:user, url: new_user_session_path(from_otp_page: true), method: :post, :html => { :class => 'no-turboboost' }) do |f|%>
+            <div class="form-group">
+              <label htmlFor="input-otp-attempt">Authentication Code</label>
+              <%= f.text_field :otp_attempt, id: 'input-otp-attempt', class: 'form-control', placeholder: "123456" %>
+            </div>
+
+            <div class="row whiteout-ui">
+              <div class="col-xs-6">
+                <%= link_to "Cancel", new_user_session_path, class: 'button button-secondary' %>
+              </div>
+              <div class="col-xs-6 text-right">
+                <%= f.submit 'VERIFY', class: 'button button-primary' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="form-group">
+              Don't have your phone? You can enter one of your recovery codes instead. Note that each code can only be used once.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

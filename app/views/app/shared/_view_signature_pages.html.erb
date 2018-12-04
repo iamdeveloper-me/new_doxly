@@ -1,0 +1,106 @@
+<%
+  signature_pages ||= []
+
+  html = "<html>"
+  signature_pages.map(&:signature_page_collection).uniq.each do |signature_page_collection|
+    signature_page_collection.signature_pages.where(:is_custom => true).each do |signature_page|
+      signing_capacity              = signature_page.signing_capacity
+      tree_element_signature_group  = signature_page.tree_element_signature_group
+      original_signature_page       = signing_capacity.signature_pages.find_by(signing_capacity_id: signing_capacity.id, tree_element_signature_group_id: tree_element_signature_group.id)
+      original_signing_capacity     = original_signature_page.signing_capacity
+      original_signature_group_root = original_signing_capacity.get_signature_group
+      deal                          = signing_capacity.deal
+      page_url                      = url_for(controller: "signature_pages", action: "show_custom_signature_page", deal_id: deal.id, signature_page_id: original_signature_page.id, signing_capacity_id: original_signing_capacity.id, signature_group_id: original_signature_group_root.id, timestamp: Time.now.to_i)
+      page_html                     = "<img src='#{page_url}' class='custom-page' /><img src='#{asset_path('qr-code-sample.png')}' class='qr-code' />"
+
+      html += escape_javascript("
+        <style>
+          .page-container {
+            margin-bottom: 35px;
+            width: 612px;
+            height: 874px;
+            border: 1px solid #e5e5e5;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: #{@deal.font_type};
+            font-size: #{@deal.font_size};
+          }
+          .qr-code {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 1000; /* just to be sure it isn't covered by text */
+            padding: 5px;
+            border: 1px solid black;
+            background-color: white;
+            height: 50px;
+            width: 50px;
+            bottom: 20px !important;
+            right: 20px !important;
+          }
+          .custom-page {
+            width: 100%;
+            height: 100%;
+          }
+        </style>
+        <div class='page-container'>
+          #{page_html}
+        </div>
+      ")
+    end
+
+    # Check if this collection has any non-custom pages for this signer. If not, move on to the next collection
+    non_custom_pages_count = signature_page_collection.signature_pages.where(:is_custom => false).size
+    next unless non_custom_pages_count > 0
+
+    split_signature_page = SignaturePageSplitter.split_signature_page(signature_page_collection)
+    # unfortunately, the css has to be inline as it is going to be rendered within the iframe
+    split_signature_page.each do |key, value|
+      page_html = ApplicationController.new.render_to_string(template: 'app/counsel/signing_capacities/templates/signature_page_layout', locals: { signature_page_collection: signature_page_collection, blocks: value }, layout: false)
+      html += escape_javascript("
+        <style>
+          .page-container {
+            margin-bottom: 35px;
+            width: 612px;
+            height: 960px;
+            border: 1px solid #e5e5e5;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: #{@deal.font_type};
+            font-size: #{@deal.font_size};
+            padding: 0px 32px;
+          }
+          .footer-document {
+            margin-bottom: 20px !important;
+          }
+          .header-document {
+            margin-top: 20px !important;
+          }
+          .qr-code {
+            bottom: 20px !important;
+            right: 20px !important;
+          }
+        </style>
+        <div class='page-container'>
+          #{page_html}
+        </div>
+      ")
+    end
+  end
+  html += "</html>"
+%>
+
+<script language="javascript">
+  var $frame = $('#signing-page');
+    setTimeout( function() {
+      var doc = $frame[0].contentWindow.document;
+      var $body = $('body',doc);
+      $body.html('<%= raw html %>');
+    }, 1);
+</script>
+
+<div class="center">
+  <iframe id="signing-page"></iframe>
+</div>

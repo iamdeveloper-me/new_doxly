@@ -1,0 +1,21 @@
+.has-dependency {
+  display: none;
+}
+
+.other-question {
+  display: none;
+}
+
+.questionnaire-question {
+  padding-top: 16px;
+
+  .questionnaire-options {
+    display: flex;
+    padding-left: 20px;
+
+    .questionnaire-label {
+      margin-top: 2px;
+      padding-left: 8px;
+    }
+  }
+}

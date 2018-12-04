@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <%= stylesheet_link_tag "foundation_emails" %>
+  </head>
+
+  <body>
+    <table class="body">
+      <tr>
+        <td class="center" align="center" valign="top">
+          <center>
+            <spacer size="20"></spacer>
+            <container class="header">
+              <row>
+                <columns>
+                  <center>
+                    <%= image_tag "doxly-logo-grayscale.png" %>
+                  </center>
+                </columns>
+              </row>
+            </container>
+            <container class="content">
+              <row>
+                <columns>
+                  <container class="title-container">
+                    <% if @title.present? %>
+                      <row>
+                        <columns>
+                          <center>
+                            <%= @image %>
+                            <h1></h1>
+                            <h1><%= @title %></h1>
+                            <p><%= @subtitle %></p>
+                          </center>
+                        </columns>
+                      </row>
+                    <% end %>
+                  </container>
+                </columns>
+              </row>
+              <row class="content-text">
+                <columns>
+                  <center>
+                    <p><%= @content %></p>
+                  </center>
+                </columns>
+              </row>
+            </container>
+            <container>
+              <row>
+                <columns>
+                  <h3></h3>
+                </columns>
+              </row>
+            </container>
+            <container class="content information-text">
+              <row>
+                <columns>
+                  <p>
+                    The contents of this e-mail message and any attachments are confidential and may be legally privileged. If you are not the intended recipient, notify the sender by replying to this e-mail and delete this message and any attachments.
+                  </p>
+                </columns>
+              </row>
+              <row>
+                <columns>
+                  <p id="contact-emails">
+                    To ensure delivery to your inbox, add <a href="mailto:signatures@doxly.com">signatures@doxly.com</a>, <a href="mailto:success@doxly.com">success@doxly.com</a>, and <a href="mailto:support@doxly.com">support@doxly.com</a> to your address book.
+                  </p>
+                </columns>
+              </row>
+              <row>
+                <columns>
+                  <p class="text-center" id="contact">Questions? Contact us anytime at <a href="mailto:support@doxly.com">support@doxly.com</a></p>
+                </columns>
+              </row>
+              <row>
+                <columns>
+                  <center>
+                    <p class="about">About Doxly</p>
+                  </center>
+                </columns>
+              </row>
+              <row>
+                <columns>
+                  <p>
+                    Doxly’s secure transaction management platform brings control, peace of mind, and velocity to the entire signature management process.
+                  </p>
+                </columns>
+              </row>
+              <row>
+                <columns>
+                  <p class="text-center">
+                      Doxly, Inc.,
+                      55 Monument Circle, 6th Floor,
+                      Indianapolis, IN 46204
+                  </p>
+                </columns>
+              </row>
+              <row>
+                <columns>
+                  <h3></h3>
+                </columns>
+              </row>
+              <row>
+                <columns>
+                  <h1> </h1>
+                </columns>
+              </row>
+            </container>
+            <container class="footer-container">
+            </container>
+          </center>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

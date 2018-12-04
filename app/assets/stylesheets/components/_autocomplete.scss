@@ -1,0 +1,66 @@
+.autocomplete-suggestion{
+  display:flex;
+  justify-content: space-between;;
+  align-items: center;
+  &.true-signature{
+    color: $col-gray-hover;
+    font-style: italic;
+    cursor: not-allowed;
+    // won't work for IE 10 and earlier.
+    pointer-events: none;
+  }
+  .autocomplete-box-one{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-grow:1;
+    flex-shrink: 1;
+    min-width: 0;
+    .item-image{
+      max-height: 14px;
+      width: 14px;
+      margin-right: 4px;
+    }
+    .item-name{
+      flex-grow: 1;
+      flex-shrink: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0 10;
+      min-width: 0;
+    }
+  }
+  .autocomplete-box-two{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 150px;
+    flex-shrink: 0;
+    .item-helper{
+      background-color: $col-blue;
+      border-radius: 2px;
+      font-size: 12px;
+      text-align: center;
+      line-height: 20px;
+      width: 90px;
+      display: inline-block;
+      text-transform: uppercase;
+      margin-left: 5px;
+      color: white;
+      flex-shrink: 0;
+    }
+  }
+}
+.autocomplete-suggestions{
+  .true-signature{
+    .item-name{
+      color: $col-gray-hover;
+      font-style: italic;
+    }
+    cursor: not-allowed;
+    // won't work for IE 10 and earlier.
+    pointer-events: none;
+  }
+
+}

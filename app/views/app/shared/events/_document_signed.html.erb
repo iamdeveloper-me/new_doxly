@@ -1,0 +1,15 @@
+<div class="section-info">
+  <b>
+    <%= event.eventable.parent.parent.name.try(:upcase) %> :
+    <%= event.eventable.parent.name.try(:upcase) %>
+  </b>
+  <%= event.eventable.tree_element.name %>
+  by <%= event.eventable.name %>
+</div>
+<div class="section-details">
+  <div class="section-details__attachment">
+    <div class="attachment-item item-file">
+      <i></i><a href="#"><%= event.eventable.name %></a>
+    </div>
+  </div>
+</div>

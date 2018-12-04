@@ -1,0 +1,16 @@
+<% @entity_connections.select{|entity_connection| entity_connection.connected_entity.type == "Organization"}.each do |entity_connection| %>
+  <%= render "app/shared/people/entity_connection", entity_connection: entity_connection %>
+<% end %>
+
+<% individual_connections = @entity_connections.select{|entity_connection| entity_connection.connected_entity.type == "Individual"} %>
+<% if individual_connections.any? %>
+  <%= render "app/shared/people/connected_individuals", individual_connections: individual_connections %>
+<% end %>
+
+<% if @entity_connections.empty? %>
+  <div class="panel panel-list">
+    <div className="no-results padding-10">
+      <div className="header">There aren't any connected organizations to show.</div>
+    </div>
+  </div>
+<% end %>

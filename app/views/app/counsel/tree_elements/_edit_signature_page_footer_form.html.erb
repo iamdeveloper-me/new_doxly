@@ -1,0 +1,19 @@
+<%
+  path = set_signature_page_footer_deal_category_tree_element_path(@deal, @category, @tree_element)
+  method = :put
+%>
+<%= form_for @tree_element, :as => :tree_element, :url => path, :method => method, :remote => true, :html => { :class => 'no-turboboost' } do |f| %>
+  <div class="form-group">
+    <div class="footer-container">
+      <div class="footer-label">Footer Preview</div>
+      <div class="footer-preview">
+        <div class="footer-preview-box">
+          <div class="line-break"></div>
+          <div class="preview-text">SIGNATURE PAGE FOR <span id="footer-tree-element"><%= @tree_element.document_name.upcase %></span></div>
+        </div>
+      </div>
+    </div>
+    <label for="name">Document Name</label>
+    <%= f.text_field :signature_page_document_name, :class => "form-control footer-input", :placeholder => "Document Name", :value => @tree_element.document_name %>
+  </div>
+<% end %>

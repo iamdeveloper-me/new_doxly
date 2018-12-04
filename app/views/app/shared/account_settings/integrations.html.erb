@@ -1,0 +1,23 @@
+<%
+  @page_wrapper_class ||= "navbar-double"
+%>
+
+<%= render 'shared/top_navs/settings' %>
+
+<div class="content">
+  <div class="padded-content">
+    <div class="container-fluid">
+      <% if current_entity_user.entity.dms_entity_storageable.is_a?(NetDocumentsEntityStorage) %>
+        <%= render 'shared/account_settings/net_documents_setup.html.erb' %>
+      <% elsif current_entity_user.entity.dms_entity_storageable.is_a?(SeeUnityImanageEntityStorage)%>
+        <div id="see-unity-imanage-panel">
+          <%= render 'shared/account_settings/see_unity_imanage_setup.html.erb' %>
+        </div>
+      <% elsif current_entity_user.entity.dms_entity_storageable.is_a?(Imanage10EntityStorage)%>
+        <div id="imanage10-panel">
+          <%= render 'shared/account_settings/imanage10_setup.html.erb' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

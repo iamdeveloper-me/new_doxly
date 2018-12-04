@@ -1,0 +1,99 @@
+<% 
+   top_view     = current_entity.is_counsel ? "shared/top_counsel" : "shared/top_client"
+   default_view = "Open by Date"
+%>
+
+<%= render top_view, title: 'Deals' %>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="toolbar-box category">
+        <div class="search-input-box" data-search-path="<%= refresh_list_deals_path %>">
+          <div class="form-group">
+            <input name="search_str"
+                class="input-search form-control"
+                placeholder="Search Deals"
+             />
+          </div>
+          <a class="disabled"><i class="icon-icon-search"></i></a>
+        </div>
+        <div class="dropdown search-filter dropdown-filter closed">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-turbolinks="false" aria-expanded="false"><%= default_view %></a>
+          <ul class="dropdown-menu">
+            <div id="dropdown-menu-show">
+              <li class="title">Show</li>
+              <li>
+                <div class="checkbox">
+                  <label class="dropdown-menu-item" title="All" data-filter-field="all">
+                    <i class="fa fa-fw"></i> All Deals
+                  </label>
+                </div>
+              </li>
+              <% if current_entity.is_counsel? %>
+                <li>
+                  <div class="checkbox">
+                    <label class="dropdown-menu-item" title="Team" data-filter-field="internal">
+                      <i class="fa fa-fw"></i> Team Deals
+                    </label>
+                  </div>
+                </li>
+              <% end %>
+              <li>
+                <div class="checkbox">
+                  <label class="dropdown-menu-item" title="Open" data-filter-field="status" data-filter-field-value="open">
+                    <i class="fa fa-check"></i> Open Deals
+                  </label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <label class="dropdown-menu-item" title="Closed" data-filter-field="status" data-filter-field-value="closed">
+                    <i class="fa fa-fw"></i> Closed Deals
+                  </label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <label class="dropdown-menu-item" title="Archived" data-filter-field="status" data-filter-field-value="archived">
+                    <i class="fa fa-fw"></i> Archived Deals
+                  </label>
+                </div>
+              </li>
+            </div>
+            <div id="dropdown-menu-sorted-by">
+              <li class="title">Sorted By</li>
+              <li>
+                <div class="checkbox">
+                  <label class="dropdown-menu-item" title="Date" data-sort-field="projected_close_date">
+                    <i class="fa fa-check"></i> Close Date
+                  </label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <label class="dropdown-menu-item" title="Title" data-sort-field="title">
+                    <i class="fa fa-fw"></i> Deal Title
+                  </label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <label class="dropdown-menu-item" title="Type" data-sort-field="deal_type_id">
+                    <i class="fa fa-fw"></i> Deal Type
+                  </label>
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+        <%= yield :create_deal_action %>
+      </div>
+    </div>
+
+    <div class="row" id="step2">
+      <div class="content-single" id="deals-list">
+        <%= render 'shared/deals/deals_list', :deals => @deals %>
+      </div>
+    </div>
+  </div>
+</div>

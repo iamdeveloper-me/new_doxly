@@ -1,0 +1,7 @@
+
+<%
+  signature_group_list_html = escape_javascript(render("app/counsel/signature_pages/signature_group_list", tree_element: @tree_element))
+  signature_page_html = escape_javascript(render("app/counsel/signature_pages/signature_page", tree_element: @tree_element, signature_group: @signature_group))
+%>
+
+App.TreeElementSignatureGroups.update('<%= signature_group_list_html %>', '<%= @signature_group&.id %>', '<%= signature_page_html %>', '<%= action_name == "update" %>')

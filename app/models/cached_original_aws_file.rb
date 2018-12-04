@@ -1,0 +1,2 @@
+class CachedOriginalAwsFile < OriginalAwsFile
+end

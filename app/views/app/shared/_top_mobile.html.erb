@@ -1,0 +1,53 @@
+<%
+  hidden ||= false
+  active_class = ['deals', 'roles', 'categories', 'signature_tracker', 'closing_books'].include?(params[:controller].split('/').last) ? "active" : ""
+%>
+<div class="mobile-nav <%= 'visible' if (content_for?(:back_button) && !hidden) %>">
+  <div class="header">
+    <% if content_for?(:back_button) %>
+      <%= yield :back_button %>
+    <% else %>
+      <div class="logo">
+        <%= image_tag "logo.svg" %>
+      </div>
+    <% end %>
+    <div class="mobile-menu">
+      <div class="hamburger">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-content">
+    <div class="logo">
+      <%= image_tag "logo.svg" %>
+    </div>
+    <% if current_user.entity_users.any? %>
+      <div class="link <%= active_class %>">
+        <%= link_to "My Deals", app_root_path %>
+      </div>
+      <div class="link <%= 'active' if params[:controller] == 'app/client/entities' %>">
+        <%= link_to "Connections", entities_path %>
+      </div>
+      <div class="link <%= 'active' if controller_name == 'signature_packets' %>">
+        <%= link_to "Signature Packets", signature_packets_path %>
+      </div>
+      <div class="divider"></div>
+      <div class="link">
+        <a href="/my_profile">Your Account Settings</a>
+      </div>
+      <div class="link">
+        Organization Settings
+      </div>
+      <div class="divider"></div>
+      <% if multiple_entities_exist? %>
+        <%= link_to "Switch Organization", entity_switch_path, :class=> 'btn btn-warning switch-organization', :remote => true %>
+      <% end %>
+    <% else %>
+      <div class="link">
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<%
+  @page_wrapper_class ||= "navbar-double"
+%>
+
+<%= render 'shared/top_navs/settings' %>
+
+<% if current_entity.sso_available? %>
+  <div class="content"> 
+    <div class="padded-content">
+      <div class="container-fluid">
+        <%= render 'sso_warning' %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <%= render 'frontend/index' %>
+  <script>
+    $(function() {
+      App.React.AccountSettings.renderTwoFactorAuthenticationSettings(<%= params[:required] %>)
+    })
+  </script>
+<% end %>

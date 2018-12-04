@@ -1,0 +1,12 @@
+<nav class="navbar navbar-static-top" role="navigation">
+  <div class="navbar-brand">
+    <div class="deal-title deal-title-counsel">
+      <%= title %>
+    </div>
+    <%= yield :navbar_brand %>
+  </div>
+  <%= render 'shared/user_dropdown' %>
+  <%= render 'shared/user_dropdown_small' %>
+  <%= yield :navbar_bottom %>
+</nav>
+<%= render 'shared/top_mobile' %>

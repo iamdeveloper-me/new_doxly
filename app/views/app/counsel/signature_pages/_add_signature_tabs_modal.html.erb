@@ -1,0 +1,27 @@
+<%
+  use_template = params[:use_template] || false
+%>
+<%= render layout: 'shared/modal', locals: { 
+    title: 'Place Custom Signature Tabs', 
+    cancel_button_label: 'Cancel', 
+    custom_submit: true, 
+    custom_submit_path: deal_signature_page_signature_tabs_path(@deal, @signature_page, 
+      tree_element_id: @tree_element.id,
+      signing_capacity_id: @signing_capacity.id, 
+      signature_group_id: @signature_group.id, 
+      filename: @filename, 
+      editing: @editing,
+      use_template: use_template
+    ), 
+    custom_submit_class: "submit-signature-tabs",
+    modal_class: 'semi-large custom-signature-page-modal',
+    show_back_button: (@coming_from == :document),
+    back_button_path: deal_signature_page_choose_from_document_path(@deal, @signature_page, 
+      tree_element_id: @tree_element.id,
+      signing_capacity_id: @signing_capacity.id, 
+      signature_group_id: @signature_group.id,
+      use_template: use_template
+    ) 
+  } do %>
+  <%= render 'add_signature_tabs' %>
+<% end %>

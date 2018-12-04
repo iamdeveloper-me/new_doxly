@@ -1,0 +1,11 @@
+<%
+  message ||= nil
+%>
+
+<% content_for :body do %>
+  <b><%= message || t('errors.403_main') %></b>
+  <br /><br />
+  <%= t('errors.403_sub') %>
+<% end %>
+
+<%= render 'errors/base' %>

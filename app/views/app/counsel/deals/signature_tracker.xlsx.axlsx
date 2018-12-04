@@ -1,0 +1,125 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Signature Tracker") do |sheet|
+  # styles for cells
+  name_style        = wb.styles.add_style({:alignment=>{:horizontal => :center, :wrap_text => true}})
+  cell_style        = wb.styles.add_style({:alignment=>{:horizontal => :center, :vertical => :center, :wrap_text => true}})
+  entity_cell_style = wb.styles.add_style({:alignment=>{:horizontal => :center, :vertical => :center, :wrap_text => true}, :bg_color => "4E6586", :fg_color => "fff"})
+  green_cell_style  = wb.styles.add_style({:alignment=>{:horizontal => :center, :vertical => :center, :wrap_text => true}, :bg_color => "85C58B", :fg_color => "fff"})
+  red_cell_style    = wb.styles.add_style({:alignment=>{:horizontal => :center, :vertical => :center, :wrap_text => true}, :bg_color => "D6A2A9", :fg_color => "fff"})
+  yellow_cell_style = wb.styles.add_style({:alignment=>{:horizontal => :center, :vertical => :center, :wrap_text => true}, :bg_color => "DBB448", :fg_color => "fff"})
+  blue_cell_style   = wb.styles.add_style({:alignment=>{:horizontal => :center, :vertical => :center, :wrap_text => true}, :bg_color => "6FA8EA", :fg_color => "fff"})
+  document_style    = wb.styles.add_style({:alignment=>{:horizontal => :left, :vertical => :center, :wrap_text => true}, :b => true})
+
+  signing_capacities = @deal.all_signing_capacities.sort_by{ |signing_capacity| [(signing_capacity.user.full_name.downcase || ""), (signing_capacity.placeholder_id || 0)] }
+  unique_users = signing_capacities.group_by(&:user_id).map{|k, v| v }
+  documents = @deal.closing_category.documents_requiring_signature_with_position
+  alpha = {}
+  ('A'..'ZZZ').each_with_index{|w, i| alpha[i+1] = w }
+  user_names  = [nil]
+  user_emails = [nil]
+  user_roles  = [nil]
+  user_entities = [nil]
+  signing_capacity_ids = []
+  entity_cell_styles = [cell_style]
+
+  unique_users.each do |signing_capacities|
+    signing_capacities.each do |signing_capacity|
+      user_names.push(signing_capacity.name)
+      if signing_capacity.user.email.present?
+        user_emails.push(signing_capacity.user.email)
+      else
+        user_emails.push('')
+      end
+      user_roles.push("(#{signing_capacity.get_signature_group.name})")
+      if signing_capacity.signature_entity.present?
+        top_level_signature_entity_name = signing_capacity.signature_entity.root.name
+        entity_cell_styles << entity_cell_style
+      else
+        top_level_signature_entity_name = nil
+        entity_cell_styles << cell_style
+      end
+      user_entities.push(top_level_signature_entity_name)
+      signing_capacity_ids.push(signing_capacity.id)
+    end
+  end
+
+  counter = 0
+  unique_users.each_with_index do |signing_capacities, index|
+    if signing_capacities.length > 1
+      position = index + 2 + counter
+      na_positions = signing_capacities.length - 1
+      counter += na_positions
+      ends = position + na_positions
+      user_names.push([nil] * na_positions)
+      sheet.merge_cells "#{alpha[position]}2:#{alpha[ends]}2"
+    end
+  end
+
+  sheet.add_row [@deal.title], :height => 30, :sz => 16
+  sheet.add_row user_names.flatten, :height => 30, :b => true, :sz => 12, :style => name_style
+  sheet.add_row user_emails, :height => 30, :b => true, :sz => 12, :style => name_style
+  sheet.add_row user_roles, :height => 20, :b => true, :style => cell_style
+  sheet.add_row user_entities, :height => 20, :b => true, :style => entity_cell_styles
+  # proc that compiles cell contents/styles
+  signature_status_proc = -> (no_email, status, page, status_styles) {
+    if no_email
+      status.push('No Email')
+      status_styles.push(cell_style)
+    elsif page.is_executing?
+      status.push('Executing')
+      status_styles.push(green_cell_style)
+    elsif page&.currently_executed?
+      status.push('Executed')
+      status_styles.push(green_cell_style)
+    elsif page.signature_status == "not_sent" || page.signature_status == "declined"
+      status.push(page.signature_status.tr("_"," ").capitalize)
+      status_styles.push(red_cell_style)
+    elsif (SignaturePage::SENDING_SIGNATURE_STATUSES + SignaturePage::READY_SIGNATURE_STATUSES).include?(page.signature_status)
+      status.push(page.signature_status.tr("_"," ").capitalize)
+      status_styles.push(yellow_cell_style)
+    elsif page.signature_status == "opened"
+      status.push(page.signature_status.tr("_"," ").capitalize)
+      status_styles.push(blue_cell_style)
+    elsif page.signature_status == "signed"
+      status.push(page.signature_status.tr("_"," ").capitalize)
+      status_styles.push(green_cell_style)
+    end
+  }
+  documents.each do |document|
+    document_row_style_array = []
+    status                   = []
+    status_styles            = []
+    position                 = 0
+    signature_pages          = []
+    signing_capacity_ids.each do |id|
+      signature_page = document.signature_pages.find_by(signing_capacity_id: id)
+      if signature_page
+        signature_pages.push(signature_page)
+      end
+    end
+    signature_pages.each_with_index do |page, index|
+      signing_capacity_position = signing_capacity_ids.index(page.signing_capacity_id)
+      user = page.signing_capacity.user
+      no_email = user.email.blank?
+      if signing_capacity_position === position
+        position = position + 1
+        signature_status_proc.call(no_email, status, page, status_styles)
+      else
+        # account for blank cells
+        na_positions = signing_capacity_position - position
+        if na_positions > 0
+          na_positions.times do
+          status.push(nil)
+            status_styles.push(cell_style)
+          end
+          signature_status_proc.call(no_email, status, page, status_styles)
+        end
+        position = position + na_positions + 1
+      end
+    end
+    sheet.add_row status.unshift(document.name).flatten, :height => 30, :style => status_styles.unshift(cell_style)
+  end
+  sheet["A1:A#{documents.length + 3}"].each { |c| c.style = document_style}
+  column_widths = ([30] * signing_capacity_ids.length).flatten.unshift(40)
+  sheet.column_widths *column_widths
+end

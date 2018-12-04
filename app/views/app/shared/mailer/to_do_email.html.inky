@@ -1,0 +1,27 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-todo-assigned.png" %>
+<% end %>
+<% @title = @subject %>
+<% @content = capture do %>
+  <p><%= @headline %></p>
+  <br />
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <a href="<%= @url %>">
+                  Access Document
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

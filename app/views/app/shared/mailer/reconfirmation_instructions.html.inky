@@ -1,0 +1,23 @@
+<% @image = capture do %>
+  <%= image_tag "ic-email-header-email-upload-error.png" %>
+<% end %>
+<% @title = "Confirm Email Address" %>
+<% @content = capture do %>
+  <p>Please confirm your email address by clicking the button below.</p>
+  <h1></h1>
+  <center>
+    <table class="button">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td><a href="<%= user_confirmation_url(confirmation_token: @token, context: 'email') %>">Yes - This Is Me</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

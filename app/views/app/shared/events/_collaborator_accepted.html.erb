@@ -1,0 +1,5 @@
+<div class="section-details">
+  <div class="section-details__deal-entity-user">
+    <%= render 'app/shared/user', user: event.eventable.user, subtitle: event.eventable.user.entities.pluck(:name).join %>
+  </div>
+</div>

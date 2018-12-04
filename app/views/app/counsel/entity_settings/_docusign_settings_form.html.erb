@@ -1,0 +1,19 @@
+<%
+  esignature_provider ||= nil
+%>
+<%= render "app/shared/errors", :errors => esignature_provider.errors.full_messages %>
+<%= form_for esignature_provider, :url => docusign_settings_path, :method => :post do |f| %>
+  <div class="form-group <%= f.object.errors[:username].present? ? "has-error" : ""%>">
+    <label for="input-user-email">DocuSign Username/Email</label>
+    <%= f.text_field :username, :class => "form-control", :placeholder => "DocuSign Username/Email" %>
+  </div>
+  <div class="form-group <%= f.object.errors[:password].present? ? "has-error" : ""%>">
+    <label for="input-user-password">DocuSign Password</label>
+    <%= f.password_field :password, :class => "form-control", autocomplete: "off", :placeholder => "DocuSign Password" %>
+    <em>As part of a new DocuSign integration, the web account password entered here is not stored in our database. We only use it to request and store the API password which cannot be used to login to your DocuSign web account.</em>
+  </div>
+  <div class="margin-top-15">
+    <button type="button" class="btn btn-default pull-left" onclick="App.Helpers.navigateTo('<%= app_root_path %>')">Cancel</button>
+    <input type="submit" class="btn btn-primary pull-left margin-left-10" value="Save" />
+  </div>
+<% end %>

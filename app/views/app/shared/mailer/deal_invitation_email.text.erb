@@ -1,0 +1,7 @@
+<%= @user.name %>,
+
+You’ve been added as a collaborator to <%= @deal.title %>.
+
+To view the deal, please <%= @user.is_active? ? 'login' : 'sign up' %> by clicking the link below. 
+
+<% @url %>

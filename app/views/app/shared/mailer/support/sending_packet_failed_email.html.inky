@@ -1,0 +1,19 @@
+<% @title = capture do %>
+  Sending of signatures failed for <%= @entity_name %>
+<% end %>
+<% @content = capture do %>
+  <p>
+    <b>Packet Details</b>
+    <br /><br />
+    <u>Law Firm</u>: <%= @entity_name %><br />
+    <u>Law Firm User</u>: <%= @sending_entity_user.user.name %><br />
+    <u>Deal</u>: <%= @deal.title %><br />
+    <u>Close Date</u>: <%= @deal.projected_close_date.strftime('%m/%d/%Y') %><br />
+    <u>Signer Name</u>: <%= @recipient_name %><br />
+    <u>Signer Email</u>: <%= @recipient_email %><br />
+    <u>Is Docusign?</u>: <%= @is_docusign ? 'Yes' : 'No' %><br />
+    <u>Error</u>: <%= @error %>
+  </p>
+<% end %>
+
+<%= render 'app/shared/mailer/layouts/single_section_mailer' %>

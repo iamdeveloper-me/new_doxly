@@ -1,0 +1,6 @@
+<%= form_for @template, :url => deal_category_deal_templates_path(@deal, @category), :method => :post, :html => {class:"no-turboboost"} do |f| %>
+  <div class="form-group <%= f.object.errors[:name].present? ? "has-error" : ""%>">
+    <label for="name">Template Name</label>
+    <%= f.text_field :name, :class => "form-control", :placeholder => "Template Name" %>
+  </div>
+<% end %>

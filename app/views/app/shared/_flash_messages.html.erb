@@ -1,0 +1,25 @@
+<div class="flash-container <% 'align-center' unless current_user.present? %>">
+  <!-- keep any empty string from showing -->
+  <% if flash.select{|key, message| message.present?}.any? %>
+    <% flash.each do |key, message| %>
+      <%
+        error_key = case key.to_sym
+                    when :notice
+                      (controller.devise_controller? || [t('devise.sessions.signed_in'), t('devise.confirmations.confirmed')].include?(message)) ? :success : :info
+                    when :alert
+                      controller.devise_controller? ? :danger : :warning
+                    when :error
+                      :danger
+                    else
+                      key.to_sym
+                    end
+          # remove the special :timedout => true key that devise adds that is not supposed to be shown to the user
+          next if error_key == :timedout
+      %>
+      <div class="alert alert-<%= error_key %> alert-dismissible fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= message %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

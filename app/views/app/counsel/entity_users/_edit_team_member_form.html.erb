@@ -1,0 +1,4 @@
+<%= render "app/shared/errors", :errors => @entity_user.user.errors.full_messages %>
+<%= form_for @entity_user.user, :url => entity_entity_user_path(@entity_user.entity, @entity_user, :type => params[:type]), :method => :put, :html => { :multipart => true } do |f| %>
+  <%= render "app/shared/change_settings_form", :form => f, :cancel_path => "App.Helpers.navigateTo('#{entity_entity_users_path(@entity_user.entity)}')", :entity_user => @entity_user %>
+<% end %>

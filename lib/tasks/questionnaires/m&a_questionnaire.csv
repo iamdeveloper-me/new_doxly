@@ -1,0 +1,16 @@
+M&A
+Internal ID,Question,Type,Unit Type,Options,Dependent On,Dependent Option,Value Key,Is Active
+1,What client was represented?,ShortTextQuestion,None,,,,client_name,T
+2,What is the name and location of the financed or acquired company?,ShortTextQuestion,None,,,,,T
+3,What is the name and location of the investor or acquiring company?,ShortTextQuestion,None,,,,,T
+4,What is the industry type of the financed company?,ChecklistQuestion,None,"Aerospace , Automotive , B2B , B2C , Biotech , Colleges and Universities , Commercial Services , Construction , Consumer Goods & Recreation , Distribution & Logistics , Energy , Financial Services , Food & Agriculture , Gaming & Digital Media , Healthcare Services/Supplies/Systems , Insurance , IT Hardware , Life Sciences , Manufacturing , Materials & Resources , Media , Medical Devices , Pharmaceuticals , Retail , Software , Technology , Telecommunications , Transportation , Utilities , Other",,,,T
+5,What is the type of financing or structure?,ChecklistQuestion,None,"Common Stock , Series AA/Series Seed Preferred Stock , Series A Preferred Stock , Series B Preferred Stock , Series C Preferred Stock , Other",,,,T
+6,What is the amount of financing or purchase price?,NumericQuestion,Currency,,,,,T
+7,What is the earn-out?,NumericQuestion,Currency,,,,,T
+8,What is the purchase price adjustment?,NumericQuestion,Currency,,,,,T
+9,What is the indemnification?,NumericQuestion,Currency,,,,,T
+10,What is the reps survival period (months)?,NumericQuestion,None,,,,,T
+11,What are the legal fees?,NumericQuestion,Currency,,,,,T
+12,What are the investment banker fees?,NumericQuestion,Currency,,,,,T
+13,What is the closing date?,DateQuestion,None,,,,closing_date,T
+14,Who are the attorneys involved?,ShortTextQuestion,None,,,,team,T

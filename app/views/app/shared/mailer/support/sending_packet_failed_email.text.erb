@@ -1,0 +1,10 @@
+Packet Details
+
+Law Firm: <%= @entity_name %>
+Law Firm User: <%= @sending_entity_user.user.name %>
+Deal: <%= @deal.title %>
+Close Date: <%= @deal.projected_close_date.strftime('%m/%d/%Y') %>
+Signer: <%= @recipient_name %>
+Signer Email: <%= @recipient_email %>
+Is Docusign?: <%= @is_docusign ? 'Yes' : 'No' %>
+Error: <%= @error %>

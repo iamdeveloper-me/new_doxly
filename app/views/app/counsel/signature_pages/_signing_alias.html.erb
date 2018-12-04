@@ -1,0 +1,88 @@
+<%
+  tree_element_signature_group ||= nil
+  tree_element                 ||= nil
+%>
+
+<% if tree_element && tree_element_signature_group %>
+  <%
+    signature_group_alias          = tree_element_signature_group.show_group_name? && tree_element_signature_group.alias.present? ? "(#{tree_element_signature_group.alias})" : ""
+    sent_pages                     = tree_element_signature_group.signature_pages_sent?
+    is_custom                      = false
+    disabled_class                 = sent_pages ? 'disabled' : ''
+  %>
+  
+  <h2><%= "#{tree_element_signature_group.signature_group.name} #{signature_group_alias}" %></h2>
+  <% if sent_pages %>
+    <br />
+    <div class="notification">
+      <div class="notification-message">
+        Some customizations have been disabled because this document has been sent for signature.
+      </div>
+    </div>
+  <% end %>
+  <!--  Nice to have: Add message explaining that custom signature page is restricted because of linked blocks -->
+  <% if tree_element_signature_group.enable_custom_signature_page?
+      signature_group_id      = tree_element_signature_group.signature_group.id
+      signature_page          = tree_element_signature_group.template_signature_page || tree_element_signature_group.ready_template_signature_page
+      signing_capacity_id     = signature_page.signing_capacity.id
+  %>
+      <br />
+      <div class="group-container">
+        <h3>Custom Page</h3>
+        <br />
+        <% if tree_element_signature_group.template_signature_page %>
+          <div class="page custom"><img src="<%= download_custom_page_thumbnail_deal_signature_page_path(@deal, signature_page, signature_group_id: signature_group_id, signing_capacity_id: signing_capacity_id, tree_element_id: tree_element.id, time: Time.now.to_i) %>" /></div>
+        <% else %>
+          <div class="control">
+            Upload and use the same custom signature page for all Group members.
+          </div>
+        <% end %>
+        <div class="upload-custom-page">
+          <% if tree_element_signature_group.template_signature_page %>
+            <%= link_to "Edit Signature Tabs", deal_signature_page_edit_custom_signature_page_path(@deal, signature_page, tree_element_id: tree_element.id, signing_capacity_id: signing_capacity_id, signature_group_id: signature_group_id, use_template: true), class: "#{disabled_class} button mini button-secondary mdi mdi-pencil", remote: true %>
+            <%= link_to "Remove Custom Page", deal_signature_page_remove_custom_signature_page_path(@deal, signature_page, tree_element_id: tree_element.id, signing_capacity_id: signing_capacity_id, signature_group_id: signature_group_id, signature_page_id: signature_page.id, use_template: true), class: "#{disabled_class} button mini button-secondary mdi mdi-delete", remote: true %>
+          <% else %>
+            <%= link_to "Upload Custom Page", deal_signature_page_upload_custom_signature_page_path(@deal.id, signature_page, tree_element_id: tree_element.id, signing_capacity_id: signing_capacity_id, signature_group_id: signature_group_id, use_template: true), class: "#{disabled_class} button mini button-secondary mdi mdi-upload", remote: true %>
+            <%= link_to "Choose From Document", deal_signature_page_choose_from_document_path(@deal.id, signature_page, tree_element_id: tree_element.id, signing_capacity_id: signing_capacity_id, signature_group_id: signature_group_id, use_template: true), class: "#{disabled_class} button mini button-secondary mdi mdi-upload", remote: true %>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+  <br />
+  <div class="group-container">
+    <h3>Group Name</h3>
+    <br />
+    <div class="control control-checkbox">
+      <%= check_box_tag('show_group_name', '1', tree_element_signature_group.show_group_name?, {id: "show-group-name-checkbox", disabled: sent_pages, data: { path: set_show_group_name_deal_category_tree_element_tree_element_signature_group_path(@deal, @deal.closing_category, tree_element, tree_element_signature_group) }}) %>
+      <label for="show-group-name-checkbox" class="show-group-name-label">
+        Show the group's name in the signing block
+      </label>
+    </div>
+    <br />
+    <div class="alias-container <%= 'hidden' unless tree_element_signature_group.show_group_name? %>">
+      <h3>Alias</h3>
+      <br />
+      <p>Use an alias for this group's name.</p>
+      <p class="alias-description gray">For instance, members of group 'Investor' may be referred to as 'Purchasers' in a Purchase Agreement.</p>
+      <br />
+      <%
+        category = tree_element.get_category
+        deal     = category.deal
+        path     = deal_category_tree_element_tree_element_signature_group_path(deal, category, tree_element, tree_element_signature_group)
+        method   = :put
+      %>
+      <%= form_for tree_element_signature_group, :url => path, :method => method, :html => {class:"no-turboboost"}, :remote=> true do |f| %>
+        <div class="form-group">
+          <div class="control control-input mini large">
+            <label for="alias-input">Alias</label>
+            <%= f.text_field :alias, {:class => "form-control", :placeholder => "Enter an alias for this group", disabled: sent_pages, :value => tree_element_signature_group.alias } %>
+          </div>
+          <div class="submit-buttons hidden">
+            <%= f.submit "Cancel", type: "reset", class: "button-secondary small", id: "cancel-change-alias" %>
+            <%= f.submit "Save", class: "button-primary small" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

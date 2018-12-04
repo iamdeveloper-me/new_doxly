@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>7A9BF25E-1004-4146-9F98-52AF156CC962</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="24" height="24" rx="12"></rect>
+    </defs>
+    <g id="Screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Checklist---Details-Panel---ToDo" transform="translate(-686.000000, -170.000000)">
+            <g id="Task-item-/-ic-todo-status-incomplete-24px" transform="translate(686.000000, 170.000000)">
+                <g id="Rectangle-23-Copy">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="23" height="23" rx="11.5"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

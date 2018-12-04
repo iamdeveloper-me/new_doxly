@@ -1,0 +1,87 @@
+/*
+ DO NOT ADD ANY DOXLY SPECIFIC STYLES TO THIS STYLESHEET,
+ THIS IS FOR THE GENERIC GRID COMPONENT *ONLY*
+ */
+
+$grid-header-row-bg-color: #FCFDFE;
+$grid-header-column-bg-color: $col-blue-light;
+
+.grid-view {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+
+  &.by-col {
+    width: 100%;
+
+    &.sticky {
+      width: auto !important;
+      overflow: hidden;
+
+      .grid-sticky-header-col {
+        z-index: 1;
+        background-color: $grid-header-row-bg-color;
+      }
+
+      .grid-cols {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    }
+    .sticky-header-cols {
+      display: flex;
+      flex-direction: row;
+    }
+    .grid-cols {
+      display: flex;
+      flex-direction: row;
+      overflow-y: hidden;
+      overflow-x: auto;
+    }
+    .grid-col {
+      display: flex;
+      flex-direction: column;
+
+      &.header {
+        .grid-cell:not(.header) {
+          background: $grid-header-column-bg-color;
+          position: relative;
+        }
+      }
+
+      .grid-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 150px;
+        height: 40px;
+        border-bottom: 1px solid $col-silver;
+        border-right: 1px solid $col-silver;
+        &.grid-cell-signature-group, &.header{
+          height: 30px;
+          padding: 5px;
+          border: none;
+          width: 150px;
+        }
+
+        span {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          min-width: 0;
+        }
+
+        &.header {
+          background: $grid-header-row-bg-color;
+        }
+      }
+    }
+  }
+
+  &.by-row {
+    .grid-row {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}

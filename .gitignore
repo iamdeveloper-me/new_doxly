@@ -1,0 +1,55 @@
+
+# Ignore bundler config.
+.bundle
+
+# Ignore all logfiles and tempfiles.
+log/*.log
+log/*.log.lck
+log/*.log.*
+!/log/.keep
+tmp
+.byebug_history
+npm-debug.log
+npm-debug.log.*
+
+# Ignore Overcommit Directory
+/.githooks
+
+# Ignore Socket Files
+*.sock
+
+# SASS
+.sass-cache
+
+# uploaded files
+/uploads
+public/upload
+public/uploads
+
+# Rails files
+config/database.yml
+config/config.yml
+config/secrets.yml
+config/environments/development.yml
+
+# React
+app/frontend/node_modules
+app/frontend/dist
+
+# assets compiled for production testing
+public/assets/
+public/fonts/
+public/images/
+public/javascripts/
+public/stylesheets/
+
+# PDFlib
+bin/pdflib
+
+# Others
+.idea
+.idea/
+.DS_Store
+.vscode
+/storage
+/redlines

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>1338439D-F672-4076-8037-F244FA43D960</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Checklist" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Checklist---Icons" transform="translate(-51.000000, -92.000000)">
+            <g id="Components-/-Action-Button-/-ic-action-add-user-24px" transform="translate(51.000000, 92.000000)">
+                <circle id="Oval-2" fill="#4A90E2" cx="12" cy="12" r="12"></circle>
+                <g id="Components-/-Action-Button-/-Icon24-/-Sym_Assign" stroke-width="1" stroke="#FFFFFF">
+                    <g id="Group-2" transform="translate(7.000000, 5.000000)">
+                        <path d="M10,12.4942747 C10,9.42305161 7.76142375,6.93333333 5,6.93333333 C2.23857625,6.93333333 0,9.42305161 0,12.4942747 C0,12.4942747 2.34241832,13 5,13 C7.65758168,13 10,12.4942747 10,12.4942747 Z" id="Oval" stroke-linejoin="round"></path>
+                        <ellipse id="Oval-4" cx="5" cy="2.6" rx="2.5" ry="2.6"></ellipse>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

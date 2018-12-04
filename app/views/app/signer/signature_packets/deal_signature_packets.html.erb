@@ -1,0 +1,179 @@
+<%= render 'signer_nav_bar' %>
+
+<%
+  needs_signature_packets = []
+  completed_signature_packets = []
+  processing_signature_packets = []
+  declined_signature_packets = []
+  uses_docusign = false
+  uses_manual = false
+  @signature_packets.each_with_index do |signature_packet, i|
+    uses_docusign = true if signature_packet.docusign_envelope_id && !uses_docusign
+    uses_manual = true if !signature_packet.docusign_envelope_id && !uses_manual
+    processing_jobs = signature_packet.docusign_envelope_id ? [] : Delayed::Job.where("handler LIKE '%gid://doxly/SignaturePacket/#{signature_packet.id}%'").where(queue:"process_manual_signatures")
+    processing = processing_jobs.any? && !processing_jobs.all? {|delayed_job| delayed_job.failed_at.present?}
+    if processing
+      processing_signature_packets << {signature_packet: signature_packet, i: i}
+    elsif signature_packet.signature_pages.any? && signature_packet.signature_pages.all?{ |page| ["executed", "signed"].include?(page.signature_status) }
+      completed_signature_packets << {signature_packet: signature_packet, i: i}
+    elsif signature_packet.signature_pages.any? && signature_packet.signature_pages.all?{ |page| page.signature_status == "declined" }
+      declined_signature_packets << {signature_packet: signature_packet, i: i}
+    else
+      needs_signature_packets << {signature_packet: signature_packet, i: i}
+    end
+  end
+  needs_signature_count = needs_signature_packets.length
+  completed_count = completed_signature_packets.length
+  processing_count = processing_signature_packets.length
+  declined_count = declined_signature_packets.length
+%>
+<% content_for :back_button do %>
+  <%= link_to signature_packets_path do %>
+    <div class="return-button">
+      <%= image_tag 'ic-return.svg' %>
+    </div>
+    <div class="return-text">
+      View all deals
+    </div>
+  <% end if current_user.entity_users.any? %>
+<% end %>
+
+<div class="content">
+  <div class="flex-box-column">
+    <%= render 'shared/top_mobile' %>
+    <div class="deal-signature-packets-page">
+      <!-- left-column -->
+      <div class="deal-signature-packets-info">
+        <div class="deal-title"><%= @deal.title %></div>
+        <div class="projected-close">
+          Projected to close on <%= @deal.projected_close_date.strftime("%B %d, %Y") %>
+        </div>
+        <div class="signature-methods">
+          <div class="collection-explanation">
+            <%= @deal.owner_entity.name %> has chosen to collect signatures using:
+          </div>
+          <% if uses_docusign %>
+            <div class="method">
+              <div class="icon">
+                <%= image_tag 'ic-signature-docusign-48-px.svg' %>
+              </div>
+              <div class="text">
+                <div class="title">
+                  DocuSign
+                </div>
+                <div class="explanation">
+                  Enables you to electronically sign documents securely.
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if uses_manual %>
+            <div class="method">
+              <div class="icon">
+                <%= image_tag 'ic-signature-manual-48-px.svg' %>
+              </div>
+              <div class="text">
+                <div class="title">
+                  Manual
+                </div>
+                <div class="explanation">
+                  This method requires you to download and upload the documents.
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="packet-anchors">
+          <ul>
+            <% if needs_signature_count > 0 %>
+              <li>
+                <%= link_to "#{pluralize(needs_signature_count, "packet")} need#{"s" if needs_signature_count == 1} signatures", find_packet_signature_packets_path(anchor_id: 'needs-signature'), remote: true %>
+              </li>
+            <% end %>
+            <% if processing_count > 0 %>
+              <li>
+                <%= link_to "#{pluralize(processing_count, "packet")} processing", find_packet_signature_packets_path(anchor_id: 'processing'), remote: true %>
+              </li>
+            <% end %>
+            <% if declined_count > 0 %>
+              <li>
+                <%= link_to "#{pluralize(declined_count, "packet")} declined", find_packet_signature_packets_path(anchor_id: 'declined'), remote: true %>
+              </li>
+            <% end %>
+            <% if completed_count > 0 %>
+              <li>
+                <%= link_to "#{pluralize(completed_count, "completed packet")}", find_packet_signature_packets_path(anchor_id: 'completed'), remote: true %>
+              </li>
+            <% end %>
+          </ul>
+
+        </div>
+
+      </div>
+
+      <!-- right-column  -->
+      <div class="deal-signature-packets">
+        <!-- packets that need signature -->
+        <% if needs_signature_count > 0 %>
+          <div id="needs-signature" >
+            <div class="packets-status needs-signature">
+              <%= "#{pluralize(needs_signature_count, "packet")} require#{"s" if needs_signature_count == 1} your signature" %>
+            </div>
+            <div class="with-documents">
+              <% needs_signature_packets.each do |signature_packet_hash| %>
+                <%= render "signature_packet", signature_packet_hash: signature_packet_hash, signature_packets_size: @signature_packets.length %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- processing packets -->
+        <% if processing_count > 0 %>
+          <div id="processing" >
+            <div class="packets-status">
+              <div class="title">
+                Processing
+              </div>
+              <div class="subtitle">
+                You will receive a confirmation email once this packet has completed processing.
+              </div>
+            </div>
+            <div class="with-documents">
+              <% processing_signature_packets.each do |signature_packet_hash| %>
+                <%= render "signature_packet", signature_packet_hash: signature_packet_hash, signature_packets_size: @signature_packets.length, processing: true %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- packets that have been declined -->
+        <% if declined_count > 0 %>
+          <div id="declined">
+            <div class="packets-status">
+                Declined packets
+            </div>
+            <div class="with-documents">
+              <% declined_signature_packets.each do |signature_packet_hash| %>
+                <%= render "signature_packet", signature_packet_hash: signature_packet_hash, signature_packets_size: @signature_packets.length %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- packets that have already been signed -->
+        <% if completed_count > 0 %>
+          <div id="completed">
+            <div class="packets-status">
+                Previously signed packets
+            </div>
+            <div class="with-documents">
+              <% completed_signature_packets.each do |signature_packet_hash| %>
+                <%= render "signature_packet", signature_packet_hash: signature_packet_hash, signature_packets_size: @signature_packets.length %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

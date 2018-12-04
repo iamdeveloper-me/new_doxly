@@ -1,0 +1,4 @@
+<%
+  title = @tree_element.present? ? @tree_element.name : @title
+%>
+App.Modal.show('<%= escape_javascript(render("shared/view_document_modal", :title => title, :url => @url)) %>')

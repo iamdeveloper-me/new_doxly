@@ -1,0 +1,16 @@
+<%
+  entity_user = deal_entity_user.entity_user
+  user = entity_user.user
+%>
+<div class="deals-full-group__projects">
+  <div class="project-item">
+    <div class="item-body" style="width: 100%">
+      <%= render 'app/shared/user', user: user, subtitle: user.email, entity_user: entity_user %>
+      <div class="item-body__timestamp" style="width: auto">
+        <div class="title">
+          <%= link_to '', deal_deal_entity_deal_organization_user_path(deal_entity_user.deal, deal_entity, deal_entity_user.id), :method => :delete, :remote => true, :class => "fa fa-times", :style => "float: left; margin-left: 7px;" unless deal_entity_user.is_owner? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

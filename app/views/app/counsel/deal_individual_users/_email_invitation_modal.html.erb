@@ -1,0 +1,4 @@
+<% title ||= "Invite To Deal" %>
+<%= render :layout => 'shared/modal', :locals => { :title => title, :submit_button_label => "Send" } do %>
+  <%= render 'app/shared/deals/email_invitations/custom_email_invitation_form' %>
+<% end %>

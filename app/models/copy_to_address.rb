@@ -1,0 +1,2 @@
+class CopyToAddress < Address
+end

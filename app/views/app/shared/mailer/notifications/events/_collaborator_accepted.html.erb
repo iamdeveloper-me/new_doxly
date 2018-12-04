@@ -1,0 +1,12 @@
+<%
+  events ||= nil
+  event_type ||= nil
+%>
+<p>
+  <b class="title">Collaborators Added</b>
+  <% events.each do |event| %>
+    <p class="sub-list-item">
+      <b><%= "#{event.eventable.entity_user.user.first_name} #{event.eventable.entity_user.user.last_name}" %></b> was added as a collaborator
+    </p>
+  <% end %>
+</p>

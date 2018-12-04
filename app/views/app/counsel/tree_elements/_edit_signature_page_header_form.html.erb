@@ -1,0 +1,19 @@
+<%
+  path = set_signature_page_header_deal_category_tree_element_path(@deal, @category, @tree_element)
+  method = :put
+%>
+<%= render "app/shared/errors", :errors => @tree_element.errors.full_messages %>
+<%= form_for @tree_element, :as => :tree_element, :url => path, :method => method, :remote => true, :html => { :class => 'no-turboboost' } do |f| %>
+  <div class="form-group">
+    <div class="header-container">
+      <div class="header-label">Header Preview</div>
+      <div class="header-preview">
+        <div class="header-preview-box">
+          <div class="preview-text"><span id="header-tree-element"><%= @tree_element.signature_page_header_text %></span></div>
+        </div>
+      </div>
+    </div>
+    <label for="name">Header Text</label>
+    <%= f.text_field :signature_page_header_text, :class => "form-control header-input", :placeholder => "Header Text", :value => @tree_element.signature_page_header_text %>
+  </div>
+<% end %>

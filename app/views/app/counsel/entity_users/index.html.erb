@@ -1,0 +1,9 @@
+
+<%= render "shared/top_navs/index", title: 'People' %>
+
+<%= render 'frontend/index' %>
+  <script>
+    $(function() {
+      App.React.EntityUsersController.renderPeople(<%= params[:required] %>)
+    })
+  </script>

@@ -1,0 +1,258 @@
+.signature-group{
+  border: 1px solid $col-border;
+  border-radius: 0;
+  margin: 20px;
+  background: $col-green-light-2;
+
+  .children {
+    display: none;
+    padding: 0 20px 0 40px;
+
+    .signature-blocks {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .signature-group-buttons {
+      display: flex;
+      padding-top: 20px;
+
+      .import-group {
+        padding: 8px;
+        padding-left: 0;
+        color: $col-blue;
+        display: flex;
+        align-items: center;
+
+        .import-button {
+          width: 24px;
+          height: 24px;
+          background: url(image_path('import.svg')) no-repeat 50% 50% / contain;
+          margin-right: 10px;
+        }
+      }
+      .dropdown{
+        padding: 8px;
+        .add-group {
+          color: $col-blue;
+          display: flex;
+          align-items: center;
+
+          .add-button {
+            width: 24px;
+            height: 24px;
+            background: url(image_path('add.svg')) no-repeat 50% 50% / contain;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .signature-group__header{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 20px;
+    color: $col-dark-gray;
+    letter-spacing: 1px;
+    height: 30px;
+    line-height: 1;
+    margin: 10px;
+    cursor: default;
+
+    .title {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .action {
+      padding: 10px;
+      align-self: center;
+    }
+  }
+
+  .children {
+    cursor: default;
+
+    .block {
+      flex-basis: 33%;
+      flex-shrink: 0;
+      cursor: default;
+      max-width: 430px;
+      min-width: 0px;
+
+      .signature-group-item {
+        padding: 20px;
+
+        &.activity-card {
+          margin-right: 10px;
+        }
+
+        .user-actions {
+          display: none;
+          float: right;
+          margin-top: -10px;
+
+          .delete {
+            color: $col-red;
+            padding-right: 20px;
+
+            i {
+              margin-right: 4px;
+            }
+          }
+
+          .delete:hover {
+            color: $col-dark-gray
+          }
+
+          .edit i {
+            margin-right: 4px;
+          }
+        }
+
+        .individual-signer {
+          padding-top: 40px;
+        }
+
+        .name {
+          color: $col-dark-gray;
+          font-weight: 500;
+          font-size: 16px;
+          padding-bottom: 4px;
+        }
+
+        .signature-entity-title {
+          color: $col-dark-gray;
+        }
+
+        .secondary-entity {
+          padding-top: 5px;
+        }
+
+        .signer-title {
+          border-top: 1px solid $col-dark-gray;
+          color: $col-dark-gray;
+          padding-top: 4px;
+          margin-top: 0px;
+        }
+
+        .signer-full-address, .signature-entity-full-address {
+          font-size: 95%;
+        }
+
+        .name, .name-by, .signature-entity-title, .signer-title, .signer-full-address, .signature-entity-full-address {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .signing-block {
+          .by-signer {
+            padding-top: 5px;
+          }
+
+          .signer-title {
+            border-top: 1px solid $col-dark-gray;
+            color: $col-dark-gray;
+            padding-top: 4px;
+            margin-left: 25px;
+          }
+
+          .signer-full-address, .signature-entity-full-address {
+            margin-left: 25px;
+          }
+        }
+
+        &:hover .user-actions {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  .add-individual {
+    padding: 0 0 20px 100px;
+    color: $col-blue;
+
+    span {
+      padding-left: 8px;
+    }
+  }
+
+  .group-individual .name {
+    color: $col-dark-gray;
+    font-weight: 400;
+    font-size: 20px;
+  }
+
+  .add-entity {
+    padding: 10px 0 10px 43px;
+    color: $col-blue;
+
+    span {
+      padding-left: 8px;
+    }
+  }
+}
+
+.signing-entities {
+
+  .signing-entity {
+    display: none;
+    align-items: center;
+
+    input {
+      display: inline-flex;
+      flex: 1 0 8em;
+      margin-left: 5px;
+    }
+
+    &.visible {
+      display: flex;
+    }
+
+    span {
+      margin-left: 5px;
+    }
+  }
+}
+
+.signature-block {
+  padding: 30px;
+  border: 1px solid $col-border;
+  margin: 20px 15px;
+  font-size: 15px;
+
+  .entites {
+    margin-bottom: 10px;
+
+    .signing-authority {
+      margin-top: 5px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  .entites .top-entity, .top-group {
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.icon-signature-group {
+  display: inline-block;
+  opacity: .5;
+  width: 240px;
+  height: 240px;
+  background: url(image_path('signature-group.svg')) no-repeat 50% 50% / contain;
+}
+
+.block-collection-signature-entity-form, .signature-user-form, .signature-entity-form {
+  .errors-container {
+    padding: 0 1.6rem 1.6rem 1.6rem;
+  }
+}

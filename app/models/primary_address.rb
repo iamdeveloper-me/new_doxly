@@ -1,0 +1,2 @@
+class PrimaryAddress < Address
+end
