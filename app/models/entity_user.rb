@@ -20,10 +20,10 @@ class EntityUser < ActiveRecord::Base
   has_many    :uploads, class_name: "Version", foreign_key: "uploader_id"
   has_one     :dms_user_credential, dependent: :destroy
 
-  validates_presence_of :title, unless: :bypass_title_validation?
-  validates_presence_of :role, :email_digest_preference
-  validates_uniqueness_of :user_id, { scope: :entity_id, message: :uniqueness_by_user}
-  validate :can_see_all_deals_for_firms
+  # validates_presence_of :title, unless: :bypass_title_validation?
+  # validates_presence_of :role, :email_digest_preference
+  # validates_uniqueness_of :user_id, { scope: :entity_id, message: :uniqueness_by_user}
+  # validate :can_see_all_deals_for_firms
 
   scope :can_see_all_deals, -> { where(can_see_all_deals: true) }
 

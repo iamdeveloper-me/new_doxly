@@ -21,25 +21,25 @@ class App::Counsel::EntityUsersController < App::ApplicationController
     end
   end
 
-  def create
-    check_create(:entity_user)
-    entity_user.assign_attributes(entity_user_params)
-    user = User.find_by(email: params[:user][:email])
+  # def create
+  #   check_create(:entity_user)
+  #   entity_user.assign_attributes(entity_user_params)
+  #   user = User.find_by(email: params[:user][:email])
 
-    # create new entity_user if user already exists
-    if user
-      @entity_user = create_entity_user(user, entity_user.entity)
+  #   # create new entity_user if user already exists
+  #   if user
+  #     @entity_user = create_entity_user(user, entity_user.entity)
 
-    # create both new entity_user and a new user if user doesn't already exist
-    else
-      user, @entity_user = save_entity_user_and_user(entity_user)
-    end
-    unless user.persisted? && @entity_user.persisted?
-      render_create_errors(user)
-    else
-      render_create_success
-    end
-  end
+  #   # create both new entity_user and a new user if user doesn't already exist
+  #   else
+  #     user, @entity_user = save_entity_user_and_user(entity_user)
+  #   end
+  #   unless user.persisted? && @entity_user.persisted?
+  #     render_create_errors(user)
+  #   else
+  #     render_create_success
+  #   end
+  # end
 
   def edit
     check_update(:entity_user) unless entity_user.id == current_entity_user.id

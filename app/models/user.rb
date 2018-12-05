@@ -22,18 +22,18 @@ class User < ActiveRecord::Base
 
   handle_asynchronously :send_devise_notification, :queue => 'mailers'
 
-  validates_presence_of         :first_name, unless: :use_placeholder_name
-  validates_presence_of         :last_name,  unless: :use_placeholder_name
-  validates_length_of           :full_name,  :maximum => 98, if: -> { self.full_name_present? }
-  validates                     :email,      :presence => true, unless: :bypass_email_validation?
-  validates                     :email,      :uniqueness => { :case_sensitive => false, allow_nil: true }
-  validates                     :email,      :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, :if => -> { self.email.present? }
-  validates                     :phone,      :allow_blank => true, :length => { :maximum => 15 }
-  validates                     :password,   :format => { :with => /\A(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*\z/x }, :if => :encrypted_password_changed?
-  validates_confirmation_of     :password,   on: :update, unless: :bypass_password_validation?
-  validates_presence_of         :password,   on: :update, unless: :bypass_password_validation?
-  validates_presence_of         :unique_key
-  validate                      :cannot_change_email, unless: :bypass_change_email_validation?
+  # validates_presence_of         :first_name, unless: :use_placeholder_name
+  # validates_presence_of         :last_name,  unless: :use_placeholder_name
+  # validates_length_of           :full_name,  :maximum => 98, if: -> { self.full_name_present? }
+  # validates                     :email,      :presence => true, unless: :bypass_email_validation?
+  # validates                     :email,      :uniqueness => { :case_sensitive => false, allow_nil: true }
+  # validates                     :email,      :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, :if => -> { self.email.present? }
+  # validates                     :phone,      :allow_blank => true, :length => { :maximum => 15 }
+  # validates                     :password,   :format => { :with => /\A(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*\z/x }, :if => :encrypted_password_changed?
+  # validates_confirmation_of     :password,   on: :update, unless: :bypass_password_validation?
+  # validates_presence_of         :password,   on: :update, unless: :bypass_password_validation?
+  # validates_presence_of         :unique_key
+  # validate                      :cannot_change_email, unless: :bypass_change_email_validation?
 
   has_many  :entity_users,          autosave: true, dependent: :destroy
   has_one   :default_entity_user,   -> { where(is_default: true) }, class_name: "EntityUser"

@@ -22,6 +22,7 @@
     "flat": "4.0.0",
     "icss-replace-symbols": "1.1.0",
     "icss-utils": "3.0.1",
+    "jquery": "^3.3.1",
     "js-cookie": "2.2.0",
     "jsesc": "2.5.1",
     "lodash": "4.17.10",

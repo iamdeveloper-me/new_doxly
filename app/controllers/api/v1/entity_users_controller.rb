@@ -6,7 +6,7 @@ class Api::V1::EntityUsersController < Api::V1::ApplicationController
   def index
     check_read(:entity_user)
     entity_users = all_entity_users
-    render_success(entity_users)
+    render_success(run_array_serializer(entity_users, EntityUserSerializer))
   end
 
   # api!
@@ -30,7 +30,6 @@ class Api::V1::EntityUsersController < Api::V1::ApplicationController
 
   api!
   def create
-    # binding.pry
     check_create(:entity_user)
     entity_user.assign_attributes(entity_user_params)
     user = User.find_by(email: params[:user][:email])
@@ -38,7 +37,8 @@ class Api::V1::EntityUsersController < Api::V1::ApplicationController
     if user
       new_entity_user = create_entity_user(user, entity_user.entity)
       
-      render_success(new_entity_user)
+      # binding.pry
+      render_success(new_entity_user) and return
     # create both new entity_user and a new user if user doesn't already exist
     else
       user, new_entity_user = save_entity_user_and_user(entity_user)
@@ -136,6 +136,7 @@ class Api::V1::EntityUsersController < Api::V1::ApplicationController
   end
 
   def render_create_success
+    render_success(is_current_entity: is_current_entity, message: "User has been created successfully")
     # flash[:success] = "User has been created successfully"
     if is_current_entity
 

@@ -9,7 +9,7 @@ import Params from 'helpers/Params'
 import Cookies from 'js-cookie'
 
 
-export default class People extends React.Component{
+export default class TeamMember extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
