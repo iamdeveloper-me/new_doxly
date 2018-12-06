@@ -15,14 +15,14 @@ class Api::V1::EntityUsersController < Api::V1::ApplicationController
   #   entity_user.build_user
   # end
 
-  api!
+   api!
   def show
     check_read(:entity_user)
     if entity
       scope         = entity.entity_users.includes(:all_deals => { :deal_entity_users => {:entity_user => :user }})
       entity_user   = scope.find(params[:id])
-      # binding.pry
-      render_success([entity_user,entity_user.user,entity_user.user.entities ])
+      active_deals  =  entity_user.all_deals.active.select{ |deal| deal.entities.include?(current_entity) }.group_by{ |d| 'Active Deals' }.sort
+      render_success(user: entity_user.user, deals: active_deals )
     else
       render_unauthorized and return
     end

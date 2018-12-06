@@ -107,6 +107,11 @@ const Routes = {
   twoFactorAuthenticationEnable: (expand = []) => (`/two_factor_authentication_enable?expand=${expand.join(',')}`),
   twoFactorAuthenticationGenerateRecoveryCodes: (expand = []) => (`/two_factor_authentication_generate_recovery_codes?expand=${expand.join(',')}`),
   twoFactorAuthenticationQrCode: (expand = []) => (`/two_factor_authentication_qr_code?expand=${expand.join(',')}`),
-  twoFactorAuthenticationVerifyToken: (token, expand = []) => (`/two_factor_authentication_verify_token?expand=${expand.join(',')}`)
+  twoFactorAuthenticationVerifyToken: (token, expand = []) => (`/two_factor_authentication_verify_token?expand=${expand.join(',')}`),
+  entityUsersList: (entityId, expand = []) => (`/entities/${entityId}/entity_users/?expand=${expand.join(',')}`),
+  createTeammMembers: (entityId, expand = []) => (`/entities/${entityId}/entity_users/?expand=${expand.join(',')}`),
+  entityUserDetails: (entityId, entityUsersId, expand = []) => (`/entities/${entityId}/entity_users/${entityUsersId}/?expand=${expand.join(',')}`),
+
 }
 export default Routes
+
